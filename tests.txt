@@ -1,0 +1,10 @@
+Blood Pressure,90,120
+Cholesterol,150,200
+Blood Sugar,70,110
+Heart Rate,60,100
+Body Temperature,36.5,37.5
+Respiratory Rate,12,16
+Hemoglobin,13,17
+White Blood Cells,4.5,11
+Platelets,150,400
+Creatinine,0.6,1.3
