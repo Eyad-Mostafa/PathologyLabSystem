@@ -1,9 +1,31 @@
 package com.mycompany.pathologylabsystem;
 public class User {
-  String id;
-  String name;
-  String password;
-  String role; // "Doctor" or "Receptionist"
+  private String id;
+  private String name;
+  private String password;
+  private String role;
+
+  public String getId() {
+    return this.id;
+  }
+
+
+  public String getName() {
+    return this.name;
+  }
+
+
+  public String getPassword() {
+    return this.password;
+  }
+
+
+  public String getRole() {
+    return this.role;
+  }
+
+
+  // "Doctor" or "Receptionist"
 
   public User(String id, String name, String password, String role) {
       this.id = id;

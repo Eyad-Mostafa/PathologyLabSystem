@@ -87,7 +87,7 @@ public class FileManager {
   // Adds a user to the users file
   public void addUser(User user) {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(USERS_FILE, true))) {
-      writer.write(user.id + "," + user.name + "," + user.password + "," + user.role);
+      writer.write(user.getId() + "," + user.getName() + "," + user.getPassword() + "," + user.getRole());
       writer.newLine();
     } catch (IOException e) {
       e.printStackTrace();
@@ -116,7 +116,7 @@ public class FileManager {
   public void addPatient(Patient patient) {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATIENTS_FILE, true))) {
       writer.write(
-          patient.id + "," + patient.name + "," + patient.age + "," + patient.gender + "," + patient.contactInfo);
+          patient.getId() + "," + patient.getName() + "," + patient.getAge() + "," + patient.getGender() + "," + patient.getContactInfo());
       writer.newLine();
     } catch (IOException e) {
       e.printStackTrace();
