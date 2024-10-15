@@ -1,462 +1,462 @@
 package com.mycompany.pathologylabsystem;
+
 import java.util.*;
 
-
 public class PathologyLabSystem {
-  private static final Scanner scanner = new Scanner(System.in);
-  private FileManager fileManager = new FileManager();
-  private List<User> users; // List of users
-  private List<Patient> patients; // List of patients
 
-  public static void main(String[] args) {
-    PathologyLabSystem system = new PathologyLabSystem();
-    system.loadData(); // Load existing users and patients from files
-    system.start();
-  }
+    private static final Scanner scanner = new Scanner(System.in);
+    private FileManager fileManager = new FileManager();
+    private List<User> users; // List of users
+    private List<Patient> patients; // List of patients
 
-  private void loadData() {
-    users = fileManager.loadUsers(); // Load users from the file
-    patients = fileManager.loadPatients(); // Load patients from the file
-  }
-
-  private void start() {
-    while (true) {
-      System.out.println("1. Add User");
-      System.out.println("2. Log In");
-      System.out.println("3. Exit");
-      int choice = scanner.nextInt();
-      scanner.nextLine(); // consume newline
-
-      switch (choice) {
-        case 1:
-          addUser();
-          break;
-        case 2:
-          logIn();
-          break;
-        case 3:
-          System.exit(0);
-        default:
-          System.out.println("Invalid choice, please try again.");
-      }
-    }
-  }
-
-  private void addUser() {
-    System.out.println("Enter ID:");
-    String id = scanner.nextLine();
-
-    // Check if a user with the same ID already exists
-    boolean userExists = false;
-    for (User user : users) {
-      if (user.getId().equals(id)) {
-        userExists = true;
-        break; // Stop checking further once a match is found
-      }
+    public static void main(String[] args) {
+        PathologyLabSystem system = new PathologyLabSystem();
+        system.loadData(); // Load existing users and patients from files
+        system.start();
     }
 
-    if (userExists) {
-      System.out.println("User with this ID already exists. Please use a different ID.");
-      return; // Exit the method without adding the user
+    private void loadData() {
+        users = fileManager.loadUsers(); // Load users from the file
+        patients = fileManager.loadPatients(); // Load patients from the file
     }
 
-    System.out.println("Enter Name:");
-    String name = scanner.nextLine();
-    System.out.println("Enter Password:");
-    String password = scanner.nextLine();
-    System.out.println("Choose Role (1. Doctor, 2. Receptionist):");
-    int roleChoice = scanner.nextInt();
-    scanner.nextLine(); // consume newline
-    String role = (roleChoice == 1) ? "Doctor" : "Receptionist";
+    private void start() {
+        while (true) {
+            System.out.println("1. Add User");
+            System.out.println("2. Log In");
+            System.out.println("3. Exit");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
-    // Create the new user and add it to the list
-    User user = new User(id, name, password, role);
-    fileManager.addUser(user);
-    users.add(user); // Add the new user to the current list in memory
-
-    System.out.println("User added successfully!");
-
-    if (role.equals("Doctor")) {
-      doctorMenu();
-    } else {
-      receptionistMenu();
-    }
-  }
-
-  private void logIn() {
-    System.out.println("Enter ID:");
-    String id = scanner.nextLine();
-    System.out.println("Enter Password:");
-    String password = scanner.nextLine();
-
-    for (User user : users) {
-      if (user.getId().equals(id) && user.getPassword().equals(password)) {
-        if (user.getRole().equals("Doctor")) {
-          doctorMenu();
-        } else {
-          receptionistMenu();
+            switch (choice) {
+                case 1:
+                    addUser();
+                    break;
+                case 2:
+                    logIn();
+                    break;
+                case 3:
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice, please try again.");
+            }
         }
-        return;
-      }
-    }
-    System.out.println("Invalid ID or Password!");
-  }
-
-  private void doctorMenu() {
-    System.out.println("Welcome, Doctor!");
-    viewPendingTests();
-    System.out.println("\n-------------------------");
-    while (true) {
-      System.out.println("1. Search for Patient");
-      System.out.println("2. Add Test Result");
-      System.out.println("3. Log Out");
-      int choice = scanner.nextInt();
-      scanner.nextLine(); // consume newline
-
-      switch (choice) {
-        case 1:
-          searchForPatient();
-          break;
-        case 2:
-          addTestResult();
-          break;
-        case 3:
-          return; // Log out
-        default:
-          System.out.println("Invalid choice. Please try again.");
-      }
-    }
-  }
-
-  private void receptionistMenu() {
-    System.out.println("Welcome, Receptionist!");
-    while (true) {
-      System.out.println("1. Add Patient");
-      System.out.println("2. Search for Patient");
-      System.out.println("3. Log Out");
-      int choice = scanner.nextInt();
-      scanner.nextLine(); // consume newline
-
-      switch (choice) {
-        case 1:
-          addPatient();
-          break;
-        case 2:
-          searchForPatient();
-          break;
-        case 3:
-          return; // Log out by breaking out of the menu loop
-      }
-    }
-  }
-
-  private void addPatient() {
-    System.out.println("Enter Patient ID:");
-    String id = scanner.nextLine();
-    System.out.println("Enter Name:");
-    String name = scanner.nextLine();
-    System.out.println("Enter Age:");
-    int age = scanner.nextInt();
-    scanner.nextLine(); // consume newline
-    System.out.println("Enter Gender:");
-    String gender = scanner.nextLine();
-    System.out.println("Enter Contact Information:");
-    String contactInfo = scanner.nextLine();
-
-    Patient patient = new Patient(id, name, age, gender, contactInfo);
-    fileManager.addPatient(patient);
-    patients.add(patient); // Add to in-memory list
-    System.out.println("Patient added successfully!");
-  }
-
-  private void searchForPatient() {
-    System.out.println("Enter Patient ID:");
-    String patientId = scanner.nextLine();
-
-    for (Patient patient : patients) {
-      if (patient.getId().equals(patientId)) {
-        displayPatientProfile(patient);
-        return;
-      }
-    }
-    System.out.println("Patient not found!");
-  }
-
-  private void displayPatientProfile(Patient patient) {
-    System.out.println("Patient Profile Found:");
-    System.out.println("- Patient ID: " + patient.getId());
-    System.out.println("- Name: " + patient.getName());
-    System.out.println("- Age: " + patient.getAge());
-    System.out.println("- Gender: " + patient.getGender());
-    System.out.println("- Contact Information: " + patient.getContactInfo());
-    System.out.println("Please choose an option:");
-    System.out.println("1. View Test History");
-    System.out.println("2. Add Test to Pending");
-    System.out.println("0. Back to Menu");
-
-    int choice = scanner.nextInt();
-    scanner.nextLine(); // consume newline
-
-    if (choice == 1) {
-      viewTestHistory(patient);
-    } else if (choice == 2) {
-      addTestToPending(patient);
-    }
-  }
-
-  private void addTestToPending(Patient patient) {
-    // Load available tests
-    List<String> availableTests = fileManager.loadAvailableTests();
-
-    // Display available tests
-    System.out.println("Available Tests:");
-    for (int i = 0; i < availableTests.size(); i++) {
-      System.out.println((i + 1) + ". " + availableTests.get(i));
     }
 
-    // Ask user to choose a test
-    System.out.println("Choose a test by number:");
-    int testChoice = scanner.nextInt();
-    scanner.nextLine(); // consume newline
+    private void addUser() {
+        System.out.println("Enter ID:");
+        String id = scanner.nextLine();
 
-    // Validate choice
-    if (testChoice < 1 || testChoice > availableTests.size()) {
-      System.out.println("Invalid choice. Test not added.");
-      return;
+        // Check if a user with the same ID already exists
+        boolean userExists = false;
+        for (User user : users) {
+            if (user.getId().equals(id)) {
+                userExists = true;
+                break; // Stop checking further once a match is found
+            }
+        }
+
+        if (userExists) {
+            System.out.println("User with this ID already exists. Please use a different ID.");
+            return; // Exit the method without adding the user
+        }
+
+        System.out.println("Enter Name:");
+        String name = scanner.nextLine();
+        System.out.println("Enter Password:");
+        String password = scanner.nextLine();
+        System.out.println("Choose Role (1. Doctor, 2. Receptionist):");
+        int roleChoice = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+        String role = (roleChoice == 1) ? "Doctor" : "Receptionist";
+
+        // Create the new user and add it to the list
+        User user = new User(id, name, password, role);
+        fileManager.addUser(user);
+        users.add(user); // Add the new user to the current list in memory
+
+        System.out.println("User added successfully!");
+
+        if (role.equals("Doctor")) {
+            doctorMenu();
+        } else {
+            receptionistMenu();
+        }
     }
 
-    String selectedTest = availableTests.get(testChoice - 1); // Get selected test
-    String currentDate = java.time.LocalDate.now().toString();
+    private void logIn() {
+        System.out.println("Enter ID:");
+        String id = scanner.nextLine();
+        System.out.println("Enter Password:");
+        String password = scanner.nextLine();
 
-    // Save test to pending tests
-    fileManager.addPendingTest(patient.getId(), selectedTest, currentDate);
-    System.out.println("Test added to pending for Patient ID: " + patient.getId());
-  }
-
-  private void viewPendingTests() {
-    List<String> pendingTests = fileManager.loadPendingTests();
-    if (pendingTests.isEmpty()) {
-      System.out.println("No pending tests.");
-    } else {
-      System.out.println("Pending Tests:");
-      for (int i = 0; i < pendingTests.size(); i++) {
-        System.out.println((i + 1) + ". " + pendingTests.get(i));
-      }
-    }
-  }
-
-  private void addTestResult() {
-    System.out.println("Choose a pending test by number:");
-
-    // Load pending tests for the patient
-    List<String> pendingTests = fileManager.loadPendingTests();
-
-    if (pendingTests.isEmpty()) {
-      System.out.println("No pending tests available.");
-      return;
+        for (User user : users) {
+            if (user.getId().equals(id) && user.getPassword().equals(password)) {
+                if (user.getRole().equals("Doctor")) {
+                    doctorMenu();
+                } else {
+                    receptionistMenu();
+                }
+                return;
+            }
+        }
+        System.out.println("Invalid ID or Password!");
     }
 
-    // Display pending tests
-    for (int i = 0; i < pendingTests.size(); i++) {
-      System.out.println((i + 1) + ". " + pendingTests.get(i));
+    private void doctorMenu() {
+        System.out.println("Welcome, Doctor!");
+        System.out.println("\n-------------------------");
+        while (true) {
+            viewPendingTests();
+            System.out.println("1. Search for Patient");
+            System.out.println("2. Add Test Result");
+            System.out.println("3. Log Out");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
+
+            switch (choice) {
+                case 1:
+                    searchForPatient();
+                    break;
+                case 2:
+                    addTestResult();
+                    break;
+                case 3:
+                    return; // Log out
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
     }
 
-    // Ask the user to choose a test
-    System.out.println("Choose a test by number:");
-    int testChoice = scanner.nextInt();
-    scanner.nextLine(); // consume newline
+    private void receptionistMenu() {
+        System.out.println("Welcome, Receptionist!");
+        while (true) {
+            System.out.println("1. Add Patient");
+            System.out.println("2. Search for Patient");
+            System.out.println("3. Log Out");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
-    // Validate choice
-    if (testChoice < 1 || testChoice > pendingTests.size()) {
-      System.out.println("Invalid choice. Test result not added.");
-      return;
+            switch (choice) {
+                case 1:
+                    addPatient();
+                    break;
+                case 2:
+                    searchForPatient();
+                    break;
+                case 3:
+                    return; // Log out by breaking out of the menu loop
+            }
+        }
     }
 
-    String selectedTestInfo = pendingTests.get(testChoice - 1); // Get selected test
-    String[] testParts = selectedTestInfo.split(","); // Assuming the format includes Patient ID and Test Name
-    String patientId = testParts[0]; // Extract patient ID from selected test info
-    String selectedTestName = testParts[1]; // Extract test name
+    private void addPatient() {
+        System.out.println("Enter Patient ID:");
+        String id = scanner.nextLine();
+        System.out.println("Enter Name:");
+        String name = scanner.nextLine();
+        System.out.println("Enter Age:");
+        int age = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+        System.out.println("Enter Gender:");
+        String gender = scanner.nextLine();
+        System.out.println("Enter Contact Information:");
+        String contactInfo = scanner.nextLine();
 
-    System.out.println("Enter test result for " + selectedTestName + ":");
-    double testResult = scanner.nextDouble(); // Assuming the result is numeric
-    scanner.nextLine(); // consume newline
-    String currentDate = java.time.LocalDate.now().toString();
-
-    // Fetch the test details (min/max) from the FileManager
-    Test selectedTest = fileManager.getTestByName(selectedTestName); // Fetch the test details
-
-    if (selectedTest == null) {
-      System.out.println("Test not found.");
-      return;
+        Patient patient = new Patient(id, name, age, gender, contactInfo);
+        fileManager.addPatient(patient);
+        patients.add(patient); // Add to in-memory list
+        System.out.println("Patient added successfully!");
     }
 
-    // Determine the status based on result and the min/max values
-    String status;
-    if (testResult < selectedTest.min) {
-      status = "Low";
-    } else if (testResult > selectedTest.max) {
-      status = "High";
-    } else {
-      status = "Normal";
+    private void searchForPatient() {
+        System.out.println("Enter Patient ID:");
+        String patientId = scanner.nextLine();
+
+        for (Patient patient : patients) {
+            if (patient.getId().equals(patientId)) {
+                displayPatientProfile(patient);
+                return;
+            }
+        }
+        System.out.println("Patient not found!");
     }
 
-    // Create a new test result object
-    TestResult newTestResult = new TestResult(selectedTest.name, testResult, selectedTest.min, selectedTest.max, status,
-        currentDate);
+    private void displayPatientProfile(Patient patient) {
+        System.out.println("Patient Profile Found:");
+        System.out.println("- Patient ID: " + patient.getId());
+        System.out.println("- Name: " + patient.getName());
+        System.out.println("- Age: " + patient.getAge());
+        System.out.println("- Gender: " + patient.getGender());
+        System.out.println("- Contact Information: " + patient.getContactInfo());
+        System.out.println("Please choose an option:");
+        System.out.println("1. View Test History");
+        System.out.println("2. Add Test to Pending");
+        System.out.println("0. Back to Menu");
 
-    // Add test result to patient history, including the patient ID
-    fileManager.addTestResultToPatientHistory(patientId, newTestResult);
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // consume newline
 
-    // Remove the test from pending tests (assumes method exists in FileManager)
-    fileManager.removeTestFromPending(selectedTestInfo);
-
-    System.out.println("Test result added successfully for test: " + selectedTest.name);
-  }
-
-  private void viewTestHistory(Patient patient) {
-    // Load and display test history
-    List<TestResult> testHistory = fileManager.loadPatientHistory(patient.getId());
-
-    System.out.println("Test History for Patient ID: " + patient.getId());
-    if (testHistory.isEmpty()) {
-      System.out.println("No test history available.");
-      return;
+        if (choice == 1) {
+            viewTestHistory(patient);
+        } else if (choice == 2) {
+            addTestToPending(patient);
+        }
     }
 
-    for (int i = 0; i < testHistory.size(); i++) {
-      TestResult test = testHistory.get(i);
-      System.out.println((i + 1) + ". " + test.testName + " - Result: " + test.result +
-          " - Min: " + test.min + " - Max: " + test.max +
-          " - Status: " + test.status + " - Date: " + test.date);
+    private void addTestToPending(Patient patient) {
+        // Load available tests
+        List<String> availableTests = fileManager.loadAvailableTests();
+
+        // Display available tests
+        System.out.println("Available Tests:");
+        for (int i = 0; i < availableTests.size(); i++) {
+            System.out.println((i + 1) + ". " + availableTests.get(i));
+        }
+
+        // Ask user to choose a test
+        System.out.println("Choose a test by number:");
+        int testChoice = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+
+        // Validate choice
+        if (testChoice < 1 || testChoice > availableTests.size()) {
+            System.out.println("Invalid choice. Test not added.");
+            return;
+        }
+
+        String selectedTest = availableTests.get(testChoice - 1); // Get selected test
+        String currentDate = java.time.LocalDate.now().toString();
+
+        // Save test to pending tests
+        fileManager.addPendingTest(patient.getId(), selectedTest, currentDate);
+        System.out.println("Test added to pending for Patient ID: " + patient.getId());
     }
 
-    System.out.println("Please choose an option:");
-    System.out.println("1. Filter by Date");
-    System.out.println("2. Generate Test Report by Number");
-    System.out.println("3. Generate Health Report");
-    System.out.println("0. Back to Patient Profile");
-
-    int choice = scanner.nextInt();
-    scanner.nextLine(); // consume newline
-
-    switch (choice) {
-      case 1:
-        filterByDate(testHistory);
-        break;
-      case 2:
-        generateTestReport(testHistory);
-        break;
-      case 3:
-        generateHealthReport(testHistory);
-        break;
-      case 0:
-        return; // Back to patient profile
-      default:
-        System.out.println("Invalid choice!");
-    }
-  }
-
-  private void filterByDate(List<TestResult> testHistory) {
-    System.out.println("Enter Start Date (YYYY-MM-DD):");
-    String startDate = scanner.nextLine();
-    System.out.println("Enter End Date (YYYY-MM-DD):");
-    String endDate = scanner.nextLine();
-
-    // Call the method to retrieve test results by date
-    List<TestResult> filteredResults = retrieveTestResultsByDate(testHistory, startDate, endDate);
-
-    if (filteredResults.isEmpty()) {
-      System.out.println("No test results found for the specified date range.");
-    } else {
-      System.out.println("Filtered Test Results:");
-      for (TestResult result : filteredResults) {
-        System.out.println(result.testName + ": " + result.result + " (Min: " + result.min + ", Max: " + result.max
-            + ") on " + result.date);
-      }
-    }
-  }
-
-  private List<TestResult> retrieveTestResultsByDate(List<TestResult> testHistory, String startDate, String endDate) {
-    List<TestResult> filteredResults = new ArrayList<>();
-
-    for (TestResult result : testHistory) {
-      if (result.date.compareTo(startDate) >= 0 && result.date.compareTo(endDate) <= 0) {
-        filteredResults.add(result);
-      }
-    }
-    return filteredResults;
-  }
-
-  private void generateTestReport(List<TestResult> testHistory) {
-    System.out.println("Enter the number of the test report you want to generate:");
-    int reportNumber = scanner.nextInt();
-    scanner.nextLine(); // consume newline
-
-    if (reportNumber < 1 || reportNumber > testHistory.size()) {
-      System.out.println("Invalid choice. Test report not generated.");
-      return;
+    private void viewPendingTests() {
+        List<String> pendingTests = fileManager.loadPendingTests();
+        if (pendingTests.isEmpty()) {
+            System.out.println("No pending tests.");
+        } else {
+            System.out.println("Pending Tests:");
+            for (int i = 0; i < pendingTests.size(); i++) {
+                System.out.println((i + 1) + ". " + pendingTests.get(i));
+            }
+        }
     }
 
-    TestResult selectedTest = testHistory.get(reportNumber - 1);
-    System.out.println("Generating report for: " + selectedTest.testName);
-    System.out.println("Result: " + selectedTest.result);
-    System.out.println("Min: " + selectedTest.min);
-    System.out.println("Max: " + selectedTest.max);
-    System.out.println("Status: " + selectedTest.status);
-    System.out.println("Date: " + selectedTest.date);
-  }
+    private void addTestResult() {
+        System.out.println("Choose a pending test by number:");
 
-  private void generateHealthReport(List<TestResult> testHistory) {
-    if (testHistory.isEmpty()) {
-      System.out.println("No test history available to generate a report.");
-      return;
+        // Load pending tests for the patient
+        List<String> pendingTests = fileManager.loadPendingTests();
+
+        if (pendingTests.isEmpty()) {
+            System.out.println("No pending tests available.");
+            return;
+        }
+
+        // Display pending tests
+        for (int i = 0; i < pendingTests.size(); i++) {
+            System.out.println((i + 1) + ". " + pendingTests.get(i));
+        }
+
+        // Ask the user to choose a test
+        System.out.println("Choose a test by number:");
+        int testChoice = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+
+        // Validate choice
+        if (testChoice < 1 || testChoice > pendingTests.size()) {
+            System.out.println("Invalid choice. Test result not added.");
+            return;
+        }
+
+        String selectedTestInfo = pendingTests.get(testChoice - 1); // Get selected test
+        String[] testParts = selectedTestInfo.split(","); // Assuming the format includes Patient ID and Test Name
+        String patientId = testParts[0]; // Extract patient ID from selected test info
+        String selectedTestName = testParts[1]; // Extract test name
+
+        System.out.println("Enter test result for " + selectedTestName + ":");
+        double testResult = scanner.nextDouble(); // Assuming the result is numeric
+        scanner.nextLine(); // consume newline
+        String currentDate = java.time.LocalDate.now().toString();
+
+        // Fetch the test details (min/max) from the FileManager
+        Test selectedTest = fileManager.getTestByName(selectedTestName); // Fetch the test details
+
+        if (selectedTest == null) {
+            System.out.println("Test not found.");
+            return;
+        }
+
+        // Determine the status based on result and the min/max values
+        String status;
+        if (testResult < selectedTest.min) {
+            status = "Low";
+        } else if (testResult > selectedTest.max) {
+            status = "High";
+        } else {
+            status = "Normal";
+        }
+
+        // Create a new test result object
+        TestResult newTestResult = new TestResult(selectedTest.name, testResult, selectedTest.min, selectedTest.max, status,
+                currentDate);
+
+        // Add test result to patient history, including the patient ID
+        fileManager.addTestResultToPatientHistory(patientId, newTestResult);
+
+        // Remove the test from pending tests (assumes method exists in FileManager)
+        fileManager.removeTestFromPending(selectedTestInfo);
+
+        System.out.println("Test result added successfully for test: " + selectedTest.name);
     }
 
-    int normalCount = 0;
-    int lowCount = 0;
-    int highCount = 0;
-    StringBuilder report = new StringBuilder();
-    report.append("Health Report for Patient:\n");
+    private void viewTestHistory(Patient patient) {
+        // Load and display test history
+        List<TestResult> testHistory = fileManager.loadPatientHistory(patient.getId());
 
-    // Loop through each test result and compare it with the normal range
-    for (TestResult result : testHistory) {
-      report.append("Test Name: ").append(result.testName)
-          .append("\nResult: ").append(result.result)
-          .append(" (Normal Range: ").append(result.min).append(" - ").append(result.max).append(")\n");
+        System.out.println("Test History for Patient ID: " + patient.getId());
+        if (testHistory.isEmpty()) {
+            System.out.println("No test history available.");
+            return;
+        }
 
-      // Determine the status based on the result compared to the normal range
-      if (result.result < result.min) {
-        report.append("Status: LOW\n\n");
-        lowCount++;
-      } else if (result.result > result.max) {
-        report.append("Status: HIGH\n\n");
-        highCount++;
-      } else {
-        report.append("Status: NORMAL\n\n");
-        normalCount++;
-      }
+        for (int i = 0; i < testHistory.size(); i++) {
+            TestResult test = testHistory.get(i);
+            System.out.println((i + 1) + ". " + test.testName + " - Result: " + test.result
+                    + " - Min: " + test.min + " - Max: " + test.max
+                    + " - Status: " + test.status + " - Date: " + test.date);
+        }
+
+        System.out.println("Please choose an option:");
+        System.out.println("1. Filter by Date");
+        System.out.println("2. Generate Test Report by Number");
+        System.out.println("3. Generate Health Report");
+        System.out.println("0. Back to Patient Profile");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+
+        switch (choice) {
+            case 1:
+                filterByDate(testHistory);
+                break;
+            case 2:
+                generateTestReport(testHistory);
+                break;
+            case 3:
+                generateHealthReport(testHistory);
+                break;
+            case 0:
+                return; // Back to patient profile
+            default:
+                System.out.println("Invalid choice!");
+        }
     }
 
-    // Summary of the report
-    report.append("Summary of Results:\n")
-        .append("Normal Tests: ").append(normalCount).append("\n")
-        .append("Low Tests: ").append(lowCount).append("\n")
-        .append("High Tests: ").append(highCount).append("\n");
+    private void filterByDate(List<TestResult> testHistory) {
+        System.out.println("Enter Start Date (YYYY-MM-DD):");
+        String startDate = scanner.nextLine();
+        System.out.println("Enter End Date (YYYY-MM-DD):");
+        String endDate = scanner.nextLine();
 
-    // Provide basic health suggestions based on the results
-    report.append("\nHealth Suggestions:\n");
-    if (lowCount > 0) {
-      report.append("- Some tests show LOW results. Please consult a healthcare professional for further analysis.\n");
-    }
-    if (highCount > 0) {
-      report.append("- Some tests show HIGH results. Follow up with your doctor for necessary action.\n");
-    }
-    if (normalCount == testHistory.size()) {
-      report.append("- All test results are within the normal range. Keep up the good health practices!\n");
+        // Call the method to retrieve test results by date
+        List<TestResult> filteredResults = retrieveTestResultsByDate(testHistory, startDate, endDate);
+
+        if (filteredResults.isEmpty()) {
+            System.out.println("No test results found for the specified date range.");
+        } else {
+            System.out.println("Filtered Test Results:");
+            for (TestResult result : filteredResults) {
+                System.out.println(result.testName + ": " + result.result + " (Min: " + result.min + ", Max: " + result.max
+                        + ") on " + result.date);
+            }
+        }
     }
 
-    System.out.println(report.toString());
-  }
+    private List<TestResult> retrieveTestResultsByDate(List<TestResult> testHistory, String startDate, String endDate) {
+        List<TestResult> filteredResults = new ArrayList<>();
+
+        for (TestResult result : testHistory) {
+            if (result.date.compareTo(startDate) >= 0 && result.date.compareTo(endDate) <= 0) {
+                filteredResults.add(result);
+            }
+        }
+        return filteredResults;
+    }
+
+    private void generateTestReport(List<TestResult> testHistory) {
+        System.out.println("Enter the number of the test report you want to generate:");
+        int reportNumber = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+
+        if (reportNumber < 1 || reportNumber > testHistory.size()) {
+            System.out.println("Invalid choice. Test report not generated.");
+            return;
+        }
+
+        TestResult selectedTest = testHistory.get(reportNumber - 1);
+        System.out.println("Generating report for: " + selectedTest.testName);
+        System.out.println("Result: " + selectedTest.result);
+        System.out.println("Min: " + selectedTest.min);
+        System.out.println("Max: " + selectedTest.max);
+        System.out.println("Status: " + selectedTest.status);
+        System.out.println("Date: " + selectedTest.date);
+    }
+
+    private void generateHealthReport(List<TestResult> testHistory) {
+        if (testHistory.isEmpty()) {
+            System.out.println("No test history available to generate a report.");
+            return;
+        }
+
+        int normalCount = 0;
+        int lowCount = 0;
+        int highCount = 0;
+        StringBuilder report = new StringBuilder();
+        report.append("Health Report for Patient:\n");
+
+        // Loop through each test result and compare it with the normal range
+        for (TestResult result : testHistory) {
+            report.append("Test Name: ").append(result.testName)
+                    .append("\nResult: ").append(result.result)
+                    .append(" (Normal Range: ").append(result.min).append(" - ").append(result.max).append(")\n");
+
+            // Determine the status based on the result compared to the normal range
+            if (result.result < result.min) {
+                report.append("Status: LOW\n\n");
+                lowCount++;
+            } else if (result.result > result.max) {
+                report.append("Status: HIGH\n\n");
+                highCount++;
+            } else {
+                report.append("Status: NORMAL\n\n");
+                normalCount++;
+            }
+        }
+
+        // Summary of the report
+        report.append("Summary of Results:\n")
+                .append("Normal Tests: ").append(normalCount).append("\n")
+                .append("Low Tests: ").append(lowCount).append("\n")
+                .append("High Tests: ").append(highCount).append("\n");
+
+        // Provide basic health suggestions based on the results
+        report.append("\nHealth Suggestions:\n");
+        if (lowCount > 0) {
+            report.append("- Some tests show LOW results. Please consult a healthcare professional for further analysis.\n");
+        }
+        if (highCount > 0) {
+            report.append("- Some tests show HIGH results. Follow up with your doctor for necessary action.\n");
+        }
+        if (normalCount == testHistory.size()) {
+            report.append("- All test results are within the normal range. Keep up the good health practices!\n");
+        }
+
+        System.out.println(report.toString());
+    }
 
 }
-

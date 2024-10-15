@@ -1,62 +1,63 @@
 package com.mycompany.pathologylabsystem;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Patient {
-  private String id;
-  private String name;
-  private int age;
-  private String gender;
-  private String contactInfo;
 
-  public String getId() {
-    return this.id;
-  }
+    private String id;
+    private String name;
+    private int age;
+    private String gender;
+    private String contactInfo;
+    List<TestResult> testHistory = new ArrayList<>();
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    public Patient(String id, String name, int age, String gender, String contactInfo) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.contactInfo = contactInfo;
+    }
 
-  public String getName() {
-    return this.name;
-  }
+    public String getId() {
+        return this.id;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  public int getAge() {
-    return this.age;
-  }
+    public String getName() {
+        return this.name;
+    }
 
-  public void setAge(int age) {
-    this.age = age;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public String getGender() {
-    return this.gender;
-  }
+    public int getAge() {
+        return this.age;
+    }
 
-  public void setGender(String gender) {
-    this.gender = gender;
-  }
+    public void setAge(int age) {
+        this.age = age;
+    }
 
-  public String getContactInfo() {
-    return this.contactInfo;
-  }
+    public String getGender() {
+        return this.gender;
+    }
 
-  public void setContactInfo(String contactInfo) {
-    this.contactInfo = contactInfo;
-  }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-  List<TestResult> testHistory = new ArrayList<>();
-  List<HealthMeasure> healthMeasures = new ArrayList<>();
+    public String getContactInfo() {
+        return this.contactInfo;
+    }
 
-  public Patient(String id, String name, int age, String gender, String contactInfo) {
-    this.id = id;
-    this.name = name;
-    this.age = age;
-    this.gender = gender;
-    this.contactInfo = contactInfo;
-  }
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+
 }
