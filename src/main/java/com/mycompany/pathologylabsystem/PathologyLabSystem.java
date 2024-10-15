@@ -49,7 +49,7 @@ public class PathologyLabSystem {
     // Check if a user with the same ID already exists
     boolean userExists = false;
     for (User user : users) {
-      if (user.id.equals(id)) {
+      if (user.getId().equals(id)) {
         userExists = true;
         break; // Stop checking further once a match is found
       }
@@ -90,8 +90,8 @@ public class PathologyLabSystem {
     String password = scanner.nextLine();
 
     for (User user : users) {
-      if (user.id.equals(id) && user.password.equals(password)) {
-        if (user.role.equals("Doctor")) {
+      if (user.getId().equals(id) && user.getPassword().equals(password)) {
+        if (user.getRole().equals("Doctor")) {
           doctorMenu();
         } else {
           receptionistMenu();
@@ -174,7 +174,7 @@ public class PathologyLabSystem {
     String patientId = scanner.nextLine();
 
     for (Patient patient : patients) {
-      if (patient.id.equals(patientId)) {
+      if (patient.getId().equals(patientId)) {
         displayPatientProfile(patient);
         return;
       }
@@ -184,11 +184,11 @@ public class PathologyLabSystem {
 
   private void displayPatientProfile(Patient patient) {
     System.out.println("Patient Profile Found:");
-    System.out.println("- Patient ID: " + patient.id);
-    System.out.println("- Name: " + patient.name);
-    System.out.println("- Age: " + patient.age);
-    System.out.println("- Gender: " + patient.gender);
-    System.out.println("- Contact Information: " + patient.contactInfo);
+    System.out.println("- Patient ID: " + patient.getId());
+    System.out.println("- Name: " + patient.getName());
+    System.out.println("- Age: " + patient.getAge());
+    System.out.println("- Gender: " + patient.getGender());
+    System.out.println("- Contact Information: " + patient.getContactInfo());
     System.out.println("Please choose an option:");
     System.out.println("1. View Test History");
     System.out.println("2. Add Test to Pending");
@@ -229,8 +229,8 @@ public class PathologyLabSystem {
     String currentDate = java.time.LocalDate.now().toString();
 
     // Save test to pending tests
-    fileManager.addPendingTest(patient.id, selectedTest, currentDate);
-    System.out.println("Test added to pending for Patient ID: " + patient.id);
+    fileManager.addPendingTest(patient.getId(), selectedTest, currentDate);
+    System.out.println("Test added to pending for Patient ID: " + patient.getId());
   }
 
   private void viewPendingTests() {
@@ -315,9 +315,9 @@ public class PathologyLabSystem {
 
   private void viewTestHistory(Patient patient) {
     // Load and display test history
-    List<TestResult> testHistory = fileManager.loadPatientHistory(patient.id);
+    List<TestResult> testHistory = fileManager.loadPatientHistory(patient.getId());
 
-    System.out.println("Test History for Patient ID: " + patient.id);
+    System.out.println("Test History for Patient ID: " + patient.getId());
     if (testHistory.isEmpty()) {
       System.out.println("No test history available.");
       return;
