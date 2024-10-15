@@ -2,32 +2,35 @@ package com.mycompany.pathologylabsystem;
 
 public class TestResult {
 
-    String testName;
-    double result;
-    double min;
-    double max;
-    String status;
-    String date;
+    private Test test;
+    private double result;
+    private String status;
+    private String date;
 
-    public TestResult(String testName, double result, double min, double max, String status, String date) {
-        this.testName = testName;
+    public TestResult(Test test, double result, String status, String date) {
         this.result = result;
-        this.min = min;
-        this.max = max;
         this.status = status;
         this.date = date;
     }
 
+    public Test getTest() {
+        return this.test;
+    }
+
+    public String getTestName() {
+        return test.getName();
+    }
+    
     public double getResult() {
         return this.result;
     }
 
     public double getMin() {
-        return this.min;
+        return test.getMin();
     }
 
     public double getMax() {
-        return this.max;
+        return test.getMax();
     }
 
     public String getStatus() {

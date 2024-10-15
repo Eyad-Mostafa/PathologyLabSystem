@@ -174,9 +174,9 @@ public class FileManager {
 
     public void addTestResultToPatientHistory(String patientId, TestResult testResult) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("patientHistory.txt", true))) {
-            writer.write(patientId + "," + testResult.testName + "," + testResult.result + ","
-                    + testResult.min + "," + testResult.max + "," + testResult.status + ","
-                    + testResult.date);
+            writer.write(patientId + "," + testResult.getTestName() + "," + testResult.getResult() + ","
+                    + testResult.getMin() + "," + testResult.getMax() + "," + testResult.getStatus() + ","
+                    + testResult.getDate());
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -241,13 +241,17 @@ public class FileManager {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data[0].equals(patientId)) { // Check if patient ID matches
-                    testResults.add(new TestResult(data[1], Double.parseDouble(data[2]),
-                            Double.parseDouble(data[3]), Double.parseDouble(data[4]),
-                            data[5], data[6]));
+                    // Create a Test object with the necessary details (name, min, max)
+                    Test test = new Test(data[1], Double.parseDouble(data[3]), Double.parseDouble(data[4]));
+
+                    // Create a TestResult object with the Test object, result, status, and date
+                    TestResult testResult = new TestResult(test, Double.parseDouble(data[2]), data[5], data[6]);
+
+                    // Add the TestResult to the list
+                    testResults.add(testResult);
                 }
             }
         } catch (IOException e) {
-            System.out.println("Errrrrorrrrrrrr");
             e.printStackTrace();
         }
         return testResults;
@@ -258,7 +262,7 @@ public class FileManager {
         List<TestResult> allResults = loadPatientHistory(patientId); // Assuming this loads all results
 
         for (TestResult result : allResults) {
-            if (isDateInRange(result.date, startDate, endDate)) {
+            if (isDateInRange(result.getDate(), startDate, endDate)) {
                 filteredResults.add(result);
             }
         }

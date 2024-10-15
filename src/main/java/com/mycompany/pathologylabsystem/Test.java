@@ -2,9 +2,9 @@ package com.mycompany.pathologylabsystem;
 
 public class Test {
 
-    String name;
-    double min;
-    double max;
+    private String name;
+    private double min;
+    private double max;
 
     public Test(String name, double min, double max) {
         this.name = name;

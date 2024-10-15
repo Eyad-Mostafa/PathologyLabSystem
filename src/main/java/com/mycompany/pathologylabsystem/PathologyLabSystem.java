@@ -78,9 +78,9 @@ public class PathologyLabSystem {
         System.out.println("User added successfully!");
 
         if (role.equals("Doctor")) {
-            doctorMenu();
+            doctorMenu(name);
         } else {
-            receptionistMenu();
+            receptionistMenu(name);
         }
     }
 
@@ -93,9 +93,9 @@ public class PathologyLabSystem {
         for (User user : users) {
             if (user.getId().equals(id) && user.getPassword().equals(password)) {
                 if (user.getRole().equals("Doctor")) {
-                    doctorMenu();
+                    doctorMenu(user.getName());
                 } else {
-                    receptionistMenu();
+                    receptionistMenu(user.getName());
                 }
                 return;
             }
@@ -103,10 +103,10 @@ public class PathologyLabSystem {
         System.out.println("Invalid ID or Password!");
     }
 
-    private void doctorMenu() {
-        System.out.println("Welcome, Doctor!");
-        System.out.println("\n-------------------------");
+    private void doctorMenu(String name) {
+        System.out.println("Welcome, Dr." + name);
         while (true) {
+            System.out.println("\n-------------------------");
             viewPendingTests();
             System.out.println("1. Search for Patient");
             System.out.println("2. Add Test Result");
@@ -129,8 +129,8 @@ public class PathologyLabSystem {
         }
     }
 
-    private void receptionistMenu() {
-        System.out.println("Welcome, Receptionist!");
+    private void receptionistMenu(String name) {
+        System.out.println("Welcome, MR." + name);
         while (true) {
             System.out.println("1. Add Patient");
             System.out.println("2. Search for Patient");
@@ -293,16 +293,16 @@ public class PathologyLabSystem {
 
         // Determine the status based on result and the min/max values
         String status;
-        if (testResult < selectedTest.min) {
+        if (testResult < selectedTest.getMin()) {
             status = "Low";
-        } else if (testResult > selectedTest.max) {
+        } else if (testResult > selectedTest.getMax()) {
             status = "High";
         } else {
             status = "Normal";
         }
 
         // Create a new test result object
-        TestResult newTestResult = new TestResult(selectedTest.name, testResult, selectedTest.min, selectedTest.max, status,
+        TestResult newTestResult = new TestResult(selectedTest, testResult, status,
                 currentDate);
 
         // Add test result to patient history, including the patient ID
@@ -311,7 +311,7 @@ public class PathologyLabSystem {
         // Remove the test from pending tests (assumes method exists in FileManager)
         fileManager.removeTestFromPending(selectedTestInfo);
 
-        System.out.println("Test result added successfully for test: " + selectedTest.name);
+        System.out.println("Test result added successfully for test: " + selectedTest.getName());
     }
 
     private void viewTestHistory(Patient patient) {
@@ -326,9 +326,9 @@ public class PathologyLabSystem {
 
         for (int i = 0; i < testHistory.size(); i++) {
             TestResult test = testHistory.get(i);
-            System.out.println((i + 1) + ". " + test.testName + " - Result: " + test.result
-                    + " - Min: " + test.min + " - Max: " + test.max
-                    + " - Status: " + test.status + " - Date: " + test.date);
+            System.out.println((i + 1) + ". " + test.getTestName() + " - Result: " + test.getResult()
+                    + " - Min: " + test.getMin() + " - Max: " + test.getMax()
+                    + " - Status: " + test.getStatus() + " - Date: " + test.getDate());
         }
 
         System.out.println("Please choose an option:");
@@ -371,8 +371,8 @@ public class PathologyLabSystem {
         } else {
             System.out.println("Filtered Test Results:");
             for (TestResult result : filteredResults) {
-                System.out.println(result.testName + ": " + result.result + " (Min: " + result.min + ", Max: " + result.max
-                        + ") on " + result.date);
+                System.out.println(result.getTestName() + ": " + result.getResult() + " (Min: " + result.getMin() + ", Max: " + result.getMax()
+                        + ") on " + result.getDate());
             }
         }
     }
@@ -381,7 +381,7 @@ public class PathologyLabSystem {
         List<TestResult> filteredResults = new ArrayList<>();
 
         for (TestResult result : testHistory) {
-            if (result.date.compareTo(startDate) >= 0 && result.date.compareTo(endDate) <= 0) {
+            if (result.getDate().compareTo(startDate) >= 0 && result.getDate().compareTo(endDate) <= 0) {
                 filteredResults.add(result);
             }
         }
@@ -399,12 +399,12 @@ public class PathologyLabSystem {
         }
 
         TestResult selectedTest = testHistory.get(reportNumber - 1);
-        System.out.println("Generating report for: " + selectedTest.testName);
-        System.out.println("Result: " + selectedTest.result);
-        System.out.println("Min: " + selectedTest.min);
-        System.out.println("Max: " + selectedTest.max);
-        System.out.println("Status: " + selectedTest.status);
-        System.out.println("Date: " + selectedTest.date);
+        System.out.println("Generating report for: " + selectedTest.getTestName());
+        System.out.println("Result: " + selectedTest.getResult());
+        System.out.println("Min: " + selectedTest.getMin());
+        System.out.println("Max: " + selectedTest.getMax());
+        System.out.println("Status: " + selectedTest.getStatus());
+        System.out.println("Date: " + selectedTest.getDate());
     }
 
     private void generateHealthReport(List<TestResult> testHistory) {
@@ -421,15 +421,15 @@ public class PathologyLabSystem {
 
         // Loop through each test result and compare it with the normal range
         for (TestResult result : testHistory) {
-            report.append("Test Name: ").append(result.testName)
-                    .append("\nResult: ").append(result.result)
-                    .append(" (Normal Range: ").append(result.min).append(" - ").append(result.max).append(")\n");
+            report.append("Test Name: ").append(result.getTestName())
+                    .append("\nResult: ").append(result.getResult())
+                    .append(" (Normal Range: ").append(result.getMin()).append(" - ").append(result.getMax()).append(")\n");
 
             // Determine the status based on the result compared to the normal range
-            if (result.result < result.min) {
+            if (result.getResult() < result.getMin()) {
                 report.append("Status: LOW\n\n");
                 lowCount++;
-            } else if (result.result > result.max) {
+            } else if (result.getResult() > result.getMax()) {
                 report.append("Status: HIGH\n\n");
                 highCount++;
             } else {

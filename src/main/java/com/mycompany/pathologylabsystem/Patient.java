@@ -24,40 +24,19 @@ public class Patient {
         return this.id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
         return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getAge() {
         return this.age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getGender() {
         return this.gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getContactInfo() {
         return this.contactInfo;
     }
-
-    public void setContactInfo(String contactInfo) {
-        this.contactInfo = contactInfo;
-    }
-
 }
