@@ -13,10 +13,6 @@ public class TestResult {
         this.date = date;
     }
 
-    public Test getTest() {
-        return this.test;
-    }
-
     public String getTestName() {
         return test.getName();
     }
