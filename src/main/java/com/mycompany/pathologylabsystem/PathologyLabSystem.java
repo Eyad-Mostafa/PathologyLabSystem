@@ -161,10 +161,14 @@ public class PathologyLabSystem {
         scanner.nextLine(); // consume newline
         System.out.println("Enter Gender:");
         String gender = scanner.nextLine();
+        System.out.println("Enter Weight:");
+        int weight = scanner.nextInt();
+        System.out.println("Enter Height:");
+        int height = scanner.nextInt();
         System.out.println("Enter Contact Information:");
         String contactInfo = scanner.nextLine();
 
-        Patient patient = new Patient(id, name, age, gender, contactInfo);
+        Patient patient = new Patient(id, name, age, gender, weight, height, contactInfo);
         fileManager.addPatient(patient);
         patients.add(patient); // Add to in-memory list
         System.out.println("Patient added successfully!");
@@ -455,7 +459,6 @@ public class PathologyLabSystem {
         if (normalCount == testHistory.size()) {
             report.append("- All test results are within the normal range. Keep up the good health practices!\n");
         }
-
         System.out.println(report.toString());
     }
 
