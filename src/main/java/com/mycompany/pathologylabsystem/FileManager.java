@@ -118,7 +118,7 @@ public class FileManager {
     public void addPatient(Patient patient) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATIENTS_FILE, true))) {
             writer.write(
-                    patient.getId() + "," + patient.getName() + "," + patient.getAge() + "," + patient.getGender() + "," + patient.getContactInfo());
+                    patient.getId() + "," + patient.getName() + "," + patient.getAge() + "," +patient.getWeight() + "," + patient.getHeight() + "," + patient.getGender() + "," + patient.getContactInfo());
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,7 +132,7 @@ public class FileManager {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                patients.add(new Patient(data[0], data[1], Integer.parseInt(data[2]), data[3], data[4]));
+                patients.add(new Patient(data[0], data[1], Integer.parseInt(data[2]), data[3], Integer.parseInt(data[4]), Integer.parseInt(data[5]), data[6]));
             }
         } catch (FileNotFoundException e) {
             // If the file does not exist, return an empty list
