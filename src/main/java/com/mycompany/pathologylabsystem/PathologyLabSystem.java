@@ -147,26 +147,63 @@ public class PathologyLabSystem {
                     break;
                 case 3:
                     return; // Log out by breaking out of the menu loop
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
 
+
     private void addPatient() {
         System.out.println("Enter Patient ID:");
         String id = scanner.nextLine();
+        while (id.isEmpty()) {
+            System.out.println("Patient ID cannot be empty. Please enter a valid ID:");
+            id = scanner.nextLine();
+        }
+    
         System.out.println("Enter Name:");
         String name = scanner.nextLine();
+        while (name.isEmpty()) {
+            System.out.println("Name cannot be empty. Please enter a valid name:");
+            name = scanner.nextLine();
+        }
+    
         System.out.println("Enter Age:");
-        int age = scanner.nextInt();
-        scanner.nextLine(); // consume newline
-        System.out.println("Enter Gender:");
+        int age = 0;
+        boolean validAge = false;
+        while (!validAge) {
+            if (scanner.hasNextInt()) {
+                age = scanner.nextInt();
+                if (age > 0 && age <= 120) {
+                    validAge = true;
+                } else {
+                    System.out.println("Please enter a valid age between 1 and 120:");
+                }
+            } else {
+                System.out.println("Please enter a valid number for age:");
+                scanner.next(); 
+            }
+        }
+        scanner.nextLine();
+    
+        System.out.println("Enter Gender (Male - Female):");
         String gender = scanner.nextLine();
-        System.out.println("Enter Contact Information:");
+        while (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
+            System.out.println("Invalid gender. Please enter Male, Female");
+            gender = scanner.nextLine();
+        }
+    
+        System.out.println("Enter Phone Number:");
         String contactInfo = scanner.nextLine();
-
+        while (contactInfo.isEmpty()) {
+            System.out.println("Contact information cannot be empty. Please enter valid contact info:");
+            contactInfo = scanner.nextLine();
+        }
+    
         Patient patient = new Patient(id, name, age, gender, contactInfo);
         fileManager.addPatient(patient);
-        patients.add(patient); // Add to in-memory list
+        patients.add(patient); 
         System.out.println("Patient added successfully!");
     }
 
