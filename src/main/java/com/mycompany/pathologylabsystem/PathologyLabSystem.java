@@ -147,27 +147,96 @@ public class PathologyLabSystem {
                     break;
                 case 3:
                     return; // Log out by breaking out of the menu loop
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
 
+
     private void addPatient() {
         System.out.println("Enter Patient ID:");
         String id = scanner.nextLine();
+        while (id.isEmpty()) {
+            System.out.println("Patient ID cannot be empty. Please enter a valid ID:");
+            id = scanner.nextLine();
+        }
+    
         System.out.println("Enter Name:");
         String name = scanner.nextLine();
+        while (name.isEmpty()) {
+            System.out.println("Name cannot be empty. Please enter a valid name:");
+            name = scanner.nextLine();
+        }
+    
         System.out.println("Enter Age:");
-        int age = scanner.nextInt();
-        scanner.nextLine(); // consume newline
-        System.out.println("Enter Gender:");
+        int age = 0;
+        boolean validAge = false;
+        while (!validAge) {
+            if (scanner.hasNextInt()) {
+                age = scanner.nextInt();
+                if (age > 0 && age <= 120) {
+                    validAge = true;
+                } else {
+                    System.out.println("Please enter a valid age between 1 and 120:");
+                }
+            } else {
+                System.out.println("Please enter a valid number for age:");
+                scanner.next(); 
+            }
+        }
+        scanner.nextLine();
+        
+        System.out.println("Enter Gender (Male - Female):");
         String gender = scanner.nextLine();
-        System.out.println("Enter Weight:");
-        int weight = scanner.nextInt();
-        System.out.println("Enter Height:");
-        int height = scanner.nextInt();
-        System.out.println("Enter Contact Information:");
+        while (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
+            System.out.println("Invalid gender. Please enter Male, Female");
+            gender = scanner.nextLine();
+        }
+        
+        System.out.println("Enter weight:");
+        int weight = 0;
+        boolean validweight = false;
+        while (!validweight) {
+            if (scanner.hasNextInt()) {
+                weight = scanner.nextInt();
+                if (weight > 20 && weight <= 500) {
+                    validweight = true;
+                } else {
+                    System.out.println("Please enter a valid weight:");
+                }
+            } else {
+                System.out.println("Please enter a valid number for weight:");
+                scanner.next(); 
+            }
+        }
+        scanner.nextLine();
+        
+        System.out.println("Enter height:");
+        int height = 0;
+        boolean validheight = false;
+        while (!validheight) {
+            if (scanner.hasNextInt()) {
+                height = scanner.nextInt();
+                if (height > 30 && height <= 220) {
+                    validheight = true;
+                } else {
+                    System.out.println("Please enter a valid height:");
+                }
+            } else {
+                System.out.println("Please enter a valid number for height:");
+                scanner.next(); 
+            }
+        }
+        scanner.nextLine();
+        
+        System.out.println("Enter Phone Number:");
         String contactInfo = scanner.nextLine();
-
+        while (contactInfo.isEmpty()) {
+            System.out.println("Contact information cannot be empty. Please enter valid contact info:");
+            contactInfo = scanner.nextLine();
+        }
+    
         Patient patient = new Patient(id, name, age, gender, weight, height, contactInfo);
         fileManager.addPatient(patient);
         patients.add(patient); // Add to in-memory list
@@ -461,6 +530,7 @@ public class PathologyLabSystem {
         if (normalCount == testHistory.size()) {
             report.append("- All test results are within the normal range. Keep up the good health practices!\n");
         }
+
         System.out.println(report.toString());
     }
 
