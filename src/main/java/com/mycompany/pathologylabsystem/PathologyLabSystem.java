@@ -261,6 +261,8 @@ public class PathologyLabSystem {
         System.out.println("- Patient ID: " + patient.getId());
         System.out.println("- Name: " + patient.getName());
         System.out.println("- Age: " + patient.getAge());
+        System.out.println("- Weight: " + patient.getWeight());
+        System.out.println("- Height: " + patient.getHeight());
         System.out.println("- Gender: " + patient.getGender());
         System.out.println("- Contact Information: " + patient.getContactInfo());
         System.out.println("Please choose an option:");

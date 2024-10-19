@@ -272,5 +272,5 @@ public class FileManager {
     private boolean isDateInRange(String date, String startDate, String endDate) {
         return (date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0);
     }
-
 }
+
