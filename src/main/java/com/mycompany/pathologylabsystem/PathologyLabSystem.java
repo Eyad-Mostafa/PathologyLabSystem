@@ -186,14 +186,50 @@ public class PathologyLabSystem {
             }
         }
         scanner.nextLine();
-    
+        
         System.out.println("Enter Gender (Male - Female):");
         String gender = scanner.nextLine();
         while (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
             System.out.println("Invalid gender. Please enter Male, Female");
             gender = scanner.nextLine();
         }
-    
+        
+        System.out.println("Enter weight:");
+        int weight = 0;
+        boolean validweight = false;
+        while (!validweight) {
+            if (scanner.hasNextInt()) {
+                weight = scanner.nextInt();
+                if (weight > 20 && weight <= 500) {
+                    validweight = true;
+                } else {
+                    System.out.println("Please enter a valid weight:");
+                }
+            } else {
+                System.out.println("Please enter a valid number for weight:");
+                scanner.next(); 
+            }
+        }
+        scanner.nextLine();
+        
+        System.out.println("Enter height:");
+        int height = 0;
+        boolean validheight = false;
+        while (!validheight) {
+            if (scanner.hasNextInt()) {
+                height = scanner.nextInt();
+                if (height > 30 && height <= 220) {
+                    validheight = true;
+                } else {
+                    System.out.println("Please enter a valid height:");
+                }
+            } else {
+                System.out.println("Please enter a valid number for height:");
+                scanner.next(); 
+            }
+        }
+        scanner.nextLine();
+        
         System.out.println("Enter Phone Number:");
         String contactInfo = scanner.nextLine();
         while (contactInfo.isEmpty()) {
@@ -201,9 +237,9 @@ public class PathologyLabSystem {
             contactInfo = scanner.nextLine();
         }
     
-        Patient patient = new Patient(id, name, age, gender, contactInfo);
+        Patient patient = new Patient(id, name, age, gender, weight, height, contactInfo);
         fileManager.addPatient(patient);
-        patients.add(patient); 
+        patients.add(patient); // Add to in-memory list
         System.out.println("Patient added successfully!");
     }
 
