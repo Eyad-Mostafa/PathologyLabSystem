@@ -142,7 +142,7 @@ public class FileManager {
         }
         return patients;
     }
-
+    
     public List<String> loadAvailableTests() {
         List<String> tests = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(TESTS_FILE))) {
@@ -186,7 +186,7 @@ public class FileManager {
     public void removeTestFromPending(String testInfo) {
         List<String> pendingTests = loadPendingTests(); // Load current pending tests
         pendingTests.remove(testInfo); // Remove the specified test
-
+        
         // Write back the updated list to the pending tests file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("pendingTests.txt"))) {
             for (String test : pendingTests) {
@@ -272,5 +272,16 @@ public class FileManager {
     private boolean isDateInRange(String date, String startDate, String endDate) {
         return (date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0);
     }
+    public void addNewTest(Test test){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TESTS_FILE, true))) {
+            writer.write(
+                    test.getName() + "," + test.getMin()+ "," + test.getMax());
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
+    
 }
 

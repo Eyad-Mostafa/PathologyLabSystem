@@ -110,7 +110,9 @@ public class PathologyLabSystem {
             viewPendingTests();
             System.out.println("1. Search for Patient");
             System.out.println("2. Add Test Result");
-            System.out.println("3. Log Out");
+            System.out.println("3. Add New Test");
+            System.out.println("4. Log out");
+
             int choice = scanner.nextInt();
             scanner.nextLine(); // consume newline
 
@@ -122,7 +124,10 @@ public class PathologyLabSystem {
                     addTestResult();
                     break;
                 case 3:
-                    return; // Log out
+                    addNewTest();
+                    break;
+                case 4:
+                   break; // Log out
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
@@ -255,6 +260,73 @@ public class PathologyLabSystem {
         }
         System.out.println("Patient not found!");
     }
+    
+//    private void updatePationtData(){
+//        System.out.println("Enter Patient ID:");
+//        String id = scanner.nextLine();
+//        while (id.isEmpty()) {
+//            System.out.println("Patient ID cannot be empty. Please enter a valid ID:");
+//            id = scanner.nextLine();
+//        }
+//        System.out.println("Enter Age:");
+//        int age = 0;
+//        boolean validAge = false;
+//        while (!validAge) {
+//            if (scanner.hasNextInt()) {
+//                age = scanner.nextInt();
+//                if (age > 0 && age <= 120) {
+//                    validAge = true;
+//                } else {
+//                    System.out.println("Please enter a valid age between 1 and 120:");
+//                }
+//            } else {
+//                System.out.println("Please enter a valid number for age:");
+//                scanner.next(); 
+//            }
+//        }
+//                System.out.println("Enter weight:");
+//        int weight = 0;
+//        boolean validweight = false;
+//        while (!validweight) {
+//            if (scanner.hasNextInt()) {
+//                weight = scanner.nextInt();
+//                if (weight > 20 && weight <= 500) {
+//                    validweight = true;
+//                } else {
+//                    System.out.println("Please enter a valid weight:");
+//                }
+//            } else {
+//                System.out.println("Please enter a valid number for weight:");
+//                scanner.next(); 
+//            }
+//        }
+//        System.out.println("Enter height:");
+//        int height = 0;
+//        boolean validheight = false;
+//        while (!validheight) {
+//            if (scanner.hasNextInt()) {
+//                height = scanner.nextInt();
+//                if (height > 30 && height <= 220) {
+//                    validheight = true;
+//                } else {
+//                    System.out.println("Please enter a valid height:");
+//                }
+//            } else {
+//                System.out.println("Please enter a valid number for height:");
+//                scanner.next(); 
+//            }
+//        }
+//        System.out.println("Enter Phone Number:");
+//        String contactInfo = scanner.nextLine();
+//        while (contactInfo.isEmpty()) {
+//            System.out.println("Contact information cannot be empty. Please enter valid contact info:");
+//            contactInfo = scanner.nextLine();
+//        }
+//
+//        fileManager.updatePatientDate(id,age,height,weight,contactInfo);
+//        patients.add(patient); // Add to in-memory list
+//        System.out.println("Patient added successfully!");
+//    }
 
     private void displayPatientProfile(Patient patient) {
         System.out.println("Patient Profile Found:");
@@ -307,6 +379,18 @@ public class PathologyLabSystem {
         // Save test to pending tests
         fileManager.addPendingTest(patient.getId(), selectedTest, currentDate);
         System.out.println("Test added to pending for Patient ID: " + patient.getId());
+    }
+    
+    private void addNewTest(){
+        System.out.println("Enter TestName");
+        String name=scanner.nextLine();
+        System.out.println("Enter min");
+        double min=scanner.nextDouble();
+        System.out.println("Enter max");
+        double max=scanner.nextDouble();
+        Test test=new Test(name,min,max);
+        fileManager.addNewTest(test);
+        
     }
 
     private void viewPendingTests() {
