@@ -1,10 +1,13 @@
 package com.mycompany.pathologylabsystem;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
 public class PathologyLabSystem {
 
+    private static final String PATIENTS_FILE = "patients.txt";
     private static final Scanner scanner = new Scanner(System.in);
     private FileManager fileManager = new FileManager();
     private List<User> users; // List of users
@@ -155,6 +158,7 @@ public class PathologyLabSystem {
                     break;
                 case 3:
                     updatePationtData();
+                    break;
                 case 4:
                     return; // Log out by breaking out of the menu loop
                 default:
@@ -267,13 +271,30 @@ public class PathologyLabSystem {
     }
     
     private void updatePationtData(){
-        System.out.println("Enter Patient ID you want to update:");
-        String id = scanner.nextLine();
-        while (id.isEmpty()) {
-            System.out.println("Patient ID cannot be empty. Please enter a valid ID:");
-            id = scanner.nextLine();
-        }
-        
+         boolean flag = false;
+         System.out.println("Enter Patient ID you want to update:");
+         String id = scanner.nextLine();
+         while(!flag){
+            for (int i = 0; i < patients.size(); i++) {
+                if(id.equals(patients.get(i).getId())){
+                    
+                    flag=true;
+                    break;
+                }
+                else{
+                    System.out.print("invalid ID");
+                    System.out.println("press 1 for entring a ID, 0 for end program");
+                    int x=scanner.nextInt();
+                        if (x==1) {
+                            System.out.println("Enter Patient ID you want to update:");
+                            id = scanner.nextLine();
+                        }
+                    else{
+                     return ;
+                    }
+                }
+             }
+         }
         System.out.println("Enter New Age:");
         int age = 0;
         boolean validAge = false;
