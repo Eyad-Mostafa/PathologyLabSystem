@@ -169,7 +169,7 @@ public class FileManager {
     public void addPatient(Patient patient) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATIENTS_FILE, true))) {
             writer.write(
-                    patient.getId() + "," + patient.getName() + "," + patient.getAge() + "," +patient.getWeight() + "," + patient.getHeight() + "," + patient.getGender() + "," + patient.getContactInfo());
+                    patient.getId() + "," + patient.getName() + "," + patient.getAge() + "," + patient.getGender() + "," + patient.getWeight() + "," + patient.getHeight() + "," + patient.getContactInfo());
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -186,11 +186,38 @@ public class FileManager {
         try (BufferedReader reader = new BufferedReader(new FileReader(PATIENTS_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                // Trim the line to remove leading/trailing whitespaces
+                line = line.trim();
+                // Skip empty lines
+                if (line.isEmpty()) {
+                    continue;
+                }
+
+                // Split the line by comma
                 String[] data = line.split(",");
-                patients.add(new Patient(data[0], data[1], Integer.parseInt(data[2]), data[3], Integer.parseInt(data[4]), Integer.parseInt(data[5]), data[6]));
+                if (data.length != 7) {
+                    // Log and skip malformed lines
+                    System.out.println("Malformed line skipped: " + line);
+                    continue;
+                }
+
+                try {
+                    // Parse and add the patient to the list
+                    patients.add(new Patient(
+                        data[0], 
+                        data[1], 
+                        Integer.parseInt(data[2]), 
+                        data[3], 
+                        Integer.parseInt(data[4]), 
+                        Integer.parseInt(data[5]), 
+                        data[6]
+                    ));
+                } catch (NumberFormatException e) {
+                    // Log and skip lines with invalid number formats
+                    System.out.println("Invalid number format in line: " + line);
+                }
             }
         } catch (FileNotFoundException e) {
-            // If the file does not exist, return an empty list
             System.out.println("Patients file not found. Starting with an empty list.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -263,7 +290,7 @@ public class FileManager {
     public void removeTestFromPending(String testInfo) {
         List<String> pendingTests = loadPendingTests(); // Load current pending tests
         pendingTests.remove(testInfo); // Remove the specified test
-
+        
         // Write back the updated list to the pending tests file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("pendingTests.txt"))) {
             for (String test : pendingTests) {
@@ -381,6 +408,42 @@ public class FileManager {
     */
     private boolean isDateInRange(String date, String startDate, String endDate) {
         return (date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0);
+    }
+    public void addNewTest(Test test){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TESTS_FILE, true))) {
+            writer.write(
+                    test.getName() + "," + test.getMin()+ "," + test.getMax());
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
+    public void updatePatientDate(String id,int age,int height,int weight,String contactInfo) throws IOException{
+        List<String> lines = new ArrayList<>();
+        boolean isUpdated = false;
+        try(BufferedReader reader = new BufferedReader(new FileReader(PATIENTS_FILE))){
+            String currentLine;
+            while((currentLine = reader.readLine()) != null){
+                String[] data = currentLine.split(",");
+                String currentId = data[0];
+                if(currentId.equals(id)){
+                    lines.add(currentId + "," + data[1] + "," + age + "," + data[3] + "," + weight + "," + height + "," + contactInfo);
+                    isUpdated = true;
+                }else{
+                    lines.add(currentLine);
+                }
+            }
+        }
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(PATIENTS_FILE))){
+            for(String line : lines){
+                writer.write(line);
+                writer.newLine();
+            }
+        }
+        if(!isUpdated){
+            System.out.println("Patient ID not found.");
+        }
     }
 }
 
