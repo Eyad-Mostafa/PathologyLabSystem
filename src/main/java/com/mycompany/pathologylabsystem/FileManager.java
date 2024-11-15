@@ -118,7 +118,7 @@ public class FileManager {
     public void addPatient(Patient patient) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATIENTS_FILE, true))) {
             writer.write(
-                    patient.getId() + "," + patient.getName() + "," + patient.getAge() + "," +patient.getWeight() + "," + patient.getHeight() + "," + patient.getGender() + "," + patient.getContactInfo());
+                    patient.getId() + "," + patient.getName() + "," + patient.getAge() + "," + patient.getGender() + "," + patient.getWeight() + "," + patient.getHeight() + "," + patient.getContactInfo());
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -126,22 +126,67 @@ public class FileManager {
     }
 
     // Loads patients from the patients file
-    public List<Patient> loadPatients() {
-        List<Patient> patients = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(PATIENTS_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
-                patients.add(new Patient(data[0], data[1], Integer.parseInt(data[2]), data[3], Integer.parseInt(data[4]), Integer.parseInt(data[5]), data[6]));
+//    public List<Patient> loadPatients() {
+//        List<Patient> patients = new ArrayList<>();
+//        try (BufferedReader reader = new BufferedReader(new FileReader(PATIENTS_FILE))) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                String[] data = line.split(",");
+//                patients.add(new Patient(data[0], data[1], Integer.parseInt(data[2]), data[3], Integer.parseInt(data[4]), Integer.parseInt(data[5]), data[6]));
+//                //String id, String name, int age, String gender, int weight, int height, String contactInfo
+//            }
+//        } catch (FileNotFoundException e) {
+//            // If the file does not exist, return an empty list
+//            System.out.println("Patients file not found. Starting with an empty list.");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return patients;
+//    }
+public List<Patient> loadPatients() {
+    List<Patient> patients = new ArrayList<>();
+    try (BufferedReader reader = new BufferedReader(new FileReader(PATIENTS_FILE))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            // Trim the line to remove leading/trailing whitespaces
+            line = line.trim();
+            // Skip empty lines
+            if (line.isEmpty()) {
+                continue;
             }
-        } catch (FileNotFoundException e) {
-            // If the file does not exist, return an empty list
-            System.out.println("Patients file not found. Starting with an empty list.");
-        } catch (IOException e) {
-            e.printStackTrace();
+            
+            // Split the line by comma
+            String[] data = line.split(",");
+            if (data.length != 7) {
+                // Log and skip malformed lines
+                System.out.println("Malformed line skipped: " + line);
+                continue;
+            }
+            
+            try {
+                // Parse and add the patient to the list
+                patients.add(new Patient(
+                    data[0], 
+                    data[1], 
+                    Integer.parseInt(data[2]), 
+                    data[3], 
+                    Integer.parseInt(data[4]), 
+                    Integer.parseInt(data[5]), 
+                    data[6]
+                ));
+            } catch (NumberFormatException e) {
+                // Log and skip lines with invalid number formats
+                System.out.println("Invalid number format in line: " + line);
+            }
         }
-        return patients;
+    } catch (FileNotFoundException e) {
+        System.out.println("Patients file not found. Starting with an empty list.");
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+    return patients;
+}
+
     
     public List<String> loadAvailableTests() {
         List<String> tests = new ArrayList<>();
@@ -282,6 +327,31 @@ public class FileManager {
         }
         
     }
-    
+    public void updatePatientDate(String id,int age,int height,int weight,String contactInfo) throws IOException{
+        List<String> lines = new ArrayList<>();
+        boolean isUpdated = false;
+        try(BufferedReader reader = new BufferedReader(new FileReader(PATIENTS_FILE))){
+            String currentLine;
+            while((currentLine = reader.readLine()) != null){
+                String[] data = currentLine.split(",");
+                String currentId = data[0];
+                if(currentId.equals(id)){
+                    lines.add(currentId + "," + data[1] + "," + age + "," + data[3] + "," + weight + "," + height + "," + contactInfo);
+                    isUpdated = true;
+                }else{
+                    lines.add(currentLine);
+                }
+            }
+        }
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(PATIENTS_FILE))){
+            for(String line : lines){
+                writer.write(line);
+                writer.newLine();
+            }
+        }
+        if(!isUpdated){
+            System.out.println("Patient ID not found.");
+        }
+    }
 }
 
