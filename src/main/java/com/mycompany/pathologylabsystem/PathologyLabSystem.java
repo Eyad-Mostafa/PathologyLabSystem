@@ -2,6 +2,10 @@ package com.mycompany.pathologylabsystem;
 
 import java.util.*;
 
+/**
+ * Main class for the Pathology Lab System, handling user interaction and managing
+ * users, patients, and test requests.
+ */
 public class PathologyLabSystem {
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -9,17 +13,28 @@ public class PathologyLabSystem {
     private List<User> users; // List of users
     private List<Patient> patients; // List of patients
 
+    /**
+     * Main method to start the Pathology Lab System.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         PathologyLabSystem system = new PathologyLabSystem();
         system.loadData(); // Load existing users and patients from files
         system.start();
     }
 
+    /**
+     * Loads the users and patients data from the file system.
+     */
     private void loadData() {
         users = fileManager.loadUsers(); // Load users from the file
         patients = fileManager.loadPatients(); // Load patients from the file
     }
 
+    /**
+     * Starts the system and presents the main menu to the user.
+     */
     private void start() {
         while (true) {
             System.out.println("1. Add User");
@@ -43,6 +58,9 @@ public class PathologyLabSystem {
         }
     }
 
+    /**
+     * Adds a new user to the system after validating user input.
+     */
     private void addUser() {
         System.out.println("Enter ID:");
         String id = scanner.nextLine();
@@ -84,6 +102,10 @@ public class PathologyLabSystem {
         }
     }
 
+    /**
+     * Handles user login by checking the credentials and directing the user to
+     * the appropriate menu based on their role.
+     */
     private void logIn() {
         System.out.println("Enter ID:");
         String id = scanner.nextLine();
@@ -103,7 +125,11 @@ public class PathologyLabSystem {
         System.out.println("Invalid ID or Password!");
     }
 
-    private void doctorMenu(String name) {
+    /**
+     * Displays the menu for doctors after they log in.
+     *
+     * @param name The name of the logged-in doctor.
+     */    private void doctorMenu(String name) {
         System.out.println("Welcome, Dr." + name);
         while (true) {
             System.out.println("\n-------------------------");
