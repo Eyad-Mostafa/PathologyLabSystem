@@ -69,18 +69,28 @@ public class PathologyLabSystem {
         System.out.println("Enter ID:");
         String id = scanner.nextLine();
 
-        // Check if a user with the same ID already exists
-        boolean userExists = false;
-        for (User user : users) {
-            if (user.getId().equals(id)) {
-                userExists = true;
-                break; // Stop checking further once a match is found
-            }
+        while (id.isEmpty()) {
+            System.out.println("User ID cannot be empty. Please enter a valid ID:");
+            id = scanner.nextLine();
         }
+        try {
+            Long.parseLong(id); // Attempt to parse the string as a number
+            // Check if a patient with the same ID already exists
+            boolean usertExists = false;
+            for (User user : users) {
+                if (user.getId().equals(id)) {
+                    usertExists = true;
+                    break; // Stop checking further once a match is found
+                }
+            }
 
-        if (userExists) {
-            System.out.println("User with this ID already exists. Please use a different ID.");
-            return; // Exit the method without adding the user
+            if (usertExists) {
+                System.out.println("User with this ID already exists. Please use a different ID.");
+                return; // Exit the method without adding the user
+            }
+        } catch (NumberFormatException e) {
+                System.out.println("ID must be number.");
+                return;
         }
 
         System.out.println("Enter Name:");
@@ -244,6 +254,26 @@ public class PathologyLabSystem {
             System.out.println("Patient ID cannot be empty. Please enter a valid ID:");
             id = scanner.nextLine();
         }
+        try {
+            Long.parseLong(id); // Attempt to parse the string as a number
+            // Check if a patient with the same ID already exists
+            boolean patientExists = false;
+            for (Patient patient : patients) {
+                if (patient.getId().equals(id)) {
+                    patientExists = true;
+                    break; // Stop checking further once a match is found
+                }
+            }
+
+            if (patientExists) {
+                System.out.println("Patient with this ID already exists. Please use a different ID.");
+                return; // Exit the method without adding the user
+            }
+        } catch (NumberFormatException e) {
+                System.out.println("ID must be number.");
+                return;
+        }
+        
     
         System.out.println("Enter Name:");
         String name = scanner.nextLine();
@@ -283,7 +313,7 @@ public class PathologyLabSystem {
         while (!validweight) {
             if (scanner.hasNextInt()) {
                 weight = scanner.nextInt();
-                if (weight > 20 && weight <= 500) {
+                if (weight > 20 && weight <= 400) {
                     validweight = true;
                 } else {
                     System.out.println("Please enter a valid weight:");
@@ -317,6 +347,16 @@ public class PathologyLabSystem {
         String contactInfo = scanner.nextLine();
         while (contactInfo.isEmpty()) {
             System.out.println("Contact information cannot be empty. Please enter valid contact info:");
+            contactInfo = scanner.nextLine();
+        }
+        try {
+            Long.parseLong(contactInfo); // Attempt to parse the string as a number
+        } catch (NumberFormatException e) {
+                System.out.println("Phone number must be number.");
+                return;
+        }
+        while(contactInfo.length() != 11){
+            System.out.println("Phone number must be 11 Character.");
             contactInfo = scanner.nextLine();
         }
     
@@ -379,10 +419,12 @@ public class PathologyLabSystem {
                     flag=true;
                     break;
                 }
-                else{
-                    System.out.print("invalid ID");
-                    System.out.println("press 1 for entring a ID, 0 for end program");
+             }
+                if(!flag){
+                    System.out.print("invalid ID, ");
+                    System.out.println("press 1 for entring a ID, any key for back");
                     int x=scanner.nextInt();
+                    scanner.nextLine();
                         if (x==1) {
                             System.out.println("Enter Patient ID you want to update:");
                             id = scanner.nextLine();
@@ -391,7 +433,6 @@ public class PathologyLabSystem {
                      return ;
                     }
                 }
-             }
          }
         System.out.println("Enter New Age:");
         int age = 0;
@@ -449,6 +490,16 @@ public class PathologyLabSystem {
             System.out.println("Contact information cannot be empty. Please enter valid contact info:");
             contactInfo = scanner.nextLine();
         }
+        try {
+            Long.parseLong(contactInfo); // Attempt to parse the string as a number
+        } catch (NumberFormatException e) {
+                System.out.println("Phone number must be number.");
+                return;
+        }
+        while(contactInfo.length() != 11){
+            System.out.println("Phone number must be 11 Character.");
+            contactInfo = scanner.nextLine();
+        }
         
         try{
             fileManager.updatePatientDate(id,age,height,weight,contactInfo);
@@ -457,7 +508,7 @@ public class PathologyLabSystem {
             System.out.println(e);
         }
 //      patients.add(patient); 
-        //loadData(); // to update pateint list
+        loadData(); // to update pateint list
     }
 
     /**
@@ -566,11 +617,11 @@ public class PathologyLabSystem {
      * creates a new `Test` object, and passes it to the `fileManager` to be added to the file.
      */
     private void addNewTest(){
-        System.out.println("Enter TestName");
+        System.out.println("Enter TestName :");
         String name=scanner.nextLine();
-        System.out.println("Enter min");
+        System.out.println("Enter min :");
         double min=scanner.nextDouble();
-        System.out.println("Enter max");
+        System.out.println("Enter max :");
         double max=scanner.nextDouble();
         Test test=new Test(name,min,max);
         fileManager.addNewTest(test);
