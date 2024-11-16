@@ -151,7 +151,8 @@ public class PathologyLabSystem {
             System.out.println("1. Search for Patient");
             System.out.println("2. Add Test Result");
             System.out.println("3. Add New Test");
-            System.out.println("4. Log out");
+            System.out.println("4. Clear Pending Tests");
+            System.out.println("5. Log out");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // consume newline
@@ -167,6 +168,9 @@ public class PathologyLabSystem {
                     addNewTest();
                     break;
                 case 4:
+                    fileManager.clearPendingTests();
+                    break;
+                case 5:
                    return; // Log out
                 default:
                     System.out.println("Invalid choice. Please try again.");
