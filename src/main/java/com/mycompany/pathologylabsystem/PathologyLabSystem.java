@@ -1,8 +1,6 @@
 package com.mycompany.pathologylabsystem;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -409,38 +407,41 @@ public class PathologyLabSystem {
      * 
      * @throws IOException if there is an error while updating the patient data in the file.
      */
-    private void updatePationtData(){
-         boolean flag = false;
-         System.out.println("Enter Patient ID you want to update:");
-         String id = scanner.nextLine();
-         while(!flag){
+    private void updatePationtData() {
+        boolean flag = false;
+        System.out.println("Enter Patient ID you want to update:");
+        String id = scanner.nextLine();
+         
+        while(!flag) {
             for (int i = 0; i < patients.size(); i++) {
-                if(id.equals(patients.get(i).getId())){
-                    
+                if(id.equals(patients.get(i).getId())) {
                     flag=true;
                     break;
                 }
-             }
-                if(!flag){
-                    System.out.print("invalid ID, ");
-                    System.out.println("press 1 for entring a ID, any key for back");
-                    int x=scanner.nextInt();
-                    scanner.nextLine();
-                        if (x==1) {
-                            System.out.println("Enter Patient ID you want to update:");
-                            id = scanner.nextLine();
-                        }
-                    else{
-                     return ;
-                    }
+            }
+            
+            if(!flag){
+                System.out.print("invalid ID, ");
+                System.out.println("press 1 for entring a ID, any key for back");
+                int x=scanner.nextInt();
+                scanner.nextLine();
+
+                if (x == 1) {
+                        System.out.println("Enter Patient ID you want to update:");
+                        id = scanner.nextLine();
+                } else {
+                    return ;
                 }
-         }
+            }
+        }
         System.out.println("Enter New Age:");
         int age = 0;
         boolean validAge = false;
+        
         while (!validAge) {
             if (scanner.hasNextInt()) {
                 age = scanner.nextInt();
+                
                 if (age > 0 && age <= 120) {
                     validAge = true;
                 } else {
@@ -451,9 +452,11 @@ public class PathologyLabSystem {
                 scanner.next(); 
             }
         }
+        
         System.out.println("Enter New weight:");
         int weight = 0;
         boolean validweight = false;
+        
         while (!validweight) {
             if (scanner.hasNextInt()) {
                 weight = scanner.nextInt();
@@ -467,9 +470,11 @@ public class PathologyLabSystem {
                 scanner.next(); 
             }
         }
+        
         System.out.println("Enter height:");
         int height = 0;
         boolean validheight = false;
+        
         while (!validheight) {
             if (scanner.hasNextInt()) {
                 height = scanner.nextInt();
@@ -487,24 +492,27 @@ public class PathologyLabSystem {
 
         System.out.println("Enter Phone Number:");
         String contactInfo = scanner.nextLine();
+        
         while (contactInfo.isEmpty()) {
             System.out.println("Contact information cannot be empty. Please enter valid contact info:");
             contactInfo = scanner.nextLine();
         }
+        
         try {
             Long.parseLong(contactInfo); // Attempt to parse the string as a number
         } catch (NumberFormatException e) {
                 System.out.println("Phone number must be number.");
                 return;
         }
+        
         while(contactInfo.length() != 11){
             System.out.println("Phone number must be 11 Character.");
             contactInfo = scanner.nextLine();
         }
         
-        try{
+        try {
             fileManager.updatePatientDate(id,age,height,weight,contactInfo);
-        }catch(IOException e){
+        } catch(IOException e){
             System.out.println("An Error occurred while updating patient.");
             System.out.println(e);
         }
@@ -934,7 +942,7 @@ public class PathologyLabSystem {
     }
 
     /**
-     * Generates a comprehensive health report based on the patient's test history.
+     * Generates health report based on the patient's test history.
      *
      * Process:
      * 1. Checks if the `testHistory` list is empty.
@@ -1006,5 +1014,4 @@ public class PathologyLabSystem {
 
         System.out.println(report.toString());
     }
-
 }

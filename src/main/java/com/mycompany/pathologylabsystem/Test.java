@@ -2,7 +2,7 @@ package com.mycompany.pathologylabsystem;
 
 /**
  * Represents a medical test in the system.
- * Each test has a name, and a range of acceptable values (min and max).
+ * Each test has a name, and a range of normal values (min and max).
  */
 public class Test {
 
@@ -14,8 +14,8 @@ public class Test {
      * Constructs a new Test object with the specified details.
      *
      * @param name The name of the test.
-     * @param min The minimum acceptable value for the test result.
-     * @param max The maximum acceptable value for the test result.
+     * @param min The minimum normal value for the test result.
+     * @param max The maximum normal value for the test result.
      */
     public Test(String name, double min, double max) {
         this.name = name;
@@ -33,18 +33,18 @@ public class Test {
     }
 
     /**
-     * Returns the minimum acceptable value for the test result.
+     * Returns the minimum normal value for the test result.
      *
-     * @return The minimum acceptable value.
+     * @return The minimum normal value.
      */
     public double getMin() {
         return this.min;
     }
 
     /**
-     * Returns the maximum acceptable value for the test result.
+     * Returns the maximum normal value for the test result.
      *
-     * @return The maximum acceptable value.
+     * @return The maximum normal value.
      */
     public double getMax() {
         return this.max;

@@ -17,7 +17,7 @@ public class Patient {
     private int weight;
     private int height;
     private String contactInfo;
-    List<TestResult> testHistory = new ArrayList<>();
+//    private List<TestResult> testHistory = new ArrayList<>();
 
     /**
      * Constructs a new Patient object with the specified details.

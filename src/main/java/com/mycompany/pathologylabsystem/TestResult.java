@@ -45,7 +45,7 @@ public class TestResult {
     }
 
     /**
-     * Returns the minimum acceptable value for the test result.
+     * Returns the minimum normal value for the test result.
      *
      * @return The minimum value for the test.
      */
@@ -54,7 +54,7 @@ public class TestResult {
     }
 
     /**
-     * Returns the maximum acceptable value for the test result.
+     * Returns the maximum normal value for the test result.
      *
      * @return The maximum value for the test.
      */
@@ -63,7 +63,7 @@ public class TestResult {
     }
 
     /**
-     * Returns the status of the test (e.g., "Passed", "Failed").
+     * Returns the status of the test (e.g., "Low", "High").
      *
      * @return The status of the test.
      */
