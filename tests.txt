@@ -9,3 +9,4 @@ White Blood Cells,4.5,11
 Platelets,150,400
 Creatinine,0.6,1.3
 crb,1.0,50.0
+TEST1,0.0,10.0

@@ -53,7 +53,6 @@ public class FileManager {
         }
     }
 
-
     /**
     * Initializes the tests.txt file with default test data if the file doesn't exist.
     */
@@ -177,73 +176,54 @@ public class FileManager {
         }
     }
 
-    // Loads patients from the patients file
-//    public List<Patient> loadPatients() {
-//        List<Patient> patients = new ArrayList<>();
-//        try (BufferedReader reader = new BufferedReader(new FileReader(PATIENTS_FILE))) {
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                String[] data = line.split(",");
-//                patients.add(new Patient(data[0], data[1], Integer.parseInt(data[2]), data[3], Integer.parseInt(data[4]), Integer.parseInt(data[5]), data[6]));
-//                //String id, String name, int age, String gender, int weight, int height, String contactInfo
-//            }
-//        } catch (FileNotFoundException e) {
-//            // If the file does not exist, return an empty list
-//            System.out.println("Patients file not found. Starting with an empty list.");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return patients;
-//    }
-
     /**
     * Loads all patients from the patients.txt file.
     *
     * @return A list of patients loaded from the file.
     */
-public List<Patient> loadPatients() {
-    List<Patient> patients = new ArrayList<>();
-    try (BufferedReader reader = new BufferedReader(new FileReader(PATIENTS_FILE))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            // Trim the line to remove leading/trailing whitespaces
-            line = line.trim();
-            // Skip empty lines
-            if (line.isEmpty()) {
-                continue;
+    public List<Patient> loadPatients() {
+        List<Patient> patients = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(PATIENTS_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Trim the line to remove leading/trailing whitespaces
+                line = line.trim();
+                // Skip empty lines
+                if (line.isEmpty()) {
+                    continue;
+                }
+
+                // Split the line by comma
+                String[] data = line.split(",");
+                if (data.length != 7) {
+                    // Log and skip malformed lines
+                    System.out.println("Malformed line skipped: " + line);
+                    continue;
+                }
+
+                try {
+                    // Parse and add the patient to the list
+                    patients.add(new Patient(
+                        data[0], 
+                        data[1], 
+                        Integer.parseInt(data[2]), 
+                        data[3], 
+                        Integer.parseInt(data[4]), 
+                        Integer.parseInt(data[5]), 
+                        data[6]
+                    ));
+                } catch (NumberFormatException e) {
+                    // Log and skip lines with invalid number formats
+                    System.out.println("Invalid number format in line: " + line);
+                }
             }
-            
-            // Split the line by comma
-            String[] data = line.split(",");
-            if (data.length != 7) {
-                // Log and skip malformed lines
-                System.out.println("Malformed line skipped: " + line);
-                continue;
-            }
-            
-            try {
-                // Parse and add the patient to the list
-                patients.add(new Patient(
-                    data[0], 
-                    data[1], 
-                    Integer.parseInt(data[2]), 
-                    data[3], 
-                    Integer.parseInt(data[4]), 
-                    Integer.parseInt(data[5]), 
-                    data[6]
-                ));
-            } catch (NumberFormatException e) {
-                // Log and skip lines with invalid number formats
-                System.out.println("Invalid number format in line: " + line);
-            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Patients file not found. Starting with an empty list.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    } catch (FileNotFoundException e) {
-        System.out.println("Patients file not found. Starting with an empty list.");
-    } catch (IOException e) {
-        e.printStackTrace();
+        return patients;
     }
-    return patients;
-}
 
     /**
     * Loads all available tests from the tests.txt file.
@@ -489,4 +469,3 @@ public List<Patient> loadPatients() {
         }
     }
 }
-

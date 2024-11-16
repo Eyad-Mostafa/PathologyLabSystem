@@ -1,2 +1,4 @@
 123,ahmed,123,Receptionist
 0,rashad,888,Receptionist
+1234,DR1,1234,Doctor
+12345,REC12345,12345,Receptionist

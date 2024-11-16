@@ -102,5 +102,4 @@ public class Patient {
     public int getHeight() {
         return this.height;
     }
-    
 }

@@ -2,7 +2,7 @@ package com.mycompany.pathologylabsystem;
 
 /**
  * Represents the result of a medical test for a patient.
- * This includes the test name, the result value, the test's status (e.g., Passed, Failed), and the date of the test.
+ * This includes the test name, the result value, the test's status (e.g., Low, High), and the date of the test.
  */
 public class TestResult {
 
@@ -16,7 +16,7 @@ public class TestResult {
      *
      * @param test   The test associated with the result.
      * @param result The test result value.
-     * @param status The status of the test (e.g., "Passed", "Failed").
+     * @param status The status of the test (e.g., "Low", "High").
      * @param date   The date the test was conducted.
      */
     public TestResult(Test test, double result, String status, String date) {

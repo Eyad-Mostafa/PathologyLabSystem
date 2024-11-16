@@ -15,7 +15,7 @@ public class PathologyLabSystem {
     private static final Scanner scanner = new Scanner(System.in);
     private FileManager fileManager = new FileManager();
     private List<User> users; // List of users
-    private List<Patient> patients; // List of patients
+    private List<Patient> patients; // List of patientsS
 
     /**
      * Main method to start the Pathology Lab System.
