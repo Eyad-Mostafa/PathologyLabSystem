@@ -1,4 +1,0 @@
-123,ahmed,123,Receptionist
-0,rashad,888,Receptionist
-sayed,sayed,sayed,Doctor
-re,re,re,Receptionist

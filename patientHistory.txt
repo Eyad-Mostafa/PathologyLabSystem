@@ -1,3 +1,0 @@
-
-25,Blood Pressure,95.0,90.0,120.0,Normal,2024-11-16
-25,White Blood Cells,5.0,4.5,11.0,Normal,2024-11-16
