@@ -251,12 +251,13 @@ public class FileManager {
     */
     public List<String> loadPendingTestsForPatient(String patientId) {
         List<String> pendingTests = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("pendingTests.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(PENDING_TESTS_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data[0].equals(patientId)) {
                     pendingTests.add(data[1]); // Assuming the second element is the test name
+                    pendingTests.add(data[4]); // Assuming the second element is the test date
                 }
             }
         } catch (IOException e) {

@@ -547,6 +547,7 @@ public class PathologyLabSystem {
      * This method does not return any value.
     */ 
     private void displayPatientProfile(Patient patient) {
+        List<String> pendingTests = fileManager.loadPendingTestsForPatient(patient.getId());
         System.out.println("Patient Profile Found:");
         System.out.println("- Patient ID: " + patient.getId());
         System.out.println("- Name: " + patient.getName());
@@ -555,6 +556,15 @@ public class PathologyLabSystem {
         System.out.println("- Height: " + patient.getHeight());
         System.out.println("- Gender: " + patient.getGender());
         System.out.println("- Contact Information: " + patient.getContactInfo());
+        if (pendingTests.isEmpty()) {
+            System.out.println("No pending tests.");
+        } else {
+            System.out.println("Pending Tests:");
+            int j = 1;
+            for (int i = 0; i < pendingTests.size(); i+=2) {
+                System.out.println((j++) + ". " + pendingTests.get(i) + " ,in date : " + pendingTests.get(i+1));
+            }
+        }  
         System.out.println("Please choose an option:");
         System.out.println("1. View Test History");
         System.out.println("2. Add Test to Pending");
@@ -608,19 +618,15 @@ public class PathologyLabSystem {
         // Ask user to choose a test
         System.out.println("Choose a test by number:");
         int testChoice = scanner.nextInt();
+        
+        // Validate choice
         while(testChoice < 1 || testChoice > availableTests.size())
         {
-            System.out.println("Invalid choice. Test not added.");
+            System.out.println("Invalid choice. Test not added. Enter valid test:");
             scanner.nextLine();
             testChoice = scanner.nextInt();
         }
 
-
-        // Validate choice
-        if (testChoice < 1 || testChoice > availableTests.size()) {
-            System.out.println("Invalid choice. Test not added.");
-            return;
-        }
 
         String selectedTest = availableTests.get(testChoice - 1); // Get selected test
         String currentDate = java.time.LocalDate.now().toString();
