@@ -5,6 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Main class for the Pathology Lab System, handling user interaction and managing
+ * users, patients, and test requests.
+ */
 public class PathologyLabSystem {
 
     private static final String PATIENTS_FILE = "patients.txt";
@@ -13,17 +17,28 @@ public class PathologyLabSystem {
     private List<User> users; // List of users
     private List<Patient> patients; // List of patients
 
+    /**
+     * Main method to start the Pathology Lab System.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         PathologyLabSystem system = new PathologyLabSystem();
         system.loadData(); // Load existing users and patients from files
         system.start();
     }
 
+    /**
+     * Loads the users and patients data from the file system.
+     */
     private void loadData() {
         users = fileManager.loadUsers(); // Load users from the file
         patients = fileManager.loadPatients(); // Load patients from the file
     }
 
+    /**
+     * Starts the system and presents the main menu to the user.
+     */
     private void start() {
         while (true) {
             System.out.println("1. Add User");
@@ -47,6 +62,9 @@ public class PathologyLabSystem {
         }
     }
 
+    /**
+     * Adds a new user to the system after validating user input.
+     */
     private void addUser() {
         System.out.println("Enter ID:");
         String id = scanner.nextLine();
@@ -88,6 +106,10 @@ public class PathologyLabSystem {
         }
     }
 
+    /**
+     * Handles user login by checking the credentials and directing the user to
+     * the appropriate menu based on their role.
+     */
     private void logIn() {
         System.out.println("Enter ID:");
         String id = scanner.nextLine();
@@ -107,6 +129,11 @@ public class PathologyLabSystem {
         System.out.println("Invalid ID or Password!");
     }
 
+    /**
+     * Displays the menu for doctors after they log in.
+     *
+     * @param name The name of the logged-in doctor.
+     */ 
     private void doctorMenu(String name) {
         System.out.println("Welcome, Dr." + name);
         while (true) {
@@ -139,6 +166,24 @@ public class PathologyLabSystem {
         }
     }
 
+    /**
+     * Displays a menu for the receptionist with options to add a patient, 
+     * search for a patient, or log out. The menu loops until the user 
+     * chooses to log out.
+     *
+     * @param name The name of the receptionist, used for a personalized greeting.
+     *
+     * Behavior:
+     * 1. Prints a welcome message for the receptionist.
+     * 2. Displays the menu options:
+     *    - 1. Add Patient: Calls the addPatient() method.
+     *    - 2. Search for Patient: Calls the searchForPatient() method.
+     *    - 3. Log Out: Exits the menu.
+     * 3. Validates user input and handles invalid entries.
+     * 4. Loops until the "Log Out" option is selected.
+     *
+     * This method does not return any value.
+     */
     private void receptionistMenu(String name) {
         System.out.println("Welcome, MR." + name);
         while (true) {
@@ -168,6 +213,30 @@ public class PathologyLabSystem {
     }
 
 
+    /**
+     * Collects and validates patient information from the user, creates a Patient object, 
+     * and stores it in both the in-memory list and an external file.
+     *
+     * This method ensures that all inputs meet specified criteria:
+     * - Patient ID: Cannot be empty.
+     * - Name: Cannot be empty.
+     * - Age: Must be a valid integer between 1 and 120.
+     * - Gender: Must be either "Male" or "Female".
+     * - Weight: Must be a valid integer between 20 and 500.
+     * - Height: Must be a valid integer between 30 and 220.
+     * - Contact Info: Cannot be empty.
+     *
+     * Once all inputs are valid, the patient is saved to persistent storage and added 
+     * to the current in-memory patient list.
+     *
+     * Dependencies:
+     * - `scanner`: Used to read user input.
+     * - `Patient`: A class representing the patient model.
+     * - `fileManager`: Handles file operations for saving patient data.
+     * - `patients`: An in-memory list of patients.
+     *
+     * This method does not return any value.
+     */
     private void addPatient() {
         System.out.println("Enter Patient ID:");
         String id = scanner.nextLine();
@@ -257,6 +326,26 @@ public class PathologyLabSystem {
         System.out.println("Patient added successfully!");
     }
 
+    /**
+     * Searches for a patient in the in-memory patient list by their ID.
+     * If a matching patient is found, their profile is displayed.
+     * Otherwise, it notifies the user that the patient was not found.
+     *
+     * Process:
+     * 1. Prompts the user to enter a Patient ID.
+     * 2. Iterates through the in-memory list of patients.
+     * 3. If a patient with the matching ID is found:
+     *    - Calls `displayPatientProfile(patient)` to show the patient's details.
+     *    - Exits the method.
+     * 4. If no matching patient is found, displays "Patient not found!".
+     *
+     * Dependencies:
+     * - `scanner`: Used to read the Patient ID input.
+     * - `patients`: An in-memory list of `Patient` objects.
+     * - `displayPatientProfile(Patient patient)`: A method to display the patient's details.
+     *
+     * This method does not return any value.
+     */
     private void searchForPatient() {
         System.out.println("Enter Patient ID:");
         String patientId = scanner.nextLine();
@@ -270,6 +359,15 @@ public class PathologyLabSystem {
         System.out.println("Patient not found!");
     }
     
+    /**
+     * Updates the details of an existing patient in the system based on the patient ID.
+     * The method prompts the user to enter the patient's ID and then asks for new values
+     * for the patient's age, weight, height, and contact information. It validates each input
+     * to ensure it meets the required criteria. After collecting valid input, the patient's
+     * data is updated in the storage file.
+     * 
+     * @throws IOException if there is an error while updating the patient data in the file.
+     */
     private void updatePationtData(){
          boolean flag = false;
          System.out.println("Enter Patient ID you want to update:");
@@ -362,6 +460,28 @@ public class PathologyLabSystem {
         //loadData(); // to update pateint list
     }
 
+    /**
+     * Displays the profile of a given patient, including their ID, name, age, weight, height, 
+     * gender, and contact information. Provides the user with options to view the patient's 
+     * test history or add a test to their pending list.
+     *
+     * Process:
+     * 1. Prints the patient's profile details.
+     * 2. Presents the user with the following menu options:
+     *    - 1. View Test History: Calls `viewTestHistory(patient)`.
+     *    - 2. Add Test to Pending: Calls `addTestToPending(patient)`.
+     *    - 0. Back to Menu: Returns to the main menu without performing further actions.
+     * 3. Reads the user's choice and executes the corresponding action.
+     *
+     * Dependencies:
+     * - `scanner`: Used to read user input.
+     * - `viewTestHistory(Patient patient)`: A method to display the patient's test history.
+     * - `addTestToPending(Patient patient)`: A method to add a test to the patient's pending list.
+     *
+     * @param patient The `Patient` object whose profile is to be displayed.
+     *
+     * This method does not return any value.
+    */ 
     private void displayPatientProfile(Patient patient) {
         System.out.println("Patient Profile Found:");
         System.out.println("- Patient ID: " + patient.getId());
@@ -386,6 +506,31 @@ public class PathologyLabSystem {
         }
     }
 
+    /**
+     * Adds a selected test to the pending tests for a given patient.
+     *
+     * Process:
+     * 1. Loads the list of available tests from an external source via `fileManager`.
+     * 2. Displays the available tests to the user.
+     * 3. Prompts the user to choose a test by its number.
+     * 4. Validates the user's input:
+     *    - If the input is invalid, displays an error message and exits the method.
+     * 5. If the input is valid:
+     *    - Retrieves the selected test.
+     *    - Gets the current date.
+     *    - Saves the test as a pending test for the specified patient using `fileManager`.
+     *    - Displays a confirmation message.
+     *
+     * Dependencies:
+     * - `scanner`: Used to read user input.
+     * - `fileManager`: Handles operations for loading tests and saving pending tests.
+     * - `Patient`: The patient object to which the test is added.
+     * - `java.time.LocalDate`: Used to get the current date.
+     *
+     * @param patient The `Patient` object for whom the test is being added.
+     *
+     * This method does not return any value.
+     */
     private void addTestToPending(Patient patient) {
         // Load available tests
         List<String> availableTests = fileManager.loadAvailableTests();
@@ -414,7 +559,12 @@ public class PathologyLabSystem {
         fileManager.addPendingTest(patient.getId(), selectedTest, currentDate);
         System.out.println("Test added to pending for Patient ID: " + patient.getId());
     }
-    
+
+    /**
+     * Prompts the user to enter details for a new test and then adds the test to the system.
+     * The method collects the test name, minimum value, and maximum value from the user,
+     * creates a new `Test` object, and passes it to the `fileManager` to be added to the file.
+     */
     private void addNewTest(){
         System.out.println("Enter TestName");
         String name=scanner.nextLine();
@@ -427,6 +577,21 @@ public class PathologyLabSystem {
         
     }
 
+    /**
+     * Displays a list of pending tests for all patients.
+     *
+     * Process:
+     * 1. Loads the list of pending tests from an external source via `fileManager`.
+     * 2. Checks if the list is empty:
+     *    - If empty, displays "No pending tests."
+     * 3. If the list contains tests:
+     *    - Iterates through the list and displays each pending test with its index.
+     *
+     * Dependencies:
+     * - `fileManager`: Handles operations for loading pending tests.
+     *
+     * This method does not return any value.
+    */  
     private void viewPendingTests() {
         List<String> pendingTests = fileManager.loadPendingTests();
         if (pendingTests.isEmpty()) {
@@ -439,6 +604,30 @@ public class PathologyLabSystem {
         }
     }
 
+    /**
+     * Adds a test result for a selected pending test.
+     *
+     * Process:
+     * 1. Loads the pending tests from `fileManager`.
+     * 2. If no pending tests are available, displays a message and exits.
+     * 3. Displays the list of pending tests and prompts the user to select a test by number.
+     * 4. Validates the user's input:
+     *    - If invalid, displays an error message and exits.
+     * 5. Parses the selected test info to extract the patient ID and test name.
+     * 6. Prompts the user to enter the test result.
+     * 7. Fetches the test details (e.g., min/max values) from `fileManager`.
+     * 8. Determines the result status (`Low`, `Normal`, or `High`) based on the entered result and test range.
+     * 9. Creates a new `TestResult` object and saves it to the patient's history.
+     * 10. Removes the test from the pending list and confirms the addition.
+     *
+     * Dependencies:
+     * - `scanner`: Used to read user input.
+     * - `fileManager`: Handles operations for fetching tests, saving results, and updating pending tests.
+     * - `Test` and `TestResult`: Classes representing the test details and results.
+     * - `java.time.LocalDate`: Used to get the current date.
+     *
+     * This method does not return any value.
+     */
     private void addTestResult() {
         System.out.println("Choose a pending test by number:");
 
@@ -507,6 +696,31 @@ public class PathologyLabSystem {
         System.out.println("Test result added successfully for test: " + selectedTest.getName());
     }
 
+    /**
+     * Displays the test history of a given patient and provides options for further actions.
+     *
+     * Process:
+     * 1. Loads the test history for the patient from `fileManager`.
+     * 2. Displays the test history:
+     *    - If no history is available, notifies the user and exits.
+     *    - If history exists, lists each test result with details (test name, result, min/max values, status, date).
+     * 3. Presents a menu with options:
+     *    - Filter by date.
+     *    - Generate a detailed test report.
+     *    - Generate an overall health report.
+     *    - Return to the patient profile.
+     * 4. Executes the chosen action based on user input.
+     *
+     * Dependencies:
+     * - `Patient` object to identify the patient.
+     * - `fileManager` to load test history.
+     * - `scanner` for user input.
+     * - Methods: `filterByDate`, `generateTestReport`, `generateHealthReport`.
+     *
+     * This method does not return any value.
+     *
+     * @param patient The patient whose test history is to be displayed.
+    */
     private void viewTestHistory(Patient patient) {
         // Load and display test history
         List<TestResult> testHistory = fileManager.loadPatientHistory(patient.getId());
@@ -550,6 +764,24 @@ public class PathologyLabSystem {
         }
     }
 
+    /**
+     * Filters and displays test results within a specified date range.
+     *
+     * Process:
+     * 1. Prompts the user to enter a start and end date.
+     * 2. Calls `retrieveTestResultsByDate` to filter test results from the given `testHistory` within the specified date range.
+     * 3. If no results match the date range, notifies the user.
+     * 4. If results are found, displays the filtered test results, including test name, result, min/max values, and the test date.
+     *
+     * Dependencies:
+     * - `testHistory`: A list of all test results for the patient.
+     * - `scanner` for user input.
+     * - Method `retrieveTestResultsByDate` to filter test results.
+     *
+     * This method does not return any value.
+     *
+     * @param testHistory A list of test results to filter.
+     */
     private void filterByDate(List<TestResult> testHistory) {
         System.out.println("Enter Start Date (YYYY-MM-DD):");
         String startDate = scanner.nextLine();
@@ -570,6 +802,26 @@ public class PathologyLabSystem {
         }
     }
 
+    /**
+     * Filters test results within a specified date range.
+     *
+     * Process:
+     * 1. Iterates through each test result in `testHistory`.
+     * 2. Checks if the test date is within the range specified by `startDate` and `endDate`.
+     *    - Uses `String.compareTo` to compare dates as strings in the format "YYYY-MM-DD".
+     *    - If `result.getDate()` is on or after `startDate` and on or before `endDate`, 
+     *      the result is included in the filtered list.
+     * 3. Returns a list of filtered test results within the date range.
+     *
+     * Assumptions:
+     * - Dates are passed in the "YYYY-MM-DD" format and are valid.
+     * - This function does not handle date parsing errors or invalid date formats.
+     *
+     * @param testHistory A list of all test results to filter.
+     * @param startDate The start date of the filter range in "YYYY-MM-DD" format.
+     * @param endDate The end date of the filter range in "YYYY-MM-DD" format.
+     * @return A list of `TestResult` objects within the specified date range.
+     */
     private List<TestResult> retrieveTestResultsByDate(List<TestResult> testHistory, String startDate, String endDate) {
         List<TestResult> filteredResults = new ArrayList<>();
 
@@ -581,6 +833,27 @@ public class PathologyLabSystem {
         return filteredResults;
     }
 
+    /**
+     * Generates and displays a detailed report for a specific test result chosen by the user.
+     *
+     * Process:
+     * 1. Ask the user to enter the number of the test result they want to generate a report for.
+     * 2. Validates the user's choice to ensure it falls within the range of available test results.
+     *    - If the choice is invalid, an error message is displayed, and the method exits.
+     * 3. Retrieves the selected `TestResult` from the provided `testHistory` list.
+     * 4. Displays a detailed report of the selected test result, including:
+     *    - Test name
+     *    - Result
+     *    - Minimum and maximum values
+     *    - Status (e.g., Normal, Low, High)
+     *    - Test date
+     *
+     * Assumptions:
+     * - `testHistory` is non-null and contains at least one test result.
+     * - The user inputs a valid integer for the test report number.
+     *
+     * @param testHistory A list of `TestResult` objects representing the patient's test history.
+     */
     private void generateTestReport(List<TestResult> testHistory) {
         System.out.println("Enter the number of the test report you want to generate:");
         int reportNumber = scanner.nextInt();
@@ -600,6 +873,28 @@ public class PathologyLabSystem {
         System.out.println("Date: " + selectedTest.getDate());
     }
 
+    /**
+     * Generates a comprehensive health report based on the patient's test history.
+     *
+     * Process:
+     * 1. Checks if the `testHistory` list is empty.
+     *    - If empty, displays a message indicating no test history and exits.
+     * 2. Iterates through each `TestResult` in the `testHistory` list.
+     *    - Compares the test result against its normal range (min and max values).
+     *    - Categorizes the result as LOW, HIGH, or NORMAL.
+     *    - Appends the detailed test information and its status to the report.
+     * 3. Provides a summary of the test statuses, including:
+     *    - Count of NORMAL, LOW, and HIGH test results.
+     * 4. Offers basic health suggestions based on the test status summary.
+     *    - Recommends consulting a healthcare professional for LOW or HIGH results.
+     *    - Encourages maintaining healthy practices if all results are NORMAL.
+     *
+     * Assumptions:
+     * - `testHistory` is a valid list of `TestResult` objects.
+     * - Each `TestResult` includes the test name, result, normal range (min and max), and status.
+     *
+     * @param testHistory A list of `TestResult` objects representing the patient's test history.
+     */
     private void generateHealthReport(List<TestResult> testHistory) {
         if (testHistory.isEmpty()) {
             System.out.println("No test history available to generate a report.");
