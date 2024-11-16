@@ -3,6 +3,10 @@ package com.mycompany.pathologylabsystem;
 import java.io.*;
 import java.util.*;
 
+/**
+ * The FileManager class handles the reading and writing of patient, test, and user data from and to text files.
+ * This class ensures that the system can store and retrieve data persistently.
+ */
 public class FileManager {
 
     private static final String USERS_FILE = "users.txt";
@@ -11,6 +15,18 @@ public class FileManager {
     private static final String PENDING_TESTS_FILE = "pendingTests.txt";
     private static final String PATIENT_HISTORY_FILE = "patientHistory.txt";
 
+    /**
+    * The constructor for the FileManager class.
+    * This constructor is responsible for ensuring that the necessary data files are created if they do not already exist.
+    * These files are crucial for storing system data, including users, patients, tests, pending test requests, and patient histories.
+    * 
+    * The constructor performs the following operations:
+    * - Creates the `users.txt` file if it does not exist.
+    * - Creates the `patients.txt` file if it does not exist.
+    * - Initializes the `tests.txt` file with predefined test data (if required).
+    * - Creates the `pendingTests.txt` file if it does not exist.
+    * - Creates the `patientHistory.txt` file if it does not exist.
+    */
     public FileManager() {
         // Ensure that the files are created if they don't exist
         createFileIfNotExists(USERS_FILE);
@@ -20,6 +36,11 @@ public class FileManager {
         createFileIfNotExists(PATIENT_HISTORY_FILE);
     }
 
+    /**
+    * Creates a new file if it doesn't already exist.
+    *
+    * @param fileName The name of the file to create.
+    */
     private void createFileIfNotExists(String fileName) {
         File file = new File(fileName);
         try {
@@ -32,6 +53,10 @@ public class FileManager {
         }
     }
 
+
+    /**
+    * Initializes the tests.txt file with default test data if the file doesn't exist.
+    */
     private void initializeTestsFile() {
         File file = new File(TESTS_FILE);
         try {
@@ -55,7 +80,14 @@ public class FileManager {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+    * Adds a pending test request for a patient to the pendingTests.txt file.
+    *
+    * @param patientId The ID of the patient.
+    * @param testName The name of the test.
+    * @param date The date of the test.
+    */
     public void addPendingTest(String patientId, String testName, String date) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PENDING_TESTS_FILE, true))) {
             writer.write(patientId + "," + testName + "," + date);
@@ -64,7 +96,12 @@ public class FileManager {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+    * Loads all pending test requests from the pendingTests.txt file.
+    *
+    * @return A list of pending test requests.
+    */
     public List<String> loadPendingTests() {
         List<String> pendingTests = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(PENDING_TESTS_FILE))) {
@@ -77,7 +114,10 @@ public class FileManager {
         }
         return pendingTests;
     }
-
+    
+    /**
+    * Clears all pending test data from the pendingTests.txt file.
+    */
     public void clearPendingTests() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PENDING_TESTS_FILE))) {
             writer.write(""); // Clear file contents
@@ -85,8 +125,12 @@ public class FileManager {
             e.printStackTrace();
         }
     }
-
-    // Adds a user to the users file
+   
+    /**
+    * Adds a new user to the users.txt file.
+    *
+    * @param user The user object containing the user information (ID, name, password, role).
+    */
     public void addUser(User user) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(USERS_FILE, true))) {
             writer.write(user.getId() + "," + user.getName() + "," + user.getPassword() + "," + user.getRole());
@@ -96,7 +140,11 @@ public class FileManager {
         }
     }
 
-    // Loads users from the users file
+    /**
+    * Loads all users from the users.txt file.
+    *
+    * @return A list of users loaded from the file.
+    */
     public List<User> loadUsers() {
         List<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE))) {
@@ -114,7 +162,11 @@ public class FileManager {
         return users;
     }
 
-    // Adds a patient to the patients file
+    /**
+    * Adds a new patient to the patients.txt file.
+    *
+    * @param patient The patient object containing the patient information (ID, name, age, weight, height, gender, contact info).
+    */
     public void addPatient(Patient patient) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATIENTS_FILE, true))) {
             writer.write(
@@ -143,6 +195,12 @@ public class FileManager {
 //        }
 //        return patients;
 //    }
+
+    /**
+    * Loads all patients from the patients.txt file.
+    *
+    * @return A list of patients loaded from the file.
+    */
 public List<Patient> loadPatients() {
     List<Patient> patients = new ArrayList<>();
     try (BufferedReader reader = new BufferedReader(new FileReader(PATIENTS_FILE))) {
@@ -187,7 +245,11 @@ public List<Patient> loadPatients() {
     return patients;
 }
 
-    
+    /**
+    * Loads all available tests from the tests.txt file.
+    *
+    * @return A list of available tests.
+    */    
     public List<String> loadAvailableTests() {
         List<String> tests = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(TESTS_FILE))) {
@@ -201,6 +263,12 @@ public List<Patient> loadPatients() {
         return tests;
     }
 
+    /**
+    * Loads the pending tests for a specific patient from the pendingTests.txt file.
+    *
+    * @param patientId The ID of the patient.
+    * @return A list of pending tests for the patient.
+    */
     public List<String> loadPendingTestsForPatient(String patientId) {
         List<String> pendingTests = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("pendingTests.txt"))) {
@@ -217,6 +285,12 @@ public List<Patient> loadPatients() {
         return pendingTests;
     }
 
+    /**
+    * Adds a test result to the patient's history in the patientHistory.txt file.
+    *
+    * @param patientId The ID of the patient.
+    * @param testResult The test result object containing test details (name, result, min/max, status, date).
+    */
     public void addTestResultToPatientHistory(String patientId, TestResult testResult) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("patientHistory.txt", true))) {
             writer.write(patientId + "," + testResult.getTestName() + "," + testResult.getResult() + ","
@@ -228,6 +302,11 @@ public List<Patient> loadPatients() {
         }
     }
 
+    /**
+    * Removes a test from the pending tests file.
+    *
+    * @param testInfo The information of the test to be removed (patient ID, test name, etc.).
+    */
     public void removeTestFromPending(String testInfo) {
         List<String> pendingTests = loadPendingTests(); // Load current pending tests
         pendingTests.remove(testInfo); // Remove the specified test
@@ -243,6 +322,11 @@ public List<Patient> loadPatients() {
         }
     }
 
+    /**
+    * Loads all tests from the tests.txt file.
+    *
+    * @return A list of Test objects loaded from the file.
+    */
     public List<Test> loadTests() {
         List<Test> tests = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(TESTS_FILE))) {
@@ -260,6 +344,12 @@ public List<Patient> loadPatients() {
         return tests;
     }
 
+    /**
+    * Retrieves a test by its name from the tests.txt file.
+    *
+    * @param testName The name of the test to retrieve.
+    * @return A Test object containing the test details, or null if not found.
+    */
     public Test getTestByName(String testName) {
         try (BufferedReader reader = new BufferedReader(new FileReader(TESTS_FILE))) {
             String line;
@@ -279,6 +369,12 @@ public List<Patient> loadPatients() {
         return null; // Return null if the test was not found
     }
 
+    /**
+    * Loads the patient's test history from the patientHistory.txt file.
+    *
+    * @param patientId The ID of the patient.
+    * @return A list of test results for the patient.
+    */
     public List<TestResult> loadPatientHistory(String patientId) {
         List<TestResult> testResults = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("patientHistory.txt"))) {
@@ -302,6 +398,14 @@ public List<Patient> loadPatients() {
         return testResults;
     }
 
+    /**
+    * Loads the test results for a patient within a specific date range.
+    *
+    * @param patientId The ID of the patient.
+    * @param startDate The start date for filtering results.
+    * @param endDate The end date for filtering results.
+    * @return A list of test results within the specified date range.
+    */
     public List<TestResult> loadTestResultsByDate(String patientId, String startDate, String endDate) {
         List<TestResult> filteredResults = new ArrayList<>();
         List<TestResult> allResults = loadPatientHistory(patientId); // Assuming this loads all results
@@ -314,9 +418,26 @@ public List<Patient> loadPatients() {
         return filteredResults;
     }
 
+    /**
+    * Checks if a given date is within a specified date range.
+    *
+    * @param date The date to check.
+    * @param startDate The start of the date range.
+    * @param endDate The end of the date range.
+    * @return true if the date is within the range, false otherwise.
+    */
     private boolean isDateInRange(String date, String startDate, String endDate) {
         return (date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0);
     }
+
+    /**
+    * Adds a new test to the tests file.
+    *
+    * This method appends a new test to the file containing available tests.
+    * The test data is written in CSV format (test name, minimum value, maximum value).
+    *
+    * @param test The `Test` object containing the details of the test to be added.
+    */
     public void addNewTest(Test test){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(TESTS_FILE, true))) {
             writer.write(
@@ -327,6 +448,20 @@ public List<Patient> loadPatients() {
         }
         
     }
+
+    /**
+     * Updates a patient's data in the patients file.
+     *
+     * This method reads the patient file, updates the data for the specified patient ID, 
+     * and writes the updated data back to the file.
+     *
+     * @param id          The ID of the patient to be updated.
+     * @param age         The new age of the patient.
+     * @param height      The new height of the patient.
+     * @param weight      The new weight of the patient.
+     * @param contactInfo The new contact information of the patient.
+     * @throws IOException If an I/O error occurs during file operations.
+     */
     public void updatePatientDate(String id,int age,int height,int weight,String contactInfo) throws IOException{
         List<String> lines = new ArrayList<>();
         boolean isUpdated = false;
