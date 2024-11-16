@@ -324,6 +324,7 @@ public class PathologyLabSystem {
         fileManager.addPatient(patient);
         patients.add(patient); // Add to in-memory list
         System.out.println("Patient added successfully!");
+        displayPatientProfile(patient);
     }
 
     /**
@@ -544,7 +545,13 @@ public class PathologyLabSystem {
         // Ask user to choose a test
         System.out.println("Choose a test by number:");
         int testChoice = scanner.nextInt();
-        scanner.nextLine(); // consume newline
+        while(testChoice < 1 || testChoice > availableTests.size())
+        {
+            System.out.println("Invalid choice. Test not added.");
+            scanner.nextLine();
+            testChoice = scanner.nextInt();
+        }
+
 
         // Validate choice
         if (testChoice < 1 || testChoice > availableTests.size()) {
@@ -728,6 +735,7 @@ public class PathologyLabSystem {
         System.out.println("Test History for Patient ID: " + patient.getId());
         if (testHistory.isEmpty()) {
             System.out.println("No test history available.");
+            displayPatientProfile(patient);
             return;
         }
 
@@ -758,7 +766,8 @@ public class PathologyLabSystem {
                 generateHealthReport(testHistory);
                 break;
             case 0:
-                return; // Back to patient profile
+                displayPatientProfile(patient); // Back to patient profile
+                break;
             default:
                 System.out.println("Invalid choice!");
         }
