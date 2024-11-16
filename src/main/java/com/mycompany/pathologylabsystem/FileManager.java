@@ -380,26 +380,6 @@ public class FileManager {
     }
 
     /**
-    * Loads the test results for a patient within a specific date range.
-    *
-    * @param patientId The ID of the patient.
-    * @param startDate The start date for filtering results.
-    * @param endDate The end date for filtering results.
-    * @return A list of test results within the specified date range.
-    */
-    public List<TestResult> loadTestResultsByDate(String patientId, String startDate, String endDate) {
-        List<TestResult> filteredResults = new ArrayList<>();
-        List<TestResult> allResults = loadPatientHistory(patientId); // Assuming this loads all results
-
-        for (TestResult result : allResults) {
-            if (isDateInRange(result.getDate(), startDate, endDate)) {
-                filteredResults.add(result);
-            }
-        }
-        return filteredResults;
-    }
-
-    /**
     * Checks if a given date is within a specified date range.
     *
     * @param date The date to check.
@@ -407,7 +387,7 @@ public class FileManager {
     * @param endDate The end of the date range.
     * @return true if the date is within the range, false otherwise.
     */
-    private boolean isDateInRange(String date, String startDate, String endDate) {
+    public boolean isDateInRange(String date, String startDate, String endDate) {
         return (date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0);
     }
 

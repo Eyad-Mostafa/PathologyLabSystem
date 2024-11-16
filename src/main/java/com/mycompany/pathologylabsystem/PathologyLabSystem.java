@@ -904,7 +904,10 @@ public class PathologyLabSystem {
         List<TestResult> filteredResults = new ArrayList<>();
 
         for (TestResult result : testHistory) {
-            if (result.getDate().compareTo(startDate) >= 0 && result.getDate().compareTo(endDate) <= 0) {
+//            if (result.getDate().compareTo(startDate) >= 0 && result.getDate().compareTo(endDate) <= 0) {
+//                filteredResults.add(result);
+//            }
+            if (fileManager.isDateInRange(result.getDate(), startDate, endDate)) {
                 filteredResults.add(result);
             }
         }
