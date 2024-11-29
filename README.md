@@ -81,7 +81,7 @@ The system uses the following files for data persistence:
 
 ## Contributing
 
-Contributions are welcome! Please fork this repository, make your changes, and submit a pull request.
+We're actually not looking for contributions to this repository, and we won't be actively watching it. However, feel free to fork the repository and make your own changes!
 
 
 ## License
