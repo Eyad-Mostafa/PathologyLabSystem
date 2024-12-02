@@ -1,13 +1,7 @@
 package com.mycompany.pathologylabsystem;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.io.*;
 import java.util.*;
-import javax.swing.*;
 
 /**
  * Main class for the Pathology Lab System, handling user interaction and managing
@@ -44,123 +38,80 @@ public class PathologyLabSystem {
      * Starts the system and presents the main menu to the user.
      */
     private void start() {
-    // Create the main frame
-        JFrame frame = new JFrame("Pathology Lab System");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 200);
-        frame.setLayout(new BorderLayout());
+        while (true) {
+            System.out.println("1. Add User");
+            System.out.println("2. Log In");
+            System.out.println("3. Exit");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
-        // Title label
-        JLabel titleLabel = new JLabel("Pathology Lab System", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        frame.add(titleLabel, BorderLayout.NORTH);
-
-        // Buttons panel
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(3, 1, 10, 10));
-
-        // Buttons
-        JButton addUserButton = new JButton("Add User");
-        JButton logInButton = new JButton("Log In");
-        JButton exitButton = new JButton("Exit");
-
-        // Add buttons to the panel
-        buttonPanel.add(addUserButton);
-        buttonPanel.add(logInButton);
-        buttonPanel.add(exitButton);
-
-        frame.add(buttonPanel, BorderLayout.CENTER);
-
-        // Button actions
-        addUserButton.addActionListener(e -> addUser());
-        logInButton.addActionListener(e -> logIn());
-        exitButton.addActionListener(e -> System.exit(0)); // Exit application
-
-        // Show the frame
-        frame.setVisible(true);
+            switch (choice) {
+                case 1:
+                    addUser();
+                    break;
+                case 2:
+                    logIn();
+                    break;
+                case 3:
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice, please try again.");
+            }
+        }
     }
 
     /**
      * Adds a new user to the system after validating user input.
      */
     private void addUser() {
-        // Create a JFrame for user input
-        JFrame frame = new JFrame("Add User");
-        frame.setSize(400, 300);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLayout(new GridLayout(6, 2));
+        System.out.println("Enter ID:");
+        String id = scanner.nextLine();
 
-        // Input fields and labels
-        JLabel idLabel = new JLabel("Enter ID:");
-        JTextField idField = new JTextField();
-        JLabel nameLabel = new JLabel("Enter Name:");
-        JTextField nameField = new JTextField();
-        JLabel passwordLabel = new JLabel("Enter Password:");
-        JPasswordField passwordField = new JPasswordField();
-        JLabel roleLabel = new JLabel("Choose Role:");
-        JComboBox<String> roleComboBox = new JComboBox<>(new String[]{"Doctor", "Receptionist"});
-        JButton submitButton = new JButton("Submit");
-        JButton cancelButton = new JButton("Cancel");
-
-        // Add components to the frame
-        frame.add(idLabel);
-        frame.add(idField);
-        frame.add(nameLabel);
-        frame.add(nameField);
-        frame.add(passwordLabel);
-        frame.add(passwordField);
-        frame.add(roleLabel);
-        frame.add(roleComboBox);
-        frame.add(submitButton);
-        frame.add(cancelButton);
-
-        frame.setVisible(true);
-
-        // Handle the Submit button action
-        submitButton.addActionListener(e -> {
-            String id = idField.getText().trim();
-            String name = nameField.getText().trim();
-            String password = new String(passwordField.getPassword());
-            String role = (String) roleComboBox.getSelectedItem();
-
-            // Validation
-            if (id.isEmpty() || name.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            try {
-                Long.parseLong(id); // Validate ID as a number
-                for (User user : users) {
-                    if (user.getId().equals(id)) {
-                        JOptionPane.showMessageDialog(frame, "User ID already exists!", "Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
+        while (id.isEmpty()) {
+            System.out.println("User ID cannot be empty. Please enter a valid ID:");
+            id = scanner.nextLine();
+        }
+        try {
+            Long.parseLong(id); // Attempt to parse the string as a number
+            // Check if a patient with the same ID already exists
+            boolean usertExists = false;
+            for (User user : users) {
+                if (user.getId().equals(id)) {
+                    usertExists = true;
+                    break; // Stop checking further once a match is found
                 }
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(frame, "ID must be a number!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            if (usertExists) {
+                System.out.println("User with this ID already exists. Please use a different ID.");
+                return; // Exit the method without adding the user
+            }
+        } catch (NumberFormatException e) {
+                System.out.println("ID must be number.");
                 return;
-            }
+        }
 
-            // Create the new user
-            User user = new User(id, name, password, role);
-            fileManager.addUser(user);
-            users.add(user);
+        System.out.println("Enter Name:");
+        String name = scanner.nextLine();
+        System.out.println("Enter Password:");
+        String password = scanner.nextLine();
+        System.out.println("Choose Role (1. Doctor, 2. Receptionist):");
+        int roleChoice = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+        String role = (roleChoice == 1) ? "Doctor" : "Receptionist";
 
-            JOptionPane.showMessageDialog(frame, "User added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        // Create the new user and add it to the list
+        User user = new User(id, name, password, role);
+        fileManager.addUser(user);
+        users.add(user); // Add the new user to the current list in memory
 
-            frame.dispose(); // Close the frame
+        System.out.println("User added successfully!");
 
-            // Redirect to the respective menu based on role
-            if (role.equals("Doctor")) {
-                doctorMenu(name);
-            } else {
-                receptionistMenu(name);
-            }
-        });
-
-        // Handle the Cancel button action
-        cancelButton.addActionListener(e -> frame.dispose());
+        if (role.equals("Doctor")) {
+            doctorMenu(name);
+        } else {
+            receptionistMenu(name);
+        }
     }
 
     /**
@@ -168,57 +119,22 @@ public class PathologyLabSystem {
      * the appropriate menu based on their role.
      */
     private void logIn() {
-        // Create a JFrame for login
-        JFrame frame = new JFrame("Login");
-        frame.setSize(400, 200);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLayout(new GridLayout(3, 2));
+        System.out.println("Enter ID:");
+        String id = scanner.nextLine();
+        System.out.println("Enter Password:");
+        String password = scanner.nextLine();
 
-        // Create components for input
-        JLabel idLabel = new JLabel("Enter ID:");
-        JTextField idField = new JTextField();
-        JLabel passwordLabel = new JLabel("Enter Password:");
-        JPasswordField passwordField = new JPasswordField();
-        JButton loginButton = new JButton("Login");
-        JButton cancelButton = new JButton("Cancel");
-
-        // Add components to the frame
-        frame.add(idLabel);
-        frame.add(idField);
-        frame.add(passwordLabel);
-        frame.add(passwordField);
-        frame.add(loginButton);
-        frame.add(cancelButton);
-
-        frame.setVisible(true);
-
-        // Handle Login button action
-        loginButton.addActionListener(e -> {
-            String id = idField.getText().trim();
-            String password = new String(passwordField.getPassword());
-
-            // Search for user with matching credentials
-            for (User user : users) {
-                if (user.getId().equals(id) && user.getPassword().equals(password)) {
-                    JOptionPane.showMessageDialog(frame, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    frame.dispose(); // Close the frame
-
-                    // Redirect to the appropriate menu based on the role
-                    if (user.getRole().equals("Doctor")) {
-                        doctorMenu(user.getName());
-                    } else {
-                        receptionistMenu(user.getName());
-                    }
-                    return;
+        for (User user : users) {
+            if (user.getId().equals(id) && user.getPassword().equals(password)) {
+                if (user.getRole().equals("Doctor")) {
+                    doctorMenu(user.getName());
+                } else {
+                    receptionistMenu(user.getName());
                 }
+                return;
             }
-
-            // Show error message if credentials are invalid
-            JOptionPane.showMessageDialog(frame, "Invalid ID or Password!", "Error", JOptionPane.ERROR_MESSAGE);
-        });
-
-        // Handle Cancel button action
-        cancelButton.addActionListener(e -> frame.dispose());
+        }
+        System.out.println("Invalid ID or Password!");
     }
 
     /**
@@ -226,74 +142,41 @@ public class PathologyLabSystem {
      *
      * @param name The name of the logged-in doctor.
      */ 
-    public void doctorMenu(String doctorName) {
-        // Create the main frame
-        JFrame frame = new JFrame("Doctor Menu");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        frame.setLayout(new BorderLayout());
+    private void doctorMenu(String name) {
+        System.out.println("Welcome, Dr." + name);
+        while (true) {
+            System.out.println("\n-------------------------");
+            viewPendingTests();
+            System.out.println("\n-------------------------");
+            System.out.println("1. Search for Patient");
+            System.out.println("2. Add Test Result");
+            System.out.println("3. Add New Test");
+            System.out.println("4. Clear Pending Tests");
+            System.out.println("5. Log out");
 
-        // Welcome label
-        JLabel welcomeLabel = new JLabel("Welcome, Dr. " + doctorName, SwingConstants.CENTER);
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        frame.add(welcomeLabel, BorderLayout.NORTH);
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
-        // Panel for pending tests
-        JPanel pendingTestsPanel = new JPanel();
-        pendingTestsPanel.setLayout(new BorderLayout());
-        JLabel pendingTestsLabel = new JLabel("Pending Tests:", SwingConstants.LEFT);
-        pendingTestsLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        pendingTestsPanel.add(pendingTestsLabel, BorderLayout.NORTH);
-
-        // Load pending tests
-        List<String> pendingTests = fileManager.loadPendingTests();
-        DefaultListModel<String> pendingTestsModel = new DefaultListModel<>();
-        if (pendingTests.isEmpty()) {
-            pendingTestsModel.addElement("No pending tests.");
-        } else {
-            for (String test : pendingTests) {
-                pendingTestsModel.addElement(test);
+            switch (choice) {
+                case 1:
+                    searchForPatient();
+                    break;
+                case 2:
+                    addTestResult();
+                    break;
+                case 3:
+                    addNewTest();
+                    break;
+                case 4:
+                    fileManager.clearPendingTests();
+                    break;
+                case 5:
+                   return; // Log out
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
-        JList<String> pendingTestsList = new JList<>(pendingTestsModel);
-        pendingTestsPanel.add(new JScrollPane(pendingTestsList), BorderLayout.CENTER);
-        frame.add(pendingTestsPanel, BorderLayout.WEST);
-
-        // Buttons panel
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(5, 1, 10, 10));
-
-        // Buttons
-        JButton searchPatientButton = new JButton("Search for Patient");
-        JButton addTestResultButton = new JButton("Add Test Result");
-        JButton addNewTestButton = new JButton("Add New Test");
-        JButton clearPendingTestsButton = new JButton("Clear Pending Tests");
-        JButton logoutButton = new JButton("Log Out");
-
-        // Add buttons to the panel
-        buttonPanel.add(searchPatientButton);
-        buttonPanel.add(addTestResultButton);
-        buttonPanel.add(addNewTestButton);
-        buttonPanel.add(clearPendingTestsButton);
-        buttonPanel.add(logoutButton);
-
-        frame.add(buttonPanel, BorderLayout.CENTER);
-
-        // Button actions
-        searchPatientButton.addActionListener(e -> searchForPatient());
-        addTestResultButton.addActionListener(e -> addTestResult());
-        addNewTestButton.addActionListener(e -> addNewTest());
-        clearPendingTestsButton.addActionListener(e -> {
-            fileManager.clearPendingTests();
-            pendingTestsModel.clear();
-            pendingTestsModel.addElement("No pending tests.");
-        });
-        logoutButton.addActionListener(e -> frame.dispose()); // Close the window on logout
-
-        // Show the frame
-        frame.setVisible(true);
-}
-
+    }
 
     /**
      * Displays a menu for the receptionist with options to add a patient, 
@@ -313,42 +196,33 @@ public class PathologyLabSystem {
      *
      * This method does not return any value.
      */
-    public void receptionistMenu(String name) {
-        // Frame setup
-        JFrame frame = new JFrame("Receptionist Menu");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLayout(new BorderLayout());
+    private void receptionistMenu(String name) {
+        System.out.println("Welcome, MR." + name);
+        while (true) {
+            System.out.println("1. Add Patient");
+            System.out.println("2. Search for Patient");
+            System.out.println("3. Update data for Patient");
+            System.out.println("4. Log Out");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
-        // Welcome Label
-        JLabel welcomeLabel = new JLabel("Welcome, MR. " + name, SwingConstants.CENTER);
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        frame.add(welcomeLabel, BorderLayout.NORTH);
-
-        // Buttons Panel
-        JPanel buttonPanel = new JPanel(new GridLayout(4, 1, 10, 10));
-
-        JButton addPatientButton = new JButton("Add Patient");
-        JButton searchPatientButton = new JButton("Search for Patient");
-        JButton updatePatientButton = new JButton("Update Patient Data");
-        JButton logoutButton = new JButton("Log Out");
-
-        buttonPanel.add(addPatientButton);
-        buttonPanel.add(searchPatientButton);
-        buttonPanel.add(updatePatientButton);
-        buttonPanel.add(logoutButton);
-
-        frame.add(buttonPanel, BorderLayout.CENTER);
-
-        // Button Actions
-        addPatientButton.addActionListener(e -> addPatient());
-        searchPatientButton.addActionListener(e -> searchForPatient());
-        updatePatientButton.addActionListener(e -> updatePatientData());
-        logoutButton.addActionListener(e -> frame.dispose()); // Close the frame
-
-        frame.setVisible(true);
+            switch (choice) {
+                case 1:
+                    addPatient();
+                    break;
+                case 2:
+                    searchForPatient();
+                    break;
+                case 3:
+                    updatePationtData();
+                    break;
+                case 4:
+                    return; // Log out by breaking out of the menu loop
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
     }
-
 
 
     /**
@@ -515,35 +389,18 @@ public class PathologyLabSystem {
      *
      * This method does not return any value.
      */
-    public void searchForPatient() {
-        JFrame frame = new JFrame("Search for Patient");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(300, 150);
-        frame.setLayout(new GridLayout(3, 1, 10, 10));
+    private void searchForPatient() {
+        System.out.println("Enter Patient ID:");
+        String patientId = scanner.nextLine();
 
-        JLabel idLabel = new JLabel("Enter Patient ID:");
-        JTextField idField = new JTextField();
-        JButton searchButton = new JButton("Search");
-
-        frame.add(idLabel);
-        frame.add(idField);
-        frame.add(searchButton);
-
-        searchButton.addActionListener(e -> {
-            String patientId = idField.getText();
-            for (Patient patient : patients) {
-                if (patient.getId().equals(patientId)) {
-                    displayPatientProfile(patient);
-                    frame.dispose();
-                    return;
-                }
+        for (Patient patient : patients) {
+            if (patient.getId().equals(patientId)) {
+                displayPatientProfile(patient);
+                return;
             }
-            JOptionPane.showMessageDialog(frame, "Patient not found!");
-        });
-
-        frame.setVisible(true);
+        }
+        System.out.println("Patient not found!");
     }
-
     
     /**
      * Updates the details of an existing patient in the system based on the patient ID.
@@ -554,140 +411,117 @@ public class PathologyLabSystem {
      * 
      * @throws IOException if there is an error while updating the patient data in the file.
      */
-    private void updatePatientData() {
-        // Create the main frame
-        JFrame frame = new JFrame("Update Patient Data");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(400, 600);
-        frame.setLayout(new GridLayout(0, 2, 10, 10));
-
-        // Components for ID validation
-        JLabel idLabel = new JLabel("Enter Patient ID to update:");
-        JTextField idField = new JTextField();
-        JButton validateButton = new JButton("Validate ID");
-        JLabel validationMessage = new JLabel("");
-        validationMessage.setForeground(Color.RED);
-
-        // Components for updating fields
-        JLabel ageLabel = new JLabel("Enter New Age:");
-        JTextField ageField = new JTextField();
-
-        JLabel weightLabel = new JLabel("Enter New Weight:");
-        JTextField weightField = new JTextField();
-
-        JLabel heightLabel = new JLabel("Enter New Height:");
-        JTextField heightField = new JTextField();
-
-        JLabel contactLabel = new JLabel("Enter New Phone Number:");
-        JTextField contactField = new JTextField();
-
-        JButton updateButton = new JButton("Update");
-        JLabel updateMessage = new JLabel("");
-        updateMessage.setForeground(Color.RED);
-
-        // Add components to the frame
-        frame.add(idLabel);
-        frame.add(idField);
-        frame.add(new JLabel()); // Empty space
-        frame.add(validateButton);
-        frame.add(validationMessage);
-        frame.add(ageLabel);
-        frame.add(ageField);
-        frame.add(weightLabel);
-        frame.add(weightField);
-        frame.add(heightLabel);
-        frame.add(heightField);
-        frame.add(contactLabel);
-        frame.add(contactField);
-        frame.add(new JLabel()); // Empty space
-        frame.add(updateButton);
-        frame.add(updateMessage);
-
-        // Initially disable update fields
-        ageField.setEnabled(false);
-        weightField.setEnabled(false);
-        heightField.setEnabled(false);
-        contactField.setEnabled(false);
-        updateButton.setEnabled(false);
-
-        // Action listener for ID validation
-        validateButton.addActionListener(e -> {
-            String id = idField.getText();
-            boolean validID = false;
-
-            // Check if ID exists in the list
-            for (Patient patient : patients) {
-                if (id.equals(patient.getId())) {
-                    validID = true;
+    private void updatePationtData() {
+        boolean flag = false;
+        System.out.println("Enter Patient ID you want to update:");
+        String id = scanner.nextLine();
+         
+        while(!flag) {
+            for (int i = 0; i < patients.size(); i++) {
+                if(id.equals(patients.get(i).getId())) {
+                    flag=true;
                     break;
                 }
             }
+            
+            if(!flag){
+                System.out.print("invalid ID, ");
+                System.out.println("press 1 for entring a ID, any key for back");
+                int x=scanner.nextInt();
+                scanner.nextLine();
 
-            if (!validID) {
-                validationMessage.setText("Invalid ID! Try again.");
+                if (x == 1) {
+                        System.out.println("Enter Patient ID you want to update:");
+                        id = scanner.nextLine();
+                } else {
+                    return ;
+                }
+            }
+        }
+        System.out.println("Enter New Age:");
+        int age = 0;
+        boolean validAge = false;
+        
+        while (!validAge) {
+            if (scanner.hasNextInt()) {
+                age = scanner.nextInt();
+                
+                if (age > 0 && age <= 120) {
+                    validAge = true;
+                } else {
+                    System.out.println("Please enter a valid age between 1 and 120:");
+                }
             } else {
-                validationMessage.setText("ID validated. Proceed with updates.");
-                // Enable fields for updating data
-                ageField.setEnabled(true);
-                weightField.setEnabled(true);
-                heightField.setEnabled(true);
-                contactField.setEnabled(true);
-                updateButton.setEnabled(true);
+                System.out.println("Please enter a valid number for age:");
+                scanner.next(); 
             }
-        });
-
-        // Action listener for updating data
-        updateButton.addActionListener(e -> {
-            try {
-                // Validate input fields
-                int age = validateIntField(ageField.getText(), 1, 120, "Age");
-                int weight = validateIntField(weightField.getText(), 21, 500, "Weight");
-                int height = validateIntField(heightField.getText(), 31, 220, "Height");
-                String contactInfo = validatePhoneField(contactField.getText());
-
-                // Perform the update
-                fileManager.updatePatientDate(idField.getText(), age, height, weight, contactInfo);
-                loadData(); // Refresh the patient list
-                JOptionPane.showMessageDialog(frame, "Patient data updated successfully!");
-                frame.dispose(); // Close the frame
-            } catch (IllegalArgumentException ex) {
-                updateMessage.setText(ex.getMessage());
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(frame, 
-                    "An error occurred while updating patient data: " + ex.getMessage(), 
-                    "Error", 
-                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+        System.out.println("Enter New weight:");
+        int weight = 0;
+        boolean validweight = false;
+        
+        while (!validweight) {
+            if (scanner.hasNextInt()) {
+                weight = scanner.nextInt();
+                if (weight > 20 && weight <= 500) {
+                    validweight = true;
+                } else {
+                    System.out.println("Please enter a valid weight:");
+                }
+            } else {
+                System.out.println("Please enter a valid number for weight:");
+                scanner.next(); 
             }
-        });
+        }
+        
+        System.out.println("Enter height:");
+        int height = 0;
+        boolean validheight = false;
+        
+        while (!validheight) {
+            if (scanner.hasNextInt()) {
+                height = scanner.nextInt();
+                if (height > 30 && height <= 220) {
+                    validheight = true;
+                } else {
+                    System.out.println("Please enter a valid height:");
+                }
+            } else {
+                System.out.println("Please enter a valid number for height:");
+                scanner.next(); 
+            }
+        }
+        scanner.nextLine();
 
-        frame.setVisible(true);
-    }
-
-    private int validateIntField(String input, int min, int max, String fieldName) {
+        System.out.println("Enter Phone Number:");
+        String contactInfo = scanner.nextLine();
+        
+        while (contactInfo.isEmpty()) {
+            System.out.println("Contact information cannot be empty. Please enter valid contact info:");
+            contactInfo = scanner.nextLine();
+        }
+        
         try {
-            int value = Integer.parseInt(input);
-            if (value < min || value > max) {
-                throw new IllegalArgumentException(fieldName + " must be between " + min + " and " + max + ".");
-            }
-            return value;
+            Long.parseLong(contactInfo); // Attempt to parse the string as a number
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(fieldName + " must be a valid number.");
+                System.out.println("Phone number must be number.");
+                return;
         }
-    }
-
-    private String validatePhoneField(String input) {
-        if (input.isEmpty()) {
-            throw new IllegalArgumentException("Phone number cannot be empty.");
+        
+        while(contactInfo.length() != 11){
+            System.out.println("Phone number must be 11 Character.");
+            contactInfo = scanner.nextLine();
         }
-        if (input.length() != 11) {
-            throw new IllegalArgumentException("Phone number must be exactly 11 digits.");
-        }
+        
         try {
-            Long.parseLong(input); // Check if it's numeric
-            return input;
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Phone number must contain only digits.");
+            fileManager.updatePatientDate(id,age,height,weight,contactInfo);
+        } catch(IOException e){
+            System.out.println("An Error occurred while updating patient.");
+            System.out.println(e);
         }
+//      patients.add(patient); 
+        loadData(); // to update pateint list
     }
 
     /**
@@ -712,49 +546,38 @@ public class PathologyLabSystem {
      *
      * This method does not return any value.
     */ 
-    public void displayPatientProfile(Patient patient) {
-        JFrame frame = new JFrame("Patient Profile");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(400, 500);
-        frame.setLayout(new BorderLayout());
-
-        // Patient Info
-        JTextArea profileArea = new JTextArea();
-        profileArea.setEditable(false);
-        profileArea.setText("Patient ID: " + patient.getId() + "\n" +
-                "Name: " + patient.getName() + "\n" +
-                "Age: " + patient.getAge() + "\n" +
-                "Weight: " + patient.getWeight() + "\n" +
-                "Height: " + patient.getHeight() + "\n" +
-                "Gender: " + patient.getGender() + "\n" +
-                "Phone: " + patient.getContactInfo() + "\n");
-
-        // Load Pending Tests
+    private void displayPatientProfile(Patient patient) {
         List<String> pendingTests = fileManager.loadPendingTestsForPatient(patient.getId());
-        profileArea.append("\nPending Tests:\n");
-        for (int i = 0; i < pendingTests.size(); i += 2) {
-            profileArea.append((i / 2 + 1) + ". " + pendingTests.get(i) + " (Date: " + pendingTests.get(i + 1) + ")\n");
+        System.out.println("Patient Profile Found:");
+        System.out.println("- Patient ID: " + patient.getId());
+        System.out.println("- Name: " + patient.getName());
+        System.out.println("- Age: " + patient.getAge());
+        System.out.println("- Weight: " + patient.getWeight());
+        System.out.println("- Height: " + patient.getHeight());
+        System.out.println("- Gender: " + patient.getGender());
+        System.out.println("- Contact Information: " + patient.getContactInfo());
+        if (pendingTests.isEmpty()) {
+            System.out.println("No pending tests.");
+        } else {
+            System.out.println("Pending Tests:");
+            int j = 1;
+            for (int i = 0; i < pendingTests.size(); i+=2) {
+                System.out.println((j++) + ". " + pendingTests.get(i) + " ,in date : " + pendingTests.get(i+1));
+            }
+        }  
+        System.out.println("Please choose an option:");
+        System.out.println("1. View Test History");
+        System.out.println("2. Add Test to Pending");
+        System.out.println("0. Back to Menu");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+
+        if (choice == 1) {
+            viewTestHistory(patient);
+        } else if (choice == 2) {
+            addTestToPending(patient);
         }
-
-        frame.add(new JScrollPane(profileArea), BorderLayout.CENTER);
-
-        // Buttons
-        JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 10, 10)); // Adjusted for 3 buttons
-        JButton viewHistoryButton = new JButton("View Test History");
-        JButton addTestButton = new JButton("Add Test to Pending");
-        JButton backButton = new JButton("Back");
-
-        buttonPanel.add(viewHistoryButton);
-        buttonPanel.add(addTestButton);
-        buttonPanel.add(backButton);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-
-        // Button Actions
-        viewHistoryButton.addActionListener(e -> viewTestHistory(patient));
-        addTestButton.addActionListener(e -> addTestToPending(patient));
-        backButton.addActionListener(e -> frame.dispose()); // Closes the current frame
-
-        frame.setVisible(true);
     }
 
     /**
@@ -786,62 +609,31 @@ public class PathologyLabSystem {
         // Load available tests
         List<String> availableTests = fileManager.loadAvailableTests();
 
-        if (availableTests.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No available tests at the moment.", "Information", JOptionPane.INFORMATION_MESSAGE);
-            return;
+        // Display available tests
+        System.out.println("Available Tests:");
+        for (int i = 0; i < availableTests.size(); i++) {
+            System.out.println((i + 1) + ". " + availableTests.get(i));
         }
 
-        // Create frame for adding test
-        JFrame frame = new JFrame("Add Test to Pending");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLayout(new BorderLayout());
-
-        // Title label
-        JLabel titleLabel = new JLabel("Select a Test for Patient: " + patient.getName(), SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        frame.add(titleLabel, BorderLayout.NORTH);
-
-        // Available tests list
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (String test : availableTests) {
-            listModel.addElement(test);
+        // Ask user to choose a test
+        System.out.println("Choose a test by number:");
+        int testChoice = scanner.nextInt();
+        
+        // Validate choice
+        while(testChoice < 1 || testChoice > availableTests.size())
+        {
+            System.out.println("Invalid choice. Test not added. Enter valid test:");
+            scanner.nextLine();
+            testChoice = scanner.nextInt();
         }
-        JList<String> testList = new JList<>(listModel);
-        testList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane scrollPane = new JScrollPane(testList);
-        frame.add(scrollPane, BorderLayout.CENTER);
 
-        // Button panel
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        JButton addButton = new JButton("Add Test");
-        JButton cancelButton = new JButton("Cancel");
 
-        buttonPanel.add(addButton);
-        buttonPanel.add(cancelButton);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
+        String selectedTest = availableTests.get(testChoice - 1); // Get selected test
+        String currentDate = java.time.LocalDate.now().toString();
 
-        // Add button action
-        addButton.addActionListener(e -> {
-            int selectedIndex = testList.getSelectedIndex();
-            if (selectedIndex != -1) {
-                String selectedTest = availableTests.get(selectedIndex);
-                String currentDate = java.time.LocalDate.now().toString();
-
-                // Save test to pending tests
-                fileManager.addPendingTest(patient.getId(), selectedTest, currentDate);
-                JOptionPane.showMessageDialog(frame, "Test added to pending for Patient ID: " + patient.getId(), "Success", JOptionPane.INFORMATION_MESSAGE);
-                frame.dispose();
-            } else {
-                JOptionPane.showMessageDialog(frame, "Please select a test to add.", "Warning", JOptionPane.WARNING_MESSAGE);
-            }
-        });
-
-        // Cancel button action
-        cancelButton.addActionListener(e -> frame.dispose());
-
-        // Display the frame
-        frame.setVisible(true);
+        // Save test to pending tests
+        fileManager.addPendingTest(patient.getId(), selectedTest, currentDate);
+        System.out.println("Test added to pending for Patient ID: " + patient.getId());
     }
 
     /**
