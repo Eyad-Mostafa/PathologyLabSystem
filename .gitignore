@@ -1,0 +1,9 @@
+# Ignore sensitive files
+users.txt
+patients.txt
+tests.txt
+pendingTests.txt
+patientHistory.txt
+
+# Ignore logs
+*.log
