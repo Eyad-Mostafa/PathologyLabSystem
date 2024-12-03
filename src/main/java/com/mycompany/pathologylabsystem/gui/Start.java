@@ -34,6 +34,8 @@ public class Start extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         loginBtn.setText("Login");
+        loginBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginBtn.setFocusPainted(false);
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
@@ -48,6 +50,8 @@ public class Start extends javax.swing.JFrame {
         jLabel1.setOpaque(true);
 
         addUserBtn1.setText("Add User");
+        addUserBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addUserBtn1.setFocusPainted(false);
         addUserBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addUserBtn1ActionPerformed(evt);
