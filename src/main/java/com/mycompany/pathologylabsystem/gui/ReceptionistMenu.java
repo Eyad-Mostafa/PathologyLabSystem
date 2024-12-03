@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.pathologylabsystem.gui;
+
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
 import java.util.List;
@@ -21,12 +22,13 @@ public class ReceptionistMenu extends javax.swing.JFrame {
     String name;
     private FileManager fileManager = new FileManager();
     private List<Patient> patients; // List of patients
-    
+
     public ReceptionistMenu() {
         initComponents();
         patients = fileManager.loadPatients();
         populatePatientsTable();
     }
+
     public ReceptionistMenu(String n) {
         initComponents();
         this.name = n;
@@ -67,6 +69,7 @@ public class ReceptionistMenu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         age = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
+        searchPatient1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,15 +117,6 @@ public class ReceptionistMenu extends javax.swing.JFrame {
 
         patiantsDataa.setModel(patiantsDataa.getModel());
         jScrollPane1.setViewportView(patiantsDataa);
-        if (patiantsDataa.getColumnModel().getColumnCount() > 0) {
-            patiantsDataa.getColumnModel().getColumn(0).setHeaderValue("Name");
-            patiantsDataa.getColumnModel().getColumn(1).setHeaderValue("ID");
-            patiantsDataa.getColumnModel().getColumn(2).setHeaderValue("Age");
-            patiantsDataa.getColumnModel().getColumn(3).setHeaderValue("Gender");
-            patiantsDataa.getColumnModel().getColumn(4).setHeaderValue("Height");
-            patiantsDataa.getColumnModel().getColumn(5).setHeaderValue("Weight");
-            patiantsDataa.getColumnModel().getColumn(6).setHeaderValue("Phone");
-        }
 
         addPatientPanal.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, null));
 
@@ -258,6 +252,15 @@ public class ReceptionistMenu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        searchPatient1.setForeground(new java.awt.Color(255, 0, 0));
+        searchPatient1.setText("Log out");
+        searchPatient1.setBorderPainted(false);
+        searchPatient1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchPatient1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -271,9 +274,9 @@ public class ReceptionistMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(addPatientPanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(searchPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(addPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(searchPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchPatient1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
@@ -285,51 +288,55 @@ public class ReceptionistMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addPatientPanal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(57, 57, 57)
+                        .addGap(18, 18, 18)
                         .addComponent(addPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20))
+                        .addComponent(searchPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchPatient1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void populatePatientsTable() {
-    // Create a DefaultTableModel with column names
-    DefaultTableModel model = new DefaultTableModel(new String[]{"Name", "ID", "Age", "Gender", "Height", "Weight", "Phone"}, 0);
+    private void populatePatientsTable() {
+        // Create a DefaultTableModel with column names
+        DefaultTableModel model = new DefaultTableModel(new String[]{"Name", "ID", "Age", "Gender", "Height", "Weight", "Phone"}, 0);
 
-    // Load patients from the file manager
-    patients = fileManager.loadPatients();
+        // Load patients from the file manager
+        patients = fileManager.loadPatients();
 
-    // Iterate through the patients list and add rows to the model
-    for (Patient patient : patients) {
-        Object[] rowData = {
-            patient.getName(),
-            patient.getId(),
-            patient.getAge(),
-            patient.getGender(),
-            patient.getHeight(),
-            patient.getWeight(),
-            patient.getContactInfo()
-        };
-        model.addRow(rowData);
+        // Iterate through the patients list and add rows to the model
+        for (Patient patient : patients) {
+            Object[] rowData = {
+                patient.getName(),
+                patient.getId(),
+                patient.getAge(),
+                patient.getGender(),
+                patient.getHeight(),
+                patient.getWeight(),
+                patient.getContactInfo()
+            };
+            model.addRow(rowData);
+        }
+
+        // Set the model to the JTable
+        patiantsDataa.setModel(model);
     }
-
-    // Set the model to the JTable
-    patiantsDataa.setModel(model);
-    }
+    
     private void searchPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPatientActionPerformed
         SearchInterface si = new SearchInterface();
         si.setVisible(true);
         si.pack();
         si.setLocationRelativeTo(null);
         this.dispose();
-        
+
     }//GEN-LAST:event_searchPatientActionPerformed
 
     private void patientNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientNameActionPerformed
@@ -349,76 +356,81 @@ private void populatePatientsTable() {
     }//GEN-LAST:event_phoneActionPerformed
 
     private void addPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientActionPerformed
-    String id = ID.getValue().toString(); // Get ID from JSpinner
-    String name1 = patientName.getText().trim(); // Get name from JTextField
-    int age1 = (int) age.getValue(); // Get age from JSpinner
-    String gender = Male.isSelected() ? "Male" : (Female.isSelected() ? "Female" : ""); // Get gender from JCheckBoxes
-    int weight1 = (int) weight.getValue(); // Get weight from JSpinner
-    int height1 = (int) height.getValue(); // Get height from JSpinner
-    String contactInfo = phone.getText().trim(); // Get phone number from JTextField
+        String id = ID.getValue().toString(); // Get ID from JSpinner
+        String name1 = patientName.getText().trim(); // Get name from JTextField
+        int age1 = (int) age.getValue(); // Get age from JSpinner
+        String gender = Male.isSelected() ? "Male" : (Female.isSelected() ? "Female" : ""); // Get gender from JCheckBoxes
+        int weight1 = (int) weight.getValue(); // Get weight from JSpinner
+        int height1 = (int) height.getValue(); // Get height from JSpinner
+        String contactInfo = phone.getText().trim(); // Get phone number from JTextField
 
-    // Validate inputs
-    if (id.isEmpty() || name1.isEmpty() || gender.isEmpty() || contactInfo.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    try {
-        Long.parseLong(id); // Attempt to parse the string as a number
-        // Check if a patient with the same ID already exists
-        boolean patientExists = false;
-        for (Patient patient : patients) {
-            if (patient.getId().equals(id)) {
-                patientExists = true;
-                break; // Stop checking further once a match is found
+        // Validate inputs
+        if (id.isEmpty() || name1.isEmpty() || gender.isEmpty() || contactInfo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            Long.parseLong(id); // Attempt to parse the string as a number
+            // Check if a patient with the same ID already exists
+            boolean patientExists = false;
+            for (Patient patient : patients) {
+                if (patient.getId().equals(id)) {
+                    patientExists = true;
+                    break; // Stop checking further once a match is found
+                }
             }
-        }
 
-        if (patientExists) {
-            JOptionPane.showMessageDialog(this, "Patient with this ID already exists. Please use a different ID..", "Duplicate ID", JOptionPane.ERROR_MESSAGE);
-            return; // Exit the method without adding the user
-        }
-    } catch (NumberFormatException e) {
+            if (patientExists) {
+                JOptionPane.showMessageDialog(this, "Patient with this ID already exists. Please use a different ID..", "Duplicate ID", JOptionPane.ERROR_MESSAGE);
+                return; // Exit the method without adding the user
+            }
+        } catch (NumberFormatException e) {
             System.out.println("ID must be number.");
             return;
-    }
-    // Validate age, weight, and height
-    if (age1 < 1 || age1 > 120) {
-        JOptionPane.showMessageDialog(this, "Age must be between 1 and 120.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    if (weight1 < 1 || weight1 > 500) {
-        JOptionPane.showMessageDialog(this, "Weight must be between 1 and 500.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    if (height1 < 30 || height1 > 220) {
-        JOptionPane.showMessageDialog(this, "Height must be between 30 and 220 cm.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        }
+        // Validate age, weight, and height
+        if (age1 < 1 || age1 > 120) {
+            JOptionPane.showMessageDialog(this, "Age must be between 1 and 120.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (weight1 < 1 || weight1 > 500) {
+            JOptionPane.showMessageDialog(this, "Weight must be between 1 and 500.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (height1 < 30 || height1 > 220) {
+            JOptionPane.showMessageDialog(this, "Height must be between 30 and 220 cm.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    // Create new Patient object
-    Patient newPatient = new Patient(id, name1, age1, gender, weight1, height1, contactInfo);
+        // Create new Patient object
+        Patient newPatient = new Patient(id, name1, age1, gender, weight1, height1, contactInfo);
 
-    // Add patient using FileManager
-    fileManager.addPatient(newPatient);
-    patients.add(newPatient); // Add to the in-memory list
+        // Add patient using FileManager
+        fileManager.addPatient(newPatient);
+        patients.add(newPatient); // Add to the in-memory list
 
-    // Refresh the patient table
-    populatePatientsTable();
+        // Refresh the patient table
+        populatePatientsTable();
 
-    // Clear input fields after adding
-    patientName.setText("");
-    phone.setText("");
-    ID.setValue(0);
-    age.setValue(1);
-    weight.setValue(1);
-    height.setValue(50);
-    Male.setSelected(false);
-    Female.setSelected(false);
+        // Clear input fields after adding
+        patientName.setText("");
+        phone.setText("");
+        ID.setValue(0);
+        age.setValue(1);
+        weight.setValue(1);
+        height.setValue(50);
+        Male.setSelected(false);
+        Female.setSelected(false);
 
-    JOptionPane.showMessageDialog(this, "Patient added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Patient added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-       
+
     }//GEN-LAST:event_addPatientActionPerformed
+
+    private void searchPatient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPatient1ActionPerformed
+        this.setVisible(false);
+        new Start().setVisible(true);
+    }//GEN-LAST:event_searchPatient1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -455,6 +467,7 @@ private void populatePatientsTable() {
     private javax.swing.JTextField patientName;
     private javax.swing.JTextField phone;
     private javax.swing.JButton searchPatient;
+    private javax.swing.JButton searchPatient1;
     private javax.swing.JSpinner weight;
     // End of variables declaration//GEN-END:variables
 }
