@@ -2,7 +2,6 @@ package com.mycompany.pathologylabsystem;
 
 import java.io.*;
 import java.util.*;
-
 /**
  * Main class for the Pathology Lab System, handling user interaction and managing
  * users, patients, and test requests.

@@ -6,4 +6,8 @@ pendingTests.txt
 patientHistory.txt
 
 # Ignore logs
+<<<<<<< main
 *.log
+=======
+*.log
+>>>>>>> main
