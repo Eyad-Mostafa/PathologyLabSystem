@@ -1,5 +1,6 @@
 package com.mycompany.pathologylabsystem;
 
+import com.mycompany.pathologylabsystem.gui.Main;
 import java.io.*;
 import java.util.*;
 /**
@@ -22,7 +23,8 @@ public class PathologyLabSystem {
     public static void main(String[] args) {
         PathologyLabSystem system = new PathologyLabSystem();
         system.loadData(); // Load existing users and patients from files
-        system.start();
+//        system.start();
+        Main.startGUI();
     }
 
     /**
