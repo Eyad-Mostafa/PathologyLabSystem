@@ -99,7 +99,7 @@ public class Start extends javax.swing.JFrame {
     private void addUserBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBtn1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-//        new AddUser().setVisible(true);
+        new addUser().setVisible(true);
     }//GEN-LAST:event_addUserBtn1ActionPerformed
 
     /**
