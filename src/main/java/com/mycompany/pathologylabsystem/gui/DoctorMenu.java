@@ -6,14 +6,18 @@ package com.mycompany.pathologylabsystem.gui;
 
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
+import com.mycompany.pathologylabsystem.Test;
+import com.mycompany.pathologylabsystem.TestResult;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author XEON
  */
 public class DoctorMenu extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form DoctorMenu
@@ -21,6 +25,8 @@ public class DoctorMenu extends javax.swing.JFrame {
     String name;
     private FileManager fileManager = new FileManager();
     private List<Patient> patients;
+    List<String> pendingTests = fileManager.loadPendingTests();
+
     public DoctorMenu(String name) {
         initComponents();
         this.name = name;
@@ -28,8 +34,21 @@ public class DoctorMenu extends javax.swing.JFrame {
 
     private DoctorMenu() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    } 
+    
+    void fillTable(){
+        DefaultTableModel model = (DefaultTableModel) pendingTestTable.getModel();
+        List<String> pendingTests = fileManager.loadPendingTests();
+        model.setRowCount(0);
+        for(int i=0;i<pendingTests.size();i++){
+            String row = pendingTests.get(i);
+            String[] arr = row.split(",");
+            model.addRow(new Object[]{arr[0],arr[1],arr[2]});
+        }
     }
+    
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,12 +61,16 @@ public class DoctorMenu extends javax.swing.JFrame {
         addPatient = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        addPatient1 = new javax.swing.JButton();
-        addPatient3 = new javax.swing.JButton();
-        addPatient4 = new javax.swing.JButton();
-        addPatient5 = new javax.swing.JButton();
+        btnAddTestResult = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
+        btnAddNewTest = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        pendingTestTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
 
         addPatient.setText("Add Patient");
         addPatient.setBorderPainted(false);
@@ -58,41 +81,57 @@ public class DoctorMenu extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Doctor Menu");
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
-
-        addPatient1.setText("Add Test Result");
-        addPatient1.setBorderPainted(false);
-        addPatient1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddTestResult.setBackground(new java.awt.Color(102, 102, 102));
+        btnAddTestResult.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddTestResult.setText("Add Test Result");
+        btnAddTestResult.setBorderPainted(false);
+        btnAddTestResult.setFocusable(false);
+        btnAddTestResult.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addPatient1ActionPerformed(evt);
+                btnAddTestResultActionPerformed(evt);
             }
         });
 
-        addPatient3.setText("Search For Patient");
-        addPatient3.setBorderPainted(false);
-        addPatient3.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setBackground(new java.awt.Color(102, 102, 102));
+        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearch.setText("Search For Patient");
+        btnSearch.setBorderPainted(false);
+        btnSearch.setFocusable(false);
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addPatient3ActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
 
-        addPatient4.setText("Clear Pending Tests");
-        addPatient4.setBorderPainted(false);
-        addPatient4.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setBackground(new java.awt.Color(255, 102, 102));
+        btnClear.setForeground(new java.awt.Color(255, 255, 255));
+        btnClear.setText("Clear Pending Tests");
+        btnClear.setBorderPainted(false);
+        btnClear.setFocusable(false);
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addPatient4ActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
-        addPatient5.setText("Add New Test");
-        addPatient5.setBorderPainted(false);
-        addPatient5.addActionListener(new java.awt.event.ActionListener() {
+        btnAddNewTest.setBackground(new java.awt.Color(102, 102, 102));
+        btnAddNewTest.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddNewTest.setText("Add New Test");
+        btnAddNewTest.setBorderPainted(false);
+        btnAddNewTest.setFocusable(false);
+        btnAddNewTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addPatient5ActionPerformed(evt);
+                btnAddNewTestActionPerformed(evt);
             }
         });
 
@@ -101,49 +140,72 @@ public class DoctorMenu extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(addPatient1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(addPatient3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(addPatient4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addPatient5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(105, 105, 105)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddNewTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddTestResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(42, 42, 42))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addPatient1, addPatient3});
-
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addPatient4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addPatient5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(btnAddTestResult, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addPatient1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addPatient3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48))
+                .addComponent(btnAddNewTest, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAddNewTest, btnAddTestResult, btnClear, btnSearch});
+
+        pendingTestTable.setBackground(new java.awt.Color(51, 51, 51));
+        pendingTestTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pendingTestTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        pendingTestTable.setForeground(new java.awt.Color(255, 255, 255));
+        pendingTestTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Patient ID", "Test Name", "Date"
             }
         ));
-        jTable1.setColumnSelectionAllowed(true);
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        pendingTestTable.setCellSelectionEnabled(false);
+        pendingTestTable.setRowHeight(30);
+        pendingTestTable.setRowMargin(2);
+        pendingTestTable.setShowGrid(true);
+        jScrollPane1.setViewportView(pendingTestTable);
+        pendingTestTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Pending Test");
+
+        jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Baker\\Desktop\\flask.png")); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(101, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(86, 86, 86))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(29, 29, 29))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,12 +214,23 @@ public class DoctorMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(62, 62, 62)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+                                .addContainerGap())
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,10 +238,18 @@ public class DoctorMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -179,21 +260,82 @@ public class DoctorMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_addPatientActionPerformed
 
-    private void addPatient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatient1ActionPerformed
-       
-    }//GEN-LAST:event_addPatient1ActionPerformed
+    private void btnAddNewTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewTestActionPerformed
+        this.setVisible(false);
+        new AddNewTest(name).setVisible(true);
+    }//GEN-LAST:event_btnAddNewTestActionPerformed
 
-    private void addPatient3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatient3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addPatient3ActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        int result = JOptionPane.showConfirmDialog(this, 
+                        "Are You Sure, You Want Delete All Pending Tests", 
+                        "Confirm", 
+                        JOptionPane.OK_CANCEL_OPTION, 
+                        JOptionPane.QUESTION_MESSAGE);
+        if(result == JOptionPane.OK_OPTION){
+            fileManager.clearPendingTests();
+            DefaultTableModel model = (DefaultTableModel) pendingTestTable.getModel();
+            model.setRowCount(0);
+        }
+        else
+            return;
+    }//GEN-LAST:event_btnClearActionPerformed
 
-    private void addPatient4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatient4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addPatient4ActionPerformed
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        this.setVisible(false);
+        new SearchInterface(this).setVisible(true);
+    }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void addPatient5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatient5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addPatient5ActionPerformed
+    private void btnAddTestResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTestResultActionPerformed
+        int row = pendingTestTable.getSelectedRow();
+        if(row < 0){
+            JOptionPane.showMessageDialog(this,"please select test","try again", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        else{
+            DefaultTableModel model = (DefaultTableModel) pendingTestTable.getModel();
+            Object valueP = model.getValueAt(row, 0);
+            Object valueT = model.getValueAt(row, 1);
+            Object valueD = model.getValueAt(row, 2);
+            String patientId = (String) valueP;
+            String selectedTestName = (String) valueT;
+            String selectedTestInfo = patientId+"," +selectedTestName+"," + (String) valueD; 
+            String currentDate = java.time.LocalDate.now().toString();
+            Test selectedTest = fileManager.getTestByName(selectedTestName); 
+            if (selectedTest == null) {
+                JOptionPane.showMessageDialog(this,"No Test","try again", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            String result = JOptionPane.showInputDialog(this, "input result for "+valueT);
+            String status;
+            Long testResult;
+            try {
+                testResult = Long.parseLong(result);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this,"Enter Avalid Value","try again", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (testResult < selectedTest.getMin()) {
+                status = "Low";
+            } else if (testResult > selectedTest.getMax()) {
+                status = "High";
+            } else {
+                status = "Normal";
+            }
+            TestResult newTestResult = new TestResult(selectedTest, testResult, status,currentDate);
+            fileManager.addTestResultToPatientHistory(patientId, newTestResult);
+            fileManager.removeTestFromPending(selectedTestInfo);
+            fillTable();
+            System.out.println("Test result added successfully for test: " + selectedTest.getName());
+
+            
+            
+
+        }
+    }//GEN-LAST:event_btnAddTestResultActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        fillTable();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -226,19 +368,26 @@ public class DoctorMenu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DoctorMenu().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPatient;
-    private javax.swing.JButton addPatient1;
-    private javax.swing.JButton addPatient3;
-    private javax.swing.JButton addPatient4;
-    private javax.swing.JButton addPatient5;
+    private javax.swing.JButton btnAddNewTest;
+    private javax.swing.JButton btnAddTestResult;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable pendingTestTable;
     // End of variables declaration//GEN-END:variables
+    
+
 }

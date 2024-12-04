@@ -6,6 +6,7 @@ package com.mycompany.pathologylabsystem.gui;
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,7 +19,9 @@ public class SearchInterface extends javax.swing.JFrame {
     /**
      * Creates new form SearchInterface
      */
-    public SearchInterface() {
+    JFrame previousFrame; 
+    public SearchInterface(JFrame previousFrame) {
+        this.previousFrame = previousFrame; 
         initComponents();
     }
 
@@ -166,7 +169,7 @@ public class SearchInterface extends javax.swing.JFrame {
 
     private void addPatient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatient1ActionPerformed
         this.setVisible(false);
-        new ReceptionistMenu().setVisible(true);
+        previousFrame.setVisible(true);
     }//GEN-LAST:event_addPatient1ActionPerformed
 
     /**
@@ -199,7 +202,7 @@ public class SearchInterface extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchInterface().setVisible(true);
+//                new SearchInterface().setVisible(true);
             }
         });
     }
