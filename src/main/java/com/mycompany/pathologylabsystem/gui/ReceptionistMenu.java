@@ -331,7 +331,7 @@ public class ReceptionistMenu extends javax.swing.JFrame {
     }
     
     private void searchPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPatientActionPerformed
-        SearchInterface si = new SearchInterface();
+        SearchInterface si = new SearchInterface(this);
         si.setVisible(true);
         si.pack();
         si.setLocationRelativeTo(null);
