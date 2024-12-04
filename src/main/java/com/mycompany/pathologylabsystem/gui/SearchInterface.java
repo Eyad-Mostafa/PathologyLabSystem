@@ -7,6 +7,7 @@ package com.mycompany.pathologylabsystem.gui;
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,7 +20,13 @@ public class SearchInterface extends javax.swing.JFrame {
     /**
      * Creates new form SearchInterface
      */
+    JFrame previousFrame; 
+
     public SearchInterface() {
+        initComponents();
+    }
+    public SearchInterface(JFrame previousFrame) {
+        this.previousFrame = previousFrame; 
         initComponents();
     }
 

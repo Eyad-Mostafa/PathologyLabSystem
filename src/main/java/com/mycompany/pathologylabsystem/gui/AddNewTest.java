@@ -21,7 +21,13 @@ public class AddNewTest extends javax.swing.JFrame {
      */
     private FileManager fileManager = new FileManager();
     private List<Patient> patients; 
+    private String DrName;
+
     public AddNewTest() {
+        initComponents();
+    }
+    public AddNewTest(String DrName) {
+        this.DrName = DrName;
         initComponents();
     }
 
@@ -147,6 +153,12 @@ public class AddNewTest extends javax.swing.JFrame {
         catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Test Not Add, Try Again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        finally{
+            this.setVisible(false);
+            new DoctorMenu(DrName).setVisible(true);
+        }
+        
+        
         
     }//GEN-LAST:event_addNewTestActionPerformed
 
