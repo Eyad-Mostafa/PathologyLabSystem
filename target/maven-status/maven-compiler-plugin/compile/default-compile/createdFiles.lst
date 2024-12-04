@@ -8,6 +8,7 @@ com\mycompany\pathologylabsystem\gui\Login$3.class
 com\mycompany\pathologylabsystem\gui\AddTestToPending$2.class
 com\mycompany\pathologylabsystem\gui\Login.class
 com\mycompany\pathologylabsystem\gui\ViewTestHistory$1.class
+com\mycompany\pathologylabsystem\gui\AddNewTest$4.class
 com\mycompany\pathologylabsystem\gui\GenerateTestReport$1.class
 com\mycompany\pathologylabsystem\gui\ViewTestHistory$4.class
 com\mycompany\pathologylabsystem\gui\DisplayPatientProfile.class
