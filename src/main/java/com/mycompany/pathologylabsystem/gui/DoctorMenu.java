@@ -28,7 +28,7 @@ public class DoctorMenu extends javax.swing.JFrame {
     List<String> pendingTests = fileManager.loadPendingTests();
 
     public DoctorMenu(String name) {
-        initComponents();
+        initComponents();   
         this.name = name;
     }
 
@@ -43,7 +43,7 @@ public class DoctorMenu extends javax.swing.JFrame {
         for(int i=0;i<pendingTests.size();i++){
             String row = pendingTests.get(i);
             String[] arr = row.split(",");
-            model.addRow(new Object[]{arr[0],arr[1],arr[2]});
+            model.addRow(new Object[]{arr[0],arr[1],arr[4]});
         }
     }
     
@@ -322,10 +322,14 @@ public class DoctorMenu extends javax.swing.JFrame {
             Object valueT = model.getValueAt(row, 1);
             Object valueD = model.getValueAt(row, 2);
             String patientId = (String) valueP;
-            String selectedTestName = (String) valueT;
+            Test selectedTest = fileManager.getTestByName((String) valueT);
+            int min = (int) selectedTest.getMin();
+            int max = (int) selectedTest.getMax();
+            String selectedTestName = (String) valueT + "," + Integer.toString(min)+ "," + String.valueOf(max);
             String selectedTestInfo = patientId+"," +selectedTestName+"," + (String) valueD; 
+            System.out.println(selectedTestName);
+            System.out.println(selectedTestInfo);
             String currentDate = java.time.LocalDate.now().toString();
-            Test selectedTest = fileManager.getTestByName(selectedTestName); 
             if (selectedTest == null) {
                 JOptionPane.showMessageDialog(this,"No Test","try again", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -350,7 +354,7 @@ public class DoctorMenu extends javax.swing.JFrame {
             fileManager.addTestResultToPatientHistory(patientId, newTestResult);
             fileManager.removeTestFromPending(selectedTestInfo);
             fillTable();
-            System.out.println("Test result added successfully for test: " + selectedTest.getName());
+//            System.out.println("Test result added successfully for test: " + selectedTest.getName());
 
             
             
