@@ -1,5 +1,6 @@
 com\mycompany\pathologylabsystem\FileManager.class
 com\mycompany\pathologylabsystem\gui\ReceptionistMenu$7.class
+com\mycompany\pathologylabsystem\gui\GeneratHelthReport$2.class
 com\mycompany\pathologylabsystem\gui\ViewTestHistory.class
 com\mycompany\pathologylabsystem\gui\Login$2.class
 com\mycompany\pathologylabsystem\gui\SearchInterface$1.class
@@ -16,7 +17,6 @@ com\mycompany\pathologylabsystem\Patient.class
 com\mycompany\pathologylabsystem\gui\DoctorMenu$7.class
 com\mycompany\pathologylabsystem\gui\FilterByDate.class
 com\mycompany\pathologylabsystem\gui\Login$3.class
-com\mycompany\pathologylabsystem\gui\AddTestToPending$2.class
 com\mycompany\pathologylabsystem\gui\DoctorMenu$3.class
 com\mycompany\pathologylabsystem\gui\Login.class
 com\mycompany\pathologylabsystem\gui\ViewTestHistory$1.class
