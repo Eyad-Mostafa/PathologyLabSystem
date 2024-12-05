@@ -21,11 +21,12 @@ public class SearchInterface extends javax.swing.JFrame {
      * Creates new form SearchInterface
      */
     static JFrame previousFrame; 
-
+    boolean doctor;
     public SearchInterface() {
         initComponents();
     }
-    public SearchInterface(JFrame previousFrame) {
+    public SearchInterface(JFrame previousFrame, boolean isDoctor) {
+        doctor = isDoctor;
         this.previousFrame = previousFrame; 
         initComponents();
     }
@@ -147,7 +148,22 @@ public class SearchInterface extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Invalid Id", "try again", JOptionPane.ERROR_MESSAGE);
         else{
             this.setVisible(false);
-            new DisplayPatientProfile(getPatientById()).setVisible(true);
+            if(doctor)
+            {
+                DisplayPatientProfile t = new DisplayPatientProfile(getPatientById(), doctor);
+                t.setVisible(true);
+                t.pack();
+                t.setLocationRelativeTo(null);
+                this.dispose();
+            }
+            else
+            {
+                 DisplayPatientProfile t =  new DisplayPatientProfile(getPatientById());          
+                t.setVisible(true);
+                t.pack();
+                t.setLocationRelativeTo(null);
+                this.dispose();
+            }
         }
     }//GEN-LAST:event_SearchActionPerformed
 

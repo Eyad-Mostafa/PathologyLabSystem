@@ -279,7 +279,11 @@ public class DoctorMenu extends javax.swing.JFrame {
 
     private void btnAddNewTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewTestActionPerformed
         this.setVisible(false);
-        new AddNewTest(name).setVisible(true);
+        AddNewTest t = new AddNewTest(name);
+        t.setVisible(true);
+        t.pack();
+        t.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnAddNewTestActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -299,7 +303,11 @@ public class DoctorMenu extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         this.setVisible(false);
-        new SearchInterface(this).setVisible(true);
+        SearchInterface t = new SearchInterface(this, true);
+        t.setVisible(true);
+        t.pack();
+        t.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddTestResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTestResultActionPerformed
@@ -356,7 +364,12 @@ public class DoctorMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-        new Start().setVisible(true);
+        Start t = new Start();
+        t.setVisible(true);
+        t.pack();
+        t.setLocationRelativeTo(null);
+        this.dispose();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
