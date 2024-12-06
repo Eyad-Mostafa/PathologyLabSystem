@@ -20,6 +20,7 @@ public class addUser extends javax.swing.JFrame {
      */
     public addUser() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     private List<User> users;
    private FileManager fileManager = new FileManager();

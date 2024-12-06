@@ -21,6 +21,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
      */
     public GeneratHelthReport() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     List<TestResult> result;
    public  GeneratHelthReport(List<TestResult> testHistory){

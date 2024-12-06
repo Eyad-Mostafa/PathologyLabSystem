@@ -21,6 +21,7 @@ public class ViewTestHistory extends javax.swing.JFrame {
      */
     public ViewTestHistory() {
         initComponents();
+        setLocationRelativeTo(null);
     }
      
      private List<Patient> patients; 

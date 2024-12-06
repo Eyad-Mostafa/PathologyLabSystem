@@ -25,12 +25,14 @@ public class ReceptionistMenu extends javax.swing.JFrame {
 
     public ReceptionistMenu() {
         initComponents();
+        setLocationRelativeTo(null);
         patients = fileManager.loadPatients();
         populatePatientsTable();
     }
 
     public ReceptionistMenu(String n) {
         initComponents();
+        setLocationRelativeTo(null);
         this.name = n;
         patients = fileManager.loadPatients();
         populatePatientsTable();

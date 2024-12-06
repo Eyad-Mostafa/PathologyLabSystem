@@ -29,6 +29,7 @@ public class DoctorMenu extends javax.swing.JFrame {
 
     public DoctorMenu(String name) {
         initComponents();
+        setLocationRelativeTo(null);
         this.name = name;
     }
 

@@ -18,6 +18,7 @@ public class GenerateTestReport extends javax.swing.JFrame {
      */
     public GenerateTestReport() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     String name;
     String result;

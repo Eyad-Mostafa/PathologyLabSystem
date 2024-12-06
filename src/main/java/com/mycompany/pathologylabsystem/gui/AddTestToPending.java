@@ -29,6 +29,7 @@ public class AddTestToPending extends javax.swing.JFrame {
     public AddTestToPending(Patient patient) {
         this.patient = patient;
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

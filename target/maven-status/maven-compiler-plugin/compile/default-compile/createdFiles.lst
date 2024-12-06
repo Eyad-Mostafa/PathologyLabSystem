@@ -14,10 +14,8 @@ com\mycompany\pathologylabsystem\gui\FilterByDate$2.class
 com\mycompany\pathologylabsystem\gui\ViewTestHistory$3.class
 com\mycompany\pathologylabsystem\Patient.class
 com\mycompany\pathologylabsystem\gui\DoctorMenu$7.class
-com\mycompany\pathologylabsystem\gui\FilterByDate$5.class
 com\mycompany\pathologylabsystem\gui\FilterByDate.class
 com\mycompany\pathologylabsystem\gui\Login$3.class
-com\mycompany\pathologylabsystem\gui\FilterByDate$6.class
 com\mycompany\pathologylabsystem\gui\AddTestToPending$2.class
 com\mycompany\pathologylabsystem\gui\DoctorMenu$3.class
 com\mycompany\pathologylabsystem\gui\Login.class
@@ -42,7 +40,6 @@ com\mycompany\pathologylabsystem\gui\GenerateTestReport$2.class
 com\mycompany\pathologylabsystem\gui\ViewTestHistory$5.class
 com\mycompany\pathologylabsystem\gui\SearchInterface$3.class
 com\mycompany\pathologylabsystem\gui\addUser$6.class
-com\mycompany\pathologylabsystem\gui\FilterByDate$7.class
 com\mycompany\pathologylabsystem\gui\ReceptionistMenu$5.class
 com\mycompany\pathologylabsystem\gui\ReceptionistMenu.class
 com\mycompany\pathologylabsystem\Test.class

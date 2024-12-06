@@ -27,6 +27,7 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
     public DisplayPatientProfile(Patient patient) {
         this.patient = patient;
         initComponents();
+        setLocationRelativeTo(null);
         populatePatientData();
     }
 

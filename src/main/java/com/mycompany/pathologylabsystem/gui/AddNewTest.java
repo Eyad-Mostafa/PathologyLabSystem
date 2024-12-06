@@ -25,10 +25,12 @@ public class AddNewTest extends javax.swing.JFrame {
 
     public AddNewTest() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     public AddNewTest(String DrName) {
         this.DrName = DrName;
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
