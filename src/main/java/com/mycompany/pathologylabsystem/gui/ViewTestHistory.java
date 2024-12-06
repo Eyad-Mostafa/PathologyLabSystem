@@ -16,6 +16,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ViewTestHistory extends javax.swing.JFrame {
 
+    private List<Patient> patients; 
+    private FileManager fileManager = new FileManager();
+    List<TestResult> testHistory;
+    Patient k;
     /**
      * Creates new form ViewTestHistory
      */
@@ -23,13 +27,10 @@ public class ViewTestHistory extends javax.swing.JFrame {
         initComponents();
     }
      
-     private List<Patient> patients; 
-      private FileManager fileManager = new FileManager();
-       List<TestResult> testHistory ;
-        Patient k;
-     ViewTestHistory(Patient e){
-      testHistory = fileManager.loadPatientHistory(e.getId());
-            k=e;
+    ViewTestHistory(Patient e){
+        initComponents();
+        testHistory = fileManager.loadPatientHistory(e.getId());
+        k=e;
      }
      /**
      * This method is called from within the constructor to initialize the form.
