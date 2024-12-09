@@ -140,12 +140,14 @@ public class Login extends javax.swing.JFrame {
                     Doctor.setVisible(true);
                     Doctor.pack();
                     Doctor.setLocationRelativeTo(null);
+                    Doctor.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     this.dispose();
                 } else {
                     ReceptionistMenu r = new ReceptionistMenu(user.getName());
                     r.setVisible(true);
                     r.pack();
                     r.setLocationRelativeTo(null);
+                    r.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     this.dispose();
                 }
                 return;
@@ -156,7 +158,7 @@ public class Login extends javax.swing.JFrame {
 
     private void signupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupActionPerformed
         this.setVisible(false);
-        new AddUser().setVisible(true);
+        new addUser().setVisible(true);
     }//GEN-LAST:event_signupActionPerformed
 
     /**
