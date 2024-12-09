@@ -8,6 +8,7 @@ import com.mycompany.pathologylabsystem.TestResult;
 import java.util.List;
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JProgressBar;
@@ -27,12 +28,14 @@ public class GeneratHelthReport extends javax.swing.JFrame {
     public GeneratHelthReport() {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     public GeneratHelthReport(List<TestResult> testHistory) {
         resultlist = testHistory;
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**

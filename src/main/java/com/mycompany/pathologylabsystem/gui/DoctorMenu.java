@@ -9,6 +9,7 @@ import com.mycompany.pathologylabsystem.Patient;
 import com.mycompany.pathologylabsystem.Test;
 import com.mycompany.pathologylabsystem.TestResult;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,6 +30,7 @@ public class DoctorMenu extends javax.swing.JFrame {
     public DoctorMenu(String name) {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.name = name;
     }
 
@@ -287,6 +289,7 @@ public class DoctorMenu extends javax.swing.JFrame {
         t.setVisible(true);
         t.pack();
         t.setLocationRelativeTo(null);
+        t.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.dispose();
     }//GEN-LAST:event_btnAddNewTestActionPerformed
 

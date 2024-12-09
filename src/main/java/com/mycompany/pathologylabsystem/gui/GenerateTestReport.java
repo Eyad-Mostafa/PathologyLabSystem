@@ -5,6 +5,7 @@
 package com.mycompany.pathologylabsystem.gui;
 
 import com.mycompany.pathologylabsystem.TestResult;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +20,7 @@ public class GenerateTestReport extends javax.swing.JFrame {
     public GenerateTestReport() {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     String name;
     String result;

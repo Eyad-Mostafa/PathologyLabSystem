@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
 import java.util.*; 
+import javax.swing.JFrame;
 /**
  *
  * @author XPRISTO
@@ -27,6 +28,7 @@ public class FilterByDate extends javax.swing.JFrame {
     public FilterByDate() {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     List<TestResult> Result;
     public FilterByDate(List<TestResult> testHistory) {

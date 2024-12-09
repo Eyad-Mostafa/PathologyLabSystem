@@ -8,6 +8,7 @@ import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
 import com.mycompany.pathologylabsystem.Test;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,11 +27,13 @@ public class AddNewTest extends javax.swing.JFrame {
     public AddNewTest() {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     public AddNewTest(String DrName) {
         this.DrName = DrName;
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**

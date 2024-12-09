@@ -7,6 +7,7 @@ package com.mycompany.pathologylabsystem.gui;
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,12 +26,16 @@ public class ReceptionistMenu extends javax.swing.JFrame {
 
     public ReceptionistMenu() {
         initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         patients = fileManager.loadPatients();
         populatePatientsTable();
     }
 
     public ReceptionistMenu(String n) {
         initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.name = n;
         patients = fileManager.loadPatients();
         populatePatientsTable();
@@ -329,7 +334,7 @@ public class ReceptionistMenu extends javax.swing.JFrame {
         // Set the model to the JTable
         patiantsDataa.setModel(model);
     }
-    
+
     private void searchPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPatientActionPerformed
         SearchInterface si = new SearchInterface(this, false);
         si.setVisible(true);

@@ -8,6 +8,7 @@ import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
 import com.mycompany.pathologylabsystem.TestResult;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
  
 /**
@@ -26,11 +27,13 @@ public class ViewTestHistory extends javax.swing.JFrame {
     public ViewTestHistory() {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
      
     ViewTestHistory(Patient e){
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         testHistory = fileManager.loadPatientHistory(e.getId());
         k=e;
      }

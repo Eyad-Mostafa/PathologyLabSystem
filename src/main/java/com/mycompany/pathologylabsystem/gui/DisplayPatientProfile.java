@@ -7,6 +7,7 @@ package com.mycompany.pathologylabsystem.gui;
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,6 +32,7 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
         populatePatientData();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         populatePatientsTable(patient.getId());
     }
         public DisplayPatientProfile(Patient p, boolean isDoctor) {
@@ -38,6 +40,7 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
         this.patient = p;
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         populatePatientData();
         populatePatientsTable(patient.getId());
     }

@@ -8,6 +8,7 @@ import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
 import com.mycompany.pathologylabsystem.Test;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,6 +31,7 @@ public class AddTestToPending extends javax.swing.JFrame {
         this.patient = patient;
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         populatePatientsTable();
     }
 

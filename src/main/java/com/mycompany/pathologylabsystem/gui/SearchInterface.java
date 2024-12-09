@@ -31,6 +31,7 @@ public class SearchInterface extends javax.swing.JFrame {
         this.previousFrame = previousFrame; 
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     Patient getPatientById() {
