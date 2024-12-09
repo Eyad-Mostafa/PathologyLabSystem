@@ -9,7 +9,7 @@ public class Main {
     public static void startGUI() {
         javax.swing.SwingUtilities.invokeLater(() -> {
             // Create and show the GUI
-            new Start().setVisible(true);
+            new Login().setVisible(true);
         });
     }
 }

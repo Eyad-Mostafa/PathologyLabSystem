@@ -17,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
  * @author XEON
  */
 public class DoctorMenu extends javax.swing.JFrame {
-    
 
     /**
      * Creates new form DoctorMenu
@@ -28,27 +27,26 @@ public class DoctorMenu extends javax.swing.JFrame {
     List<String> pendingTests = fileManager.loadPendingTests();
 
     public DoctorMenu(String name) {
-        initComponents();   
+        initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
         this.name = name;
     }
 
     private DoctorMenu() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    } 
-    
-    void fillTable(){
+    }
+
+    void fillTable() {
         DefaultTableModel model = (DefaultTableModel) pendingTestTable.getModel();
         List<String> pendingTests = fileManager.loadPendingTests();
         model.setRowCount(0);
-        for(int i=0;i<pendingTests.size();i++){
+        for (int i = 0; i < pendingTests.size(); i++) {
             String row = pendingTests.get(i);
             String[] arr = row.split(",");
-            model.addRow(new Object[]{arr[0],arr[1],arr[4]});
+            model.addRow(new Object[]{arr[0], arr[1], arr[4]});
         }
     }
-    
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -279,7 +277,7 @@ public class DoctorMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientActionPerformed
-        
+
 
     }//GEN-LAST:event_addPatientActionPerformed
 
@@ -293,17 +291,16 @@ public class DoctorMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddNewTestActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        int result = JOptionPane.showConfirmDialog(this, 
-                        "Are You Sure, You Want Delete All Pending Tests", 
-                        "Confirm", 
-                        JOptionPane.OK_CANCEL_OPTION, 
-                        JOptionPane.QUESTION_MESSAGE);
-        if(result == JOptionPane.OK_OPTION){
+        int result = JOptionPane.showConfirmDialog(this,
+                "Are You Sure, You Want Delete All Pending Tests",
+                "Confirm",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
             fileManager.clearPendingTests();
             DefaultTableModel model = (DefaultTableModel) pendingTestTable.getModel();
             model.setRowCount(0);
-        }
-        else
+        } else
             return;
     }//GEN-LAST:event_btnClearActionPerformed
 
@@ -318,11 +315,10 @@ public class DoctorMenu extends javax.swing.JFrame {
 
     private void btnAddTestResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTestResultActionPerformed
         int row = pendingTestTable.getSelectedRow();
-        if(row < 0){
-            JOptionPane.showMessageDialog(this,"please select test","try again", JOptionPane.ERROR_MESSAGE);
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "please select test", "try again", JOptionPane.ERROR_MESSAGE);
             return;
-        }
-        else{
+        } else {
             DefaultTableModel model = (DefaultTableModel) pendingTestTable.getModel();
             Object valueP = model.getValueAt(row, 0);
             Object valueT = model.getValueAt(row, 1);
@@ -331,22 +327,22 @@ public class DoctorMenu extends javax.swing.JFrame {
             Test selectedTest = fileManager.getTestByName((String) valueT);
             int min = (int) selectedTest.getMin();
             int max = (int) selectedTest.getMax();
-            String selectedTestName = (String) valueT + "," + Integer.toString(min)+ "," + Integer.toString(max);
-            String selectedTestInfo = patientId+"," +selectedTestName+"," + (String) valueD; 
+            String selectedTestName = (String) valueT + "," + Integer.toString(min) + "," + Integer.toString(max);
+            String selectedTestInfo = patientId + "," + selectedTestName + "," + (String) valueD;
             System.out.println(selectedTestName);
             System.out.println(selectedTestInfo);
             String currentDate = java.time.LocalDate.now().toString();
             if (selectedTest == null) {
-                JOptionPane.showMessageDialog(this,"No Test","try again", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Test", "try again", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            String result = JOptionPane.showInputDialog(this, "input result for "+valueT);
+            String result = JOptionPane.showInputDialog(this, "input result for " + valueT);
             String status;
             Long testResult;
             try {
                 testResult = Long.parseLong(result);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this,"Enter Avalid Value","try again", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Enter Avalid Value", "try again", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (testResult < selectedTest.getMin()) {
@@ -356,14 +352,11 @@ public class DoctorMenu extends javax.swing.JFrame {
             } else {
                 status = "Normal";
             }
-            TestResult newTestResult = new TestResult(selectedTest, testResult, status,currentDate);
+            TestResult newTestResult = new TestResult(selectedTest, testResult, status, currentDate);
             fileManager.addTestResultToPatientHistory(patientId, newTestResult);
             fileManager.removeTestFromPending(selectedTestInfo);
             fillTable();
 //            System.out.println("Test result added successfully for test: " + selectedTest.getName());
-
-            
-            
 
         }
     }//GEN-LAST:event_btnAddTestResultActionPerformed
@@ -374,12 +367,12 @@ public class DoctorMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-        Start t = new Start();
+        Login t = new Login();
         t.setVisible(true);
         t.pack();
         t.setLocationRelativeTo(null);
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -413,7 +406,6 @@ public class DoctorMenu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DoctorMenu().setVisible(true);
-                
             }
         });
     }
@@ -435,6 +427,5 @@ public class DoctorMenu extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable pendingTestTable;
     // End of variables declaration//GEN-END:variables
-    
 
 }

@@ -26,6 +26,7 @@ public class FilterByDate extends javax.swing.JFrame {
      */
     public FilterByDate() {
         initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
     }
     List<TestResult> Result;
     public FilterByDate(List<TestResult> testHistory) {

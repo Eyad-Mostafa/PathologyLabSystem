@@ -25,10 +25,12 @@ public class ViewTestHistory extends javax.swing.JFrame {
      */
     public ViewTestHistory() {
         initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
     }
      
     ViewTestHistory(Patient e){
         initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
         testHistory = fileManager.loadPatientHistory(e.getId());
         k=e;
      }

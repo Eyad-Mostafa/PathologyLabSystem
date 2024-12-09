@@ -429,7 +429,7 @@ public class ReceptionistMenu extends javax.swing.JFrame {
 
     private void searchPatient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPatient1ActionPerformed
         this.setVisible(false);
-        Start t = new Start();
+        Login t = new Login();
         t.setVisible(true);
         t.pack();
         t.setLocationRelativeTo(null);

@@ -24,11 +24,13 @@ public class SearchInterface extends javax.swing.JFrame {
     boolean doctor;
     public SearchInterface() {
         initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
     }
     public SearchInterface(JFrame previousFrame, boolean isDoctor) {
         doctor = isDoctor;
         this.previousFrame = previousFrame; 
         initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
     }
 
     Patient getPatientById() {

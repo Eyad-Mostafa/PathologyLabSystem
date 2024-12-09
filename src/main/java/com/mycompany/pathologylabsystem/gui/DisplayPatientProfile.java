@@ -29,6 +29,7 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
     public DisplayPatientProfile(Patient p) {
         this.patient = p;
         initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
         populatePatientData();
         populatePatientsTable(patient.getId());
     }
@@ -36,6 +37,7 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
         this.doctor = isDoctor;
         this.patient = p;
         initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
         populatePatientData();
         populatePatientsTable(patient.getId());
     }

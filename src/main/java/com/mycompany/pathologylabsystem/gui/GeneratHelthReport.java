@@ -11,26 +11,30 @@ import com.mycompany.pathologylabsystem.Patient;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JProgressBar;
+
 /**
  *
  * @author XPRISTO
  */
 public class GeneratHelthReport extends javax.swing.JFrame {
-      JProgressBar Bar=new JProgressBar();
+
+    JProgressBar Bar = new JProgressBar();
     List<TestResult> resultlist;
+
     /**
      * Creates new form GeneratHelthReport
      */
     public GeneratHelthReport() {
-        initComponents();   
- 
-  
+        initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
     }
 
-   public  GeneratHelthReport(List<TestResult> testHistory){
-       resultlist=testHistory;
-       
+    public GeneratHelthReport(List<TestResult> testHistory) {
+        resultlist = testHistory;
+        initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,21 +127,21 @@ public class GeneratHelthReport extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-             jPanel2.add(Bar);
-       Bar.setBounds(400,100, 160,30);
-        if(resultlist.isEmpty()){
-         JOptionPane.showMessageDialog(this,"No test history available to generate a report.","try again", JOptionPane.ERROR_MESSAGE);
+        jPanel2.add(Bar);
+        Bar.setBounds(400, 100, 160, 30);
+        if (resultlist.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No test history available to generate a report.", "try again", JOptionPane.ERROR_MESSAGE);
         }
-  
+
         int normalCount = 0;
         int lowCount = 0;
         int highCount = 0;
-      
-         for (TestResult r : resultlist) {
-            String Range=""+r.getMin()+"-"+r.getMax();
-             DefaultTableModel model=(DefaultTableModel)Table.getModel();
-             model.addRow(new Object[]{r.getTestName(),r.getResult(),Range});
-            
+
+        for (TestResult r : resultlist) {
+            String Range = "" + r.getMin() + "-" + r.getMax();
+            DefaultTableModel model = (DefaultTableModel) Table.getModel();
+            model.addRow(new Object[]{r.getTestName(), r.getResult(), Range});
+
             // Determine the status based on the result compared to the normal range
             if (r.getResult() < r.getMin()) {
                 lowCount++;
@@ -145,7 +149,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
                 highCount++;
             } else {
                 normalCount++;
-            } 
+            }
         }
         if (lowCount > 0) {
             jLabel2.setText("- Some tests show LOW results. Please consult a healthcare professional for further analysis.");
@@ -193,8 +197,8 @@ public class GeneratHelthReport extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Table;
     private javax.swing.JLabel jLabel1;

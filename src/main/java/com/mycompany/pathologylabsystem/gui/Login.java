@@ -22,7 +22,8 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-
+        setLocationRelativeTo(null);
+//        setResizable(false);
     }
 
     /**
@@ -153,7 +154,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_LoginActionPerformed
 
     private void signupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        new AddUser().setVisible(true);
     }//GEN-LAST:event_signupActionPerformed
 
     /**

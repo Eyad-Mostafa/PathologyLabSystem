@@ -18,18 +18,21 @@ public class GenerateTestReport extends javax.swing.JFrame {
      */
     public GenerateTestReport() {
         initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
     }
     String name;
     String result;
-    String Min,Max,Status,Date;
-    GenerateTestReport(String Testname,String TestResult,String TestMin, String TestMax, String TestStatus,String TestDeat){
-        name=Testname;
-        result=TestResult;
-        Min=TestMin;
-        Max=TestMax;
-        Status=TestStatus;
-        Date=TestDeat;
+    String Min, Max, Status, Date;
+
+    GenerateTestReport(String Testname, String TestResult, String TestMin, String TestMax, String TestStatus, String TestDeat) {
+        name = Testname;
+        result = TestResult;
+        Min = TestMin;
+        Max = TestMax;
+        Status = TestStatus;
+        Date = TestDeat;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,8 +117,8 @@ public class GenerateTestReport extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-           DefaultTableModel model=(DefaultTableModel)testreport.getModel();
-           model.addRow(new Object[]{name,result,Min,Max,Status,Date});
+        DefaultTableModel model = (DefaultTableModel) testreport.getModel();
+        model.addRow(new Object[]{name, result, Min, Max, Status, Date});
     }//GEN-LAST:event_formWindowOpened
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed

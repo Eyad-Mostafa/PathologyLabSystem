@@ -13,13 +13,15 @@ import javax.swing.JOptionPane;
  *
  * @author XPRISTO
  */
-public class addUser extends javax.swing.JFrame {
+public class AddUser extends javax.swing.JFrame {
 
     /**
      * Creates new form addUser
      */
-    public addUser() {
+    public AddUser() {
         initComponents();
+        setLocationRelativeTo(null);
+//        setResizable(false);
     }
     private List<User> users;
    private FileManager fileManager = new FileManager();
@@ -238,7 +240,7 @@ public class addUser extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         this.setVisible(false);
-        new Start().setVisible(true);
+        new Login().setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
     /**
@@ -259,20 +261,21 @@ public class addUser extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addUser().setVisible(true);
+                new AddUser().setVisible(true);
 
             }
         });
