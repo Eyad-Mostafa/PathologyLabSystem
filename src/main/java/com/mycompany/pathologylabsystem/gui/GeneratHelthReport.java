@@ -19,7 +19,7 @@ import javax.swing.JProgressBar;
  */
 public class GeneratHelthReport extends javax.swing.JFrame {
 
-    JProgressBar Bar = new JProgressBar();
+    JProgressBar Bar = new JProgressBar(0,100);
     List<TestResult> resultlist;
 
     /**
@@ -132,8 +132,13 @@ public class GeneratHelthReport extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         jPanel2.add(Bar);
         Bar.setBounds(400, 100, 160, 30);
+        Bar.setStringPainted(true);
+        Bar.setValue(0);
         if (resultlist.isEmpty()) {
+           
             JOptionPane.showMessageDialog(this, "No test history available to generate a report.", "try again", JOptionPane.ERROR_MESSAGE);
+            this.setVisible(false);
+             new  ViewTestHistory().setVisible(true);
         }
 
         int normalCount = 0;
@@ -163,9 +168,20 @@ public class GeneratHelthReport extends javax.swing.JFrame {
         if (normalCount == resultlist.size()) {
             jLabel3.setText("- All test results are within the normal range. Keep up the good health practices!");
         }
-
+         this.iterate(lowCount,highCount,normalCount);
     }//GEN-LAST:event_formWindowOpened
-
+        public void  iterate(int L,int H,int N){
+        double sumT = (N/(L+H+N))*100;
+        for (int i = 0; i <=sumT; i++) {
+            Bar.setValue(i);
+            try{
+                Thread.sleep(100);
+            
+            }catch(Exception ex){
+            
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
