@@ -52,6 +52,7 @@ public class ReceptionistMenu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        javax.swing.ButtonGroup buttonGroup = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         addPatient = new javax.swing.JButton();
         searchPatient = new javax.swing.JButton();
@@ -62,8 +63,6 @@ public class ReceptionistMenu extends javax.swing.JFrame {
         patientName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         phone = new javax.swing.JTextField();
-        Male = new javax.swing.JCheckBox();
-        Female = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
         ID = new javax.swing.JSpinner();
         jSeparator3 = new javax.swing.JSeparator();
@@ -74,6 +73,8 @@ public class ReceptionistMenu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         age = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
+        male = new javax.swing.JRadioButton();
+        female = new javax.swing.JRadioButton();
         searchPatient1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -120,8 +121,9 @@ public class ReceptionistMenu extends javax.swing.JFrame {
             }
         });
 
-        patiantsDataa.setModel(patiantsDataa.getModel());
+        patiantsDataa.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(patiantsDataa);
+        patiantsDataa.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         addPatientPanal.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, null));
 
@@ -140,22 +142,6 @@ public class ReceptionistMenu extends javax.swing.JFrame {
         phone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 phoneActionPerformed(evt);
-            }
-        });
-
-        Male.setForeground(new java.awt.Color(165, 157, 132));
-        Male.setText("Male");
-        Male.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MaleActionPerformed(evt);
-            }
-        });
-
-        Female.setForeground(new java.awt.Color(165, 157, 132));
-        Female.setText("Female");
-        Female.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FemaleActionPerformed(evt);
             }
         });
 
@@ -181,19 +167,24 @@ public class ReceptionistMenu extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Add New Patient");
 
+        male.setText("Male");
+        male.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maleActionPerformed(evt);
+            }
+        });
+
+        female.setText("Female");
+        female.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                femaleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout addPatientPanalLayout = new javax.swing.GroupLayout(addPatientPanal);
         addPatientPanal.setLayout(addPatientPanalLayout);
         addPatientPanalLayout.setHorizontalGroup(
             addPatientPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addPatientPanalLayout.createSequentialGroup()
-                .addComponent(Male)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Female)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ID)
-                .addContainerGap())
             .addGroup(addPatientPanalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(addPatientPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,6 +195,14 @@ public class ReceptionistMenu extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(addPatientPanalLayout.createSequentialGroup()
                         .addGroup(addPatientPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addPatientPanalLayout.createSequentialGroup()
+                                .addComponent(male)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(female)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ID))
                             .addComponent(jSeparator3)
                             .addComponent(patientName)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -215,7 +214,7 @@ public class ReceptionistMenu extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
                                 .addGroup(addPatientPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(age, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                                    .addComponent(age)
                                     .addComponent(weight))
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel5)
@@ -238,10 +237,10 @@ public class ReceptionistMenu extends javax.swing.JFrame {
                 .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(addPatientPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Male)
-                    .addComponent(Female)
                     .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(male)
+                    .addComponent(female))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -254,7 +253,7 @@ public class ReceptionistMenu extends javax.swing.JFrame {
                 .addGroup(addPatientPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(age, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         searchPatient1.setForeground(new java.awt.Color(255, 0, 0));
@@ -275,7 +274,7 @@ public class ReceptionistMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                        .addGap(121, 121, 121))
+                        .addGap(106, 106, 106))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(addPatientPanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -283,29 +282,27 @@ public class ReceptionistMenu extends javax.swing.JFrame {
                             .addComponent(addPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(searchPatient1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addPatientPanal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(addPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchPatient1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14))))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addPatientPanal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(addPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchPatient1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -344,31 +341,25 @@ public class ReceptionistMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_searchPatientActionPerformed
 
-    private void patientNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_patientNameActionPerformed
-
-    private void MaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MaleActionPerformed
-
-    private void FemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FemaleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FemaleActionPerformed
-
-    private void phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_phoneActionPerformed
-
     private void addPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientActionPerformed
         String id = ID.getValue().toString(); // Get ID from JSpinner
         String name1 = patientName.getText().trim(); // Get name from JTextField
         int age1 = (int) age.getValue(); // Get age from JSpinner
-        String gender = Male.isSelected() ? "Male" : (Female.isSelected() ? "Female" : ""); // Get gender from JCheckBoxes
+        String gender = male.isSelected() ? "Male" : (female.isSelected() ? "Female" : ""); // Get gender from JCheckBoxes
         int weight1 = (int) weight.getValue(); // Get weight from JSpinner
         int height1 = (int) height.getValue(); // Get height from JSpinner
         String contactInfo = phone.getText().trim(); // Get phone number from JTextField
+                                           
+       
+        
+        String rgx = "^0(10|11|12|15)\\d{8}$";
 
+        if (!contactInfo.matches(rgx)) {
+            JOptionPane.showMessageDialog(this, "Invalid phone number. Ensure it starts with 0 and is followed by 10, 11, 12, or 15, and is exactly 11 digits long.", 
+                                          "Incorrect Phone Number", JOptionPane.ERROR_MESSAGE);
+            return;
+        } 
+        
         // Validate inputs
         if (id.isEmpty() || name1.isEmpty() || gender.isEmpty() || contactInfo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -424,8 +415,8 @@ public class ReceptionistMenu extends javax.swing.JFrame {
         age.setValue(1);
         weight.setValue(1);
         height.setValue(50);
-        Male.setSelected(false);
-        Female.setSelected(false);
+        male.setSelected(false);
+        female.setSelected(false);
 
         JOptionPane.showMessageDialog(this, "Patient added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
@@ -441,6 +432,40 @@ public class ReceptionistMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_searchPatient1ActionPerformed
 
+    private void phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneActionPerformed
+        String phoneNumber = phone.getText().trim();
+        
+        String regex = "^0(10|11|12|15)\\d{8}$";
+
+        if (!phoneNumber.matches(regex)) {
+            JOptionPane.showMessageDialog(this, "Invalid phone number. Ensure it starts with 0 and is followed by 10, 11, 12, or 15, and is exactly 11 digits long.", 
+                                          "Validation Error", JOptionPane.ERROR_MESSAGE);
+        } 
+//        else {
+//            JOptionPane.showMessageDialog(this, "Invalid phone number. Ensure it starts with 0 and is followed by 10, 11, 12, or 15, and is exactly 11 digits long.", 
+//                                          "Validation Error", JOptionPane.ERROR_MESSAGE);
+//        }
+    }//GEN-LAST:event_phoneActionPerformed
+
+    private void patientNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_patientNameActionPerformed
+
+    private void femaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_femaleActionPerformed
+        if(female.isSelected())
+        {
+            male.setSelected(false);
+        }
+    }//GEN-LAST:event_femaleActionPerformed
+
+    private void maleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleActionPerformed
+        if(male.isSelected())
+        {
+            female.setSelected(false);
+        }
+
+    }//GEN-LAST:event_maleActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -453,12 +478,11 @@ public class ReceptionistMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox Female;
     private javax.swing.JSpinner ID;
-    private javax.swing.JCheckBox Male;
     private javax.swing.JButton addPatient;
     private javax.swing.JPanel addPatientPanal;
     private javax.swing.JSpinner age;
+    private javax.swing.JRadioButton female;
     private javax.swing.JSpinner height;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -472,6 +496,7 @@ public class ReceptionistMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JRadioButton male;
     private javax.swing.JTable patiantsDataa;
     private javax.swing.JTextField patientName;
     private javax.swing.JTextField phone;

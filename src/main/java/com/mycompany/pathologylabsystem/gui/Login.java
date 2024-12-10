@@ -8,6 +8,7 @@ import com.mycompany.pathologylabsystem.User;
 import com.mycompany.pathologylabsystem.FileManager;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -87,17 +88,18 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(560, 560, 560)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(userID)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(signup, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(userID)
-                        .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(signup, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)))
                 .addContainerGap(562, Short.MAX_VALUE))
         );
 
@@ -132,26 +134,34 @@ public class Login extends javax.swing.JFrame {
         String userid = userID.getText();
         char[] userPassword = password.getPassword(); // Get password as char array
         String passwordString = new String(userPassword);
-        users = fileManager.loadUsers(); // Load users from the file
+        users = fileManager.loadUsers();
+        boolean found = false;
+
         for (User user : users) {
             if (user.getId().equals(userid) && user.getPassword().equals(passwordString)) {
+                found = true; 
+
                 if (user.getRole().equals("Doctor")) {
-                    DoctorMenu Doctor = new DoctorMenu(user.getName());
-                    Doctor.setVisible(true);
-                    Doctor.pack();
-                    Doctor.setLocationRelativeTo(null);
-                    Doctor.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    DoctorMenu doctor = new DoctorMenu(user.getName());
+                    doctor.setVisible(true);
+                    doctor.pack();
+                    doctor.setLocationRelativeTo(null);
+                    doctor.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     this.dispose();
                 } else {
-                    ReceptionistMenu r = new ReceptionistMenu(user.getName());
-                    r.setVisible(true);
-                    r.pack();
-                    r.setLocationRelativeTo(null);
-                    r.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    ReceptionistMenu receptionist = new ReceptionistMenu(user.getName());
+                    receptionist.setVisible(true);
+                    receptionist.pack();
+                    receptionist.setLocationRelativeTo(null);
+                    receptionist.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     this.dispose();
                 }
-                return;
+                break; 
             }
+        }
+
+        if (!found) {
+            JOptionPane.showMessageDialog(this, "Incorrect ID or Password, Try Again With Valid Information Or SignUp", "Incorrect ID or Password", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_LoginActionPerformed
