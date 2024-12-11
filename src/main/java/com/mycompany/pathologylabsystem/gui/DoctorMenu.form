@@ -174,13 +174,9 @@
                   <Group type="102" alignment="2" attributes="0">
                       <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="2" groupAlignment="2" attributes="0">
-                              <Component id="btnClear" linkSize="3" alignment="2" min="-2" pref="278" max="-2" attributes="0"/>
-                              <Group type="103" alignment="2" groupAlignment="2" attributes="0">
-                                  <Component id="jLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton1" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="btnClear" linkSize="3" alignment="2" min="-2" pref="278" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton1" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="btnSearch" linkSize="3" alignment="2" min="-2" pref="278" max="-2" attributes="0"/>
                           <Component id="btnAddNewTest" linkSize="3" alignment="2" min="-2" pref="278" max="-2" attributes="0"/>
                           <Component id="btnAddTestResult" linkSize="3" alignment="2" min="-2" pref="278" max="-2" attributes="0"/>
@@ -223,9 +219,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="D:\abo baker\collage\third_year\first_sem\java\project\newDesign\PathologyLabSystem\src\main\java\com\mycompany\pathologylabsystem\image\signature.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Add Test Result"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -245,9 +238,6 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="D:\abo baker\collage\third_year\first_sem\java\project\newDesign\PathologyLabSystem\src\main\java\com\mycompany\pathologylabsystem\image\add.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Add New Test"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
@@ -269,9 +259,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="D:\abo baker\collage\third_year\first_sem\java\project\newDesign\PathologyLabSystem\src\main\java\com\mycompany\pathologylabsystem\image\magnifying-glass.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Search For Patient"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -292,9 +279,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="D:\abo baker\collage\third_year\first_sem\java\project\newDesign\PathologyLabSystem\src\main\java\com\mycompany\pathologylabsystem\image\trash.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Clear Pending Tests"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -314,9 +298,6 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="D:\abo baker\collage\third_year\first_sem\java\project\newDesign\PathologyLabSystem\src\main\java\com\mycompany\pathologylabsystem\image\logout.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Log out"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
@@ -340,11 +321,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="D:\abo baker\collage\third_year\first_sem\java\project\newDesign\PathologyLabSystem\src\main\java\com\mycompany\pathologylabsystem\image\biologist (2).png"/>
-                </Property>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

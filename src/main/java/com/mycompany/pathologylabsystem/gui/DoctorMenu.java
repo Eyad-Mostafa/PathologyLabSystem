@@ -118,7 +118,6 @@ public class DoctorMenu extends javax.swing.JFrame {
         btnAddTestResult.setBackground(new java.awt.Color(241, 246, 249));
         btnAddTestResult.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAddTestResult.setForeground(new java.awt.Color(51, 51, 51));
-        btnAddTestResult.setIcon(new javax.swing.ImageIcon("D:\\abo baker\\collage\\third_year\\first_sem\\java\\project\\newDesign\\PathologyLabSystem\\src\\main\\java\\com\\mycompany\\pathologylabsystem\\image\\signature.png")); // NOI18N
         btnAddTestResult.setText("Add Test Result");
         btnAddTestResult.setBorderPainted(false);
         btnAddTestResult.setFocusable(false);
@@ -132,7 +131,6 @@ public class DoctorMenu extends javax.swing.JFrame {
         btnAddNewTest.setBackground(new java.awt.Color(241, 246, 249));
         btnAddNewTest.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAddNewTest.setForeground(new java.awt.Color(51, 51, 51));
-        btnAddNewTest.setIcon(new javax.swing.ImageIcon("D:\\abo baker\\collage\\third_year\\first_sem\\java\\project\\newDesign\\PathologyLabSystem\\src\\main\\java\\com\\mycompany\\pathologylabsystem\\image\\add.png")); // NOI18N
         btnAddNewTest.setText("Add New Test");
         btnAddNewTest.setBorderPainted(false);
         btnAddNewTest.setFocusable(false);
@@ -146,7 +144,6 @@ public class DoctorMenu extends javax.swing.JFrame {
         btnSearch.setBackground(new java.awt.Color(241, 246, 249));
         btnSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSearch.setForeground(new java.awt.Color(51, 51, 51));
-        btnSearch.setIcon(new javax.swing.ImageIcon("D:\\abo baker\\collage\\third_year\\first_sem\\java\\project\\newDesign\\PathologyLabSystem\\src\\main\\java\\com\\mycompany\\pathologylabsystem\\image\\magnifying-glass.png")); // NOI18N
         btnSearch.setText("Search For Patient");
         btnSearch.setBorderPainted(false);
         btnSearch.setFocusable(false);
@@ -160,7 +157,6 @@ public class DoctorMenu extends javax.swing.JFrame {
         btnClear.setBackground(new java.awt.Color(155, 164, 181));
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnClear.setForeground(new java.awt.Color(0, 0, 0));
-        btnClear.setIcon(new javax.swing.ImageIcon("D:\\abo baker\\collage\\third_year\\first_sem\\java\\project\\newDesign\\PathologyLabSystem\\src\\main\\java\\com\\mycompany\\pathologylabsystem\\image\\trash.png")); // NOI18N
         btnClear.setText("Clear Pending Tests");
         btnClear.setBorderPainted(false);
         btnClear.setFocusable(false);
@@ -174,7 +170,6 @@ public class DoctorMenu extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(155, 164, 181));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setIcon(new javax.swing.ImageIcon("D:\\abo baker\\collage\\third_year\\first_sem\\java\\project\\newDesign\\PathologyLabSystem\\src\\main\\java\\com\\mycompany\\pathologylabsystem\\image\\logout.png")); // NOI18N
         jButton1.setText("Log out");
         jButton1.setBorderPainted(false);
         jButton1.setFocusable(false);
@@ -190,8 +185,6 @@ public class DoctorMenu extends javax.swing.JFrame {
         drName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         drName.setToolTipText("");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\abo baker\\collage\\third_year\\first_sem\\java\\project\\newDesign\\PathologyLabSystem\\src\\main\\java\\com\\mycompany\\pathologylabsystem\\image\\biologist (2).png")); // NOI18N
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -203,11 +196,9 @@ public class DoctorMenu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel2Layout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel3)
-                            .addComponent(jButton1)))
+                    .addComponent(btnClear, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddNewTest, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddTestResult, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
