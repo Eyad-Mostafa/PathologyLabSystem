@@ -64,9 +64,9 @@ public class addUser extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Role");
 
-        Password.setBackground(new java.awt.Color(33, 42, 62));
+        Password.setBackground(new java.awt.Color(255, 255, 255));
         Password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Password.setForeground(new java.awt.Color(255, 255, 255));
+        Password.setForeground(new java.awt.Color(0, 0, 0));
         Password.setText(" ");
         Password.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -82,8 +82,8 @@ public class addUser extends javax.swing.JFrame {
             }
         });
 
-        Role.setBackground(new java.awt.Color(33, 42, 62));
-        Role.setForeground(new java.awt.Color(255, 255, 255));
+        Role.setBackground(new java.awt.Color(255, 255, 255));
+        Role.setForeground(new java.awt.Color(0, 0, 0));
         Role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Doctor", "Reeptionist" }));
         Role.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,9 +119,9 @@ public class addUser extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Id");
 
-        Id.setBackground(new java.awt.Color(33, 42, 62));
+        Id.setBackground(new java.awt.Color(255, 255, 255));
         Id.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Id.setForeground(new java.awt.Color(255, 255, 255));
+        Id.setForeground(new java.awt.Color(0, 0, 0));
         Id.setText(" ");
         Id.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -141,9 +141,9 @@ public class addUser extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Name");
 
-        Name.setBackground(new java.awt.Color(33, 42, 62));
+        Name.setBackground(new java.awt.Color(255, 255, 255));
         Name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Name.setForeground(new java.awt.Color(255, 255, 255));
+        Name.setForeground(new java.awt.Color(0, 0, 0));
         Name.setText(" ");
         Name.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -171,8 +171,6 @@ public class addUser extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Sign up");
         jLabel5.setToolTipText("");
-
-        jLabel7.setIcon(new javax.swing.ImageIcon("D:\\abo baker\\collage\\third_year\\first_sem\\java\\project\\newDesign\\PathologyLabSystem\\src\\main\\java\\com\\mycompany\\pathologylabsystem\\image\\file (1).jpg")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -218,7 +216,7 @@ public class addUser extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
