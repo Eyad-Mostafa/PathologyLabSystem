@@ -98,6 +98,12 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Patient Profile");
@@ -177,6 +183,11 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
             }
         ));
         PatientData.setColumnSelectionAllowed(true);
+        PatientData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PatientDataMouseEntered(evt);
+            }
+        });
         jScrollPane1.setViewportView(PatientData);
         PatientData.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -363,6 +374,8 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
                     pendingTests.get(i),
                     pendingTests.get(i+1)
             };
+            System.out.println(pendingTests.get(i));
+            System.out.println(pendingTests.get(i+1));
             model.addRow(rowData);
             }
         }
@@ -402,6 +415,14 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
     private void editIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editIDActionPerformed
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        populatePatientsTable(patient.getId());
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void PatientDataMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PatientDataMouseEntered
+        populatePatientsTable(patient.getId());
+    }//GEN-LAST:event_PatientDataMouseEntered
 
     /**
      * @param args the command line arguments
