@@ -18,10 +18,10 @@ import javax.swing.JProgressBar;
  * @author XPRISTO
  */
 public class GeneratHelthReport extends javax.swing.JFrame {
-
+    private List<Patient> patients; 
     JProgressBar Bar = new JProgressBar(0,100);
     List<TestResult> resultlist;
-
+     Patient L;
     /**
      * Creates new form GeneratHelthReport
      */
@@ -30,12 +30,13 @@ public class GeneratHelthReport extends javax.swing.JFrame {
         setLocationRelativeTo(null); // Centers the JFrame
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
-
-    public GeneratHelthReport(List<TestResult> testHistory) {
+    
+    public GeneratHelthReport(List<TestResult> testHistory, Patient k) {
         resultlist = testHistory;
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        L=k;
     }
 
     /**
@@ -54,6 +55,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        Back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -75,6 +77,13 @@ public class GeneratHelthReport extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Summary of Results:");
 
+        Back.setText("Back");
+        Back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -83,11 +92,16 @@ public class GeneratHelthReport extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(275, 275, 275)
+                        .addComponent(Back)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -100,7 +114,9 @@ public class GeneratHelthReport extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(Back)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -123,7 +139,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -170,6 +186,11 @@ public class GeneratHelthReport extends javax.swing.JFrame {
         }
          this.iterate(lowCount,highCount,normalCount);
     }//GEN-LAST:event_formWindowOpened
+
+    private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
+            this.setVisible(false);
+            new ViewTestHistory(L).setVisible(true);
+    }//GEN-LAST:event_BackActionPerformed
         public void  iterate(int L,int H,int N){
         double sumT = (N/(L+H+N))*100;
         for (int i = 0; i <=sumT; i++) {
@@ -219,6 +240,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Back;
     private javax.swing.JTable Table;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

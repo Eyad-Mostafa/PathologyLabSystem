@@ -4,7 +4,9 @@
  */
 package com.mycompany.pathologylabsystem.gui;
 
+import com.mycompany.pathologylabsystem.Patient;
 import com.mycompany.pathologylabsystem.TestResult;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,7 +15,8 @@ import javax.swing.table.DefaultTableModel;
  * @author XPRISTO
  */
 public class GenerateTestReport extends javax.swing.JFrame {
-
+private List<Patient> patients; 
+   Patient L;
     /**
      * Creates new form GenerateTestReport
      */
@@ -26,13 +29,17 @@ public class GenerateTestReport extends javax.swing.JFrame {
     String result;
     String Min, Max, Status, Date;
 
-    GenerateTestReport(String Testname, String TestResult, String TestMin, String TestMax, String TestStatus, String TestDeat) {
+    GenerateTestReport(String Testname, String TestResult, String TestMin, String TestMax, String TestStatus, String TestDeat,Patient k) {
         name = Testname;
         result = TestResult;
         Min = TestMin;
         Max = TestMax;
         Status = TestStatus;
         Date = TestDeat;
+        L=k;
+        initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -125,7 +132,7 @@ public class GenerateTestReport extends javax.swing.JFrame {
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         this.setVisible(false);
-        new ViewTestHistory().setVisible(true);
+        new ViewTestHistory(L).setVisible(true);
     }//GEN-LAST:event_BackActionPerformed
 
     /**

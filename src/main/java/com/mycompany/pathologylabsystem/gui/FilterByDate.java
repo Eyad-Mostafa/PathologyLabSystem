@@ -32,6 +32,9 @@ public class FilterByDate extends javax.swing.JFrame {
     }
     List<TestResult> Result;
     public FilterByDate(List<TestResult> testHistory) {
+        initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         Result=testHistory;
     }
     /**
@@ -44,7 +47,7 @@ public class FilterByDate extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        TestHistoryT = new javax.swing.JTable();
+        TestHistoryT2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         Show = new javax.swing.JButton();
@@ -59,7 +62,7 @@ public class FilterByDate extends javax.swing.JFrame {
             }
         });
 
-        TestHistoryT.setModel(new javax.swing.table.DefaultTableModel(
+        TestHistoryT2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -67,7 +70,7 @@ public class FilterByDate extends javax.swing.JFrame {
                 "Test Name", "Result", "Main", "Max", "Status", "Date"
             }
         ));
-        jScrollPane2.setViewportView(TestHistoryT);
+        jScrollPane2.setViewportView(TestHistoryT2);
 
         jLabel1.setText("Enter Start Date");
 
@@ -151,7 +154,7 @@ public class FilterByDate extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,"No test results found for the specified date range","try again", JOptionPane.ERROR_MESSAGE);
                 return;
             }else{
-                DefaultTableModel model=(DefaultTableModel)TestHistoryT.getModel();
+                DefaultTableModel model=(DefaultTableModel)TestHistoryT2.getModel();
                 while(model.getRowCount()>0){model.removeRow(0);}
 
                 for (int i = 0; i < finalresult.size(); i++) {
@@ -165,7 +168,7 @@ public class FilterByDate extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
          
-            DefaultTableModel model=(DefaultTableModel)TestHistoryT.getModel();
+            DefaultTableModel model=(DefaultTableModel)TestHistoryT2.getModel();
             for (int i = 0; i <Result.size(); i++) {
             TestResult test = Result.get(i);
             model.addRow(new Object[]{test.getTestName(), test.getResult(),test.getMin(), test.getMax(),test.getStatus(),test.getDate()});
@@ -229,7 +232,7 @@ public class FilterByDate extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser EndDate;
     private javax.swing.JButton Show;
     private com.toedter.calendar.JDateChooser StartDate;
-    private javax.swing.JTable TestHistoryT;
+    private javax.swing.JTable TestHistoryT2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;

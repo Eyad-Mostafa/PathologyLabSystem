@@ -27,6 +27,7 @@ com\mycompany\pathologylabsystem\gui\AddNewTest$2.class
 com\mycompany\pathologylabsystem\gui\AddNewTest.class
 com\mycompany\pathologylabsystem\gui\DisplayPatientProfile$3.class
 com\mycompany\pathologylabsystem\gui\addUser$3.class
+com\mycompany\pathologylabsystem\gui\GeneratHelthReport$3.class
 com\mycompany\pathologylabsystem\gui\Login$1.class
 com\mycompany\pathologylabsystem\gui\AddTestToPending.class
 com\mycompany\pathologylabsystem\gui\ViewTestHistory$6.class

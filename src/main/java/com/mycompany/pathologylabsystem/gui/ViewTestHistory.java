@@ -142,7 +142,7 @@ public class ViewTestHistory extends javax.swing.JFrame {
 
     private void GeneratHelthReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GeneratHelthReportActionPerformed
             this.setVisible(false);
-            new GeneratHelthReport( testHistory).setVisible(true);
+            new GeneratHelthReport( testHistory,k).setVisible(true);
     }//GEN-LAST:event_GeneratHelthReportActionPerformed
 
     private void FilterByDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterByDateActionPerformed
@@ -165,7 +165,7 @@ public class ViewTestHistory extends javax.swing.JFrame {
          String TestStatus=model.getValueAt(row, 4).toString();
          String TestDeat=model.getValueAt(row, 5).toString();
          this.setVisible(false);
-       new GenerateTestReport(Testname,TestResult,TestMin,TestMax,TestStatus,TestDeat).setVisible(true);
+       new GenerateTestReport(Testname,TestResult,TestMin,TestMax,TestStatus,TestDeat,k).setVisible(true);
     }//GEN-LAST:event_GenerateTestReportActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
