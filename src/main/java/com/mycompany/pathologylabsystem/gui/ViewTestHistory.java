@@ -9,6 +9,7 @@ import com.mycompany.pathologylabsystem.Patient;
 import com.mycompany.pathologylabsystem.TestResult;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -157,15 +158,19 @@ public class ViewTestHistory extends javax.swing.JFrame {
 
     private void GenerateTestReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerateTestReportActionPerformed
         int row = TestHistoryT.getSelectedRow();
-        DefaultTableModel model = (DefaultTableModel) TestHistoryT.getModel();
-        String Testname = model.getValueAt(row, 0).toString();
-        String TestResult = model.getValueAt(row, 1).toString();
-        String TestMin = model.getValueAt(row, 2).toString();
-        String TestMax = model.getValueAt(row, 2).toString();
-        String TestStatus = model.getValueAt(row, 4).toString();
-        String TestDeat = model.getValueAt(row, 5).toString();
-        this.setVisible(false);
-        new GenerateTestReport(Testname, TestResult, TestMin, TestMax, TestStatus, TestDeat, k).setVisible(true);
+        if (row==-1) {
+             JOptionPane.showMessageDialog(this, "No row selected.", "try again", JOptionPane.ERROR_MESSAGE);
+        }else{
+            DefaultTableModel model = (DefaultTableModel) TestHistoryT.getModel();
+            String Testname = model.getValueAt(row, 0).toString();
+            String TestResult = model.getValueAt(row, 1).toString();
+            String TestMin = model.getValueAt(row, 2).toString();
+            String TestMax = model.getValueAt(row, 3).toString();
+            String TestStatus = model.getValueAt(row, 4).toString();
+            String TestDeat = model.getValueAt(row, 5).toString();
+            this.setVisible(false);
+            new GenerateTestReport(Testname, TestResult, TestMin, TestMax, TestStatus, TestDeat, k).setVisible(true);
+        }
     }//GEN-LAST:event_GenerateTestReportActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
