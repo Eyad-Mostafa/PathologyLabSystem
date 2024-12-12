@@ -29,11 +29,13 @@ public class ViewTestHistory extends javax.swing.JFrame {
     public ViewTestHistory() {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setResizable(false);
     }
 
     ViewTestHistory(Patient e) {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setResizable(false);
         testHistory = fileManager.loadPatientHistory(e.getId());
         k = e;
     }
@@ -47,12 +49,13 @@ public class ViewTestHistory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        GeneratHelthReport = new javax.swing.JButton();
-        GenerateTestReport = new javax.swing.JButton();
-        Back = new javax.swing.JButton();
-        FilterByDate = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TestHistoryT = new javax.swing.JTable();
+        Back = new javax.swing.JButton();
+        FilterByDate = new javax.swing.JButton();
+        GeneratHelthReport = new javax.swing.JButton();
+        GenerateTestReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -61,38 +64,10 @@ public class ViewTestHistory extends javax.swing.JFrame {
             }
         });
 
-        GeneratHelthReport.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        GeneratHelthReport.setText("Generate Health Report");
-        GeneratHelthReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GeneratHelthReportActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(241, 246, 249));
 
-        GenerateTestReport.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        GenerateTestReport.setText("Generate Test Report");
-        GenerateTestReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GenerateTestReportActionPerformed(evt);
-            }
-        });
-
-        Back.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Back.setText("Back");
-        Back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BackActionPerformed(evt);
-            }
-        });
-
-        FilterByDate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        FilterByDate.setText("Filter by Date");
-        FilterByDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FilterByDateActionPerformed(evt);
-            }
-        });
-
+        TestHistoryT.setBackground(new java.awt.Color(155, 164, 181));
+        TestHistoryT.setForeground(new java.awt.Color(33, 42, 62));
         TestHistoryT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -100,50 +75,123 @@ public class ViewTestHistory extends javax.swing.JFrame {
             new String [] {
                 "Test Name", "Result", "Main", "Max", "Status", "Date"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        TestHistoryT.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(TestHistoryT);
+
+        Back.setBackground(new java.awt.Color(57, 72, 103));
+        Back.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Back.setForeground(new java.awt.Color(241, 246, 249));
+        Back.setText("Back");
+        Back.setFocusable(false);
+        Back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackActionPerformed(evt);
+            }
+        });
+
+        FilterByDate.setBackground(new java.awt.Color(33, 42, 62));
+        FilterByDate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        FilterByDate.setForeground(new java.awt.Color(241, 246, 249));
+        FilterByDate.setText("Filter by Date");
+        FilterByDate.setFocusable(false);
+        FilterByDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FilterByDateActionPerformed(evt);
+            }
+        });
+
+        GeneratHelthReport.setBackground(new java.awt.Color(33, 42, 62));
+        GeneratHelthReport.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        GeneratHelthReport.setForeground(new java.awt.Color(241, 246, 249));
+        GeneratHelthReport.setText("Generate Health Report");
+        GeneratHelthReport.setFocusable(false);
+        GeneratHelthReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GeneratHelthReportActionPerformed(evt);
+            }
+        });
+
+        GenerateTestReport.setBackground(new java.awt.Color(33, 42, 62));
+        GenerateTestReport.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        GenerateTestReport.setForeground(new java.awt.Color(241, 246, 249));
+        GenerateTestReport.setText("Generate Test Report");
+        GenerateTestReport.setFocusable(false);
+        GenerateTestReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GenerateTestReportActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(107, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GeneratHelthReport)
+                    .addComponent(FilterByDate, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(92, 92, 92)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(GenerateTestReport))
+                .addGap(94, 94, 94))
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Back, FilterByDate, GeneratHelthReport, GenerateTestReport});
+
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(GenerateTestReport)
+                    .addComponent(FilterByDate, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GeneratHelthReport)
+                    .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Back, FilterByDate, GeneratHelthReport, GenerateTestReport});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GeneratHelthReport))
-                .addGap(91, 91, 91)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FilterByDate, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GenerateTestReport))
-                .addContainerGap(110, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FilterByDate)
-                    .addComponent(Back))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GenerateTestReport)
-                    .addComponent(GeneratHelthReport))
-                .addContainerGap(30, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void GeneratHelthReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GeneratHelthReportActionPerformed
-        this.setVisible(false);
-        new GeneratHelthReport(testHistory, k).setVisible(true);
+        if(testHistory.isEmpty()){
+            JOptionPane.showMessageDialog(this, "No test history available to generate a report.", "try again", JOptionPane.ERROR_MESSAGE);
+        }else{
+            this.setVisible(false);
+            new GeneratHelthReport(testHistory, k).setVisible(true);
+        }
     }//GEN-LAST:event_GeneratHelthReportActionPerformed
 
     private void FilterByDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterByDateActionPerformed
@@ -224,6 +272,7 @@ public class ViewTestHistory extends javax.swing.JFrame {
     private javax.swing.JButton GeneratHelthReport;
     private javax.swing.JButton GenerateTestReport;
     private javax.swing.JTable TestHistoryT;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

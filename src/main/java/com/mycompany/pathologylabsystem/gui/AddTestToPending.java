@@ -33,7 +33,8 @@ public class AddTestToPending extends javax.swing.JFrame {
         this.patient = patient;
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setResizable(false);
         populatePatientsTable();
     }
 
@@ -59,7 +60,7 @@ public class AddTestToPending extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(33, 42, 62));
+        jPanel1.setBackground(new java.awt.Color(57, 72, 103));
 
         testsTable.setBackground(new java.awt.Color(255, 255, 255));
         testsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -69,13 +70,23 @@ public class AddTestToPending extends javax.swing.JFrame {
             new String [] {
                 "test name", "min value", "max value"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        testsTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(testsTable);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(57, 72, 103));
 
-        add.setBackground(new java.awt.Color(33, 42, 62));
-        add.setForeground(new java.awt.Color(255, 255, 255));
+        add.setBackground(new java.awt.Color(241, 246, 249));
+        add.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        add.setForeground(new java.awt.Color(33, 42, 62));
         add.setText("Add");
         add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,8 +123,8 @@ public class AddTestToPending extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -131,6 +142,10 @@ public class AddTestToPending extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         int row = testsTable.getSelectedRow();
         if (row < 0) {
@@ -146,23 +161,20 @@ public class AddTestToPending extends javax.swing.JFrame {
             int min = (int) selectedTest.getMin();
             int max = (int) selectedTest.getMax();
             String selectedTestName = (String) valueP + "," + Integer.toString(min) + "," + Integer.toString(max);
-//            String selectedTest = patientId + "," + selectedTestName + "," + (String) valueD;
+            //            String selectedTest = patientId + "," + selectedTestName + "," + (String) valueD;
 
-//            String selectedTest = availableTests.get(i - 1); 
+            //            String selectedTest = availableTests.get(i - 1);
             String currentDate = java.time.LocalDate.now().toString();
-
 
             // Save test to pending tests
             fileManager.addPendingTest(patient.getId(), selectedTestName, currentDate);
+            JOptionPane.showMessageDialog(this, "Test added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
             this.dispose();
         }
     }//GEN-LAST:event_addActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowOpened
-
-    private void populatePatientsTable() {
+    public void populatePatientsTable() {
         // Create a DefaultTableModel with column names
         DefaultTableModel model = (DefaultTableModel) testsTable.getModel();
 

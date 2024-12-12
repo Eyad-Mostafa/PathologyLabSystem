@@ -96,7 +96,7 @@ public class DoctorMenu extends javax.swing.JFrame {
 
         pendingTestTable.setBackground(new java.awt.Color(57, 72, 103));
         pendingTestTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pendingTestTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        pendingTestTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         pendingTestTable.setForeground(new java.awt.Color(241, 246, 249));
         pendingTestTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,10 +105,20 @@ public class DoctorMenu extends javax.swing.JFrame {
             new String [] {
                 "Patient ID", "Test Name", "Date"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        pendingTestTable.setColumnSelectionAllowed(true);
         pendingTestTable.setRowHeight(30);
         pendingTestTable.setRowMargin(2);
         pendingTestTable.setShowGrid(true);
+        pendingTestTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(pendingTestTable);
         pendingTestTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -344,13 +354,13 @@ public class DoctorMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddNewTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewTestActionPerformed
-        this.setVisible(false);
+//        this.setVisible(false);
         AddNewTest t = new AddNewTest(userName);
         t.setVisible(true);
         t.pack();
         t.setLocationRelativeTo(null);
-        t.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.dispose();
+//        t.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        this.dispose();
     }//GEN-LAST:event_btnAddNewTestActionPerformed
 
     private void btnAddTestResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTestResultActionPerformed

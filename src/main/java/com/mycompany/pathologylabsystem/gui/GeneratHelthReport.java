@@ -8,6 +8,7 @@ import com.mycompany.pathologylabsystem.TestResult;
 import java.util.List;
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -28,12 +29,14 @@ public class GeneratHelthReport extends javax.swing.JFrame {
     public GeneratHelthReport() {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setResizable(false);
     }
     
     public GeneratHelthReport(List<TestResult> testHistory, Patient k) {
         resultlist = testHistory;
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
+        setResizable(false);
         L=k;
     }
 
@@ -46,6 +49,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Table = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -62,6 +66,10 @@ public class GeneratHelthReport extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(155, 164, 181));
+
+        Table.setBackground(new java.awt.Color(241, 246, 249));
+        Table.setForeground(new java.awt.Color(33, 42, 62));
         Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -71,7 +79,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -81,10 +89,18 @@ public class GeneratHelthReport extends javax.swing.JFrame {
         Table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(Table);
 
+        jPanel2.setOpaque(false);
+
+        jLabel1.setBackground(new java.awt.Color(33, 42, 62));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(33, 42, 62));
         jLabel1.setText("Summary of Results:");
 
+        Back.setBackground(new java.awt.Color(57, 72, 103));
+        Back.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Back.setForeground(new java.awt.Color(241, 246, 249));
         Back.setText("Back");
+        Back.setFocusable(false);
         Back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BackActionPerformed(evt);
@@ -97,19 +113,18 @@ public class GeneratHelthReport extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 604, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(275, 275, 275)
-                        .addComponent(Back)))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(284, 284, 284))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,32 +136,40 @@ public class GeneratHelthReport extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(Back)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -154,7 +177,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         jPanel2.add(Bar);
-        Bar.setBounds(400, 100, 160, 30);
+        Bar.setBounds(50, 100, 160, 30);
         Bar.setStringPainted(true);
         Bar.setValue(0);
         if (resultlist.isEmpty()) {
@@ -199,17 +222,38 @@ public class GeneratHelthReport extends javax.swing.JFrame {
             new ViewTestHistory(L).setVisible(true);
     }//GEN-LAST:event_BackActionPerformed
         public void  iterate(int L,int H,int N){
-        double sumT = (N/(L+H+N))*100;
+        int sum=N+H+L;
+        double sumT = (N*100/sum);
+            System.out.println("N"+N);
+            System.out.println("H"+H);
+            System.out.println("L"+L);
+
+            System.out.println(sumT);
         for (int i = 0; i <=sumT; i++) {
             Bar.setValue(i);
             try{
-                Thread.sleep(100);
+//                Thread.sleep(100);
             
             }catch(Exception ex){
             
             }
         }
-    }
+          if (sumT>=90) {
+                Bar.setForeground(new Color(0,128,0));
+                Bar.setString("Normal");
+            }
+           else if(sumT>=50&&sumT<90){
+                 Bar.setForeground(Color.BLUE);
+                Bar.setString("Below Normal");
+            }
+            else if(sumT<50&&sumT>=25){
+                 Bar.setForeground(Color.ORANGE);
+                 Bar.setString("need help");
+            }
+            else if(sumT<25){
+                Bar.setForeground(Color.RED);
+                Bar.setString("you are dying");
+            }    }
     /**
      * @param args the command line arguments
      */
@@ -253,6 +297,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

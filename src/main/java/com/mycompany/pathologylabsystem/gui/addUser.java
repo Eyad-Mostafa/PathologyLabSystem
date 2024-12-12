@@ -92,7 +92,7 @@ public class addUser extends javax.swing.JFrame {
         });
 
         Submit.setBackground(new java.awt.Color(241, 246, 249));
-        Submit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Submit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Submit.setForeground(new java.awt.Color(33, 42, 62));
         Submit.setText("Sign up");
         Submit.setMaximumSize(new java.awt.Dimension(72, 23));
@@ -105,8 +105,8 @@ public class addUser extends javax.swing.JFrame {
         });
 
         back.setBackground(new java.awt.Color(155, 164, 181));
-        back.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        back.setForeground(new java.awt.Color(33, 42, 62));
+        back.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        back.setForeground(new java.awt.Color(241, 246, 249));
         back.setText("Login");
         back.setPreferredSize(new java.awt.Dimension(73, 27));
         back.addActionListener(new java.awt.event.ActionListener() {

@@ -9,6 +9,7 @@ com\mycompany\pathologylabsystem\gui\FilterByDate$2.class
 com\mycompany\pathologylabsystem\gui\ViewTestHistory$3.class
 com\mycompany\pathologylabsystem\gui\GenerateTestReport$4.class
 com\mycompany\pathologylabsystem\Patient.class
+com\mycompany\pathologylabsystem\gui\FilterByDate$5.class
 com\mycompany\pathologylabsystem\gui\Login$3.class
 com\mycompany\pathologylabsystem\gui\DoctorMenu$3.class
 com\mycompany\pathologylabsystem\gui\Login.class
@@ -42,6 +43,7 @@ com\mycompany\pathologylabsystem\gui\GeneratHelthReport$4.class
 com\mycompany\pathologylabsystem\FileManager.class
 com\mycompany\pathologylabsystem\gui\addUser$8.class
 com\mycompany\pathologylabsystem\gui\addUser$10.class
+com\mycompany\pathologylabsystem\gui\ViewTestHistory$7.class
 com\mycompany\pathologylabsystem\gui\Login$2.class
 com\mycompany\pathologylabsystem\gui\DoctorMenu$4.class
 com\mycompany\pathologylabsystem\gui\addUser$5.class
