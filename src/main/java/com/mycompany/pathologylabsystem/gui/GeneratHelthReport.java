@@ -8,6 +8,7 @@ import com.mycompany.pathologylabsystem.TestResult;
 import java.util.List;
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -178,7 +179,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
                 lowCount++;
             } else if (r.getResult() > r.getMax()) {
                 highCount++;
-            } else {
+            } else if (r.getResult()>r.getMin()&&r.getResult()<r.getMax()) {
                 normalCount++;
             }
         }
@@ -190,6 +191,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
         }
         if (normalCount == resultlist.size()) {
             jLabel3.setText("- All test results are within the normal range. Keep up the good health practices!");
+            
         }
          this.iterate(lowCount,highCount,normalCount);
     }//GEN-LAST:event_formWindowOpened
@@ -199,7 +201,13 @@ public class GeneratHelthReport extends javax.swing.JFrame {
             new ViewTestHistory(L).setVisible(true);
     }//GEN-LAST:event_BackActionPerformed
         public void  iterate(int L,int H,int N){
-        double sumT = (N/(L+H+N))*100;
+            int sum=N+H+L;
+        double sumT = (N*100/sum);
+            System.out.println("N"+N);
+            System.out.println("H"+H);
+            System.out.println("L"+L);
+
+            System.out.println(sumT);
         for (int i = 0; i <=sumT; i++) {
             Bar.setValue(i);
             try{
@@ -209,6 +217,23 @@ public class GeneratHelthReport extends javax.swing.JFrame {
             
             }
         }
+          if (sumT>=90) {
+                Bar.setForeground(Color.GREEN);
+                Bar.setString("Normal");
+            }
+           else if(sumT>=50&&sumT<90){
+                 Bar.setForeground(Color.BLUE);
+                Bar.setString("Below Normal");
+            }
+            else if(sumT<50&&sumT>=25){
+                 Bar.setForeground(Color.ORANGE);
+                 Bar.setString("need help");
+            }
+            else if(sumT<25){
+                Bar.setForeground(Color.RED);
+                Bar.setString("you are dying");
+            }
+ 
     }
     /**
      * @param args the command line arguments
