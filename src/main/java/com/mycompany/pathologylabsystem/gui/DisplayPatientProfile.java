@@ -6,8 +6,10 @@ package com.mycompany.pathologylabsystem.gui;
 
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,7 +21,13 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
     private static FileManager fileManager = new FileManager();
     private List<Patient> patients; // List of patients
     private static Patient patient;
-    private boolean doctor;
+    private boolean doctor = false;
+    private static String userName;
+
+    public static String getUserName() {
+        return userName;
+    }
+
     private static Patient getPatient() {
         return patient;
     }
@@ -27,24 +35,26 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
     /**
      * Creates new form DisplayPatientProfile
      */
-    public DisplayPatientProfile(Patient p) {
+    public DisplayPatientProfile(Patient p, String s) {
         this.patient = p;
+        this.userName = s;
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
         populatePatientData();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        populatePatientsTable(patient.getId());
-    }
-        public DisplayPatientProfile(Patient p, boolean isDoctor) {
-        this.doctor = isDoctor;
-        this.patient = p;
-        initComponents();
-        setLocationRelativeTo(null); // Centers the JFrame
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        populatePatientData();
         populatePatientsTable(patient.getId());
     }
 
+    public DisplayPatientProfile(Patient p, boolean isDoctor, String s) {
+        this.doctor = isDoctor;
+        this.patient = p;
+        this.userName = s;
+        initComponents();
+        setLocationRelativeTo(null); // Centers the JFrame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        populatePatientData();
+        populatePatientsTable(patient.getId());
+    }
 
     private void populatePatientData() {
         // Dynamically set patient details to the labels
@@ -88,11 +98,8 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
         PatientData = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         viewHistory = new javax.swing.JButton();
-        editID = new javax.swing.JButton();
-        editName = new javax.swing.JButton();
         editHeight = new javax.swing.JButton();
         editWeight = new javax.swing.JButton();
-        editGender = new javax.swing.JButton();
         editAge = new javax.swing.JButton();
         editeContact = new javax.swing.JButton();
 
@@ -183,6 +190,7 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
             }
         ));
         PatientData.setColumnSelectionAllowed(true);
+        PatientData.getTableHeader().setReorderingAllowed(false);
         PatientData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PatientDataMouseEntered(evt);
@@ -203,24 +211,33 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
             }
         });
 
-        editID.setText("Edit");
-        editID.addActionListener(new java.awt.event.ActionListener() {
+        editHeight.setText("Edit");
+        editHeight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editIDActionPerformed(evt);
+                editHeightActionPerformed(evt);
             }
         });
 
-        editName.setText("Edit");
-
-        editHeight.setText("Edit");
-
         editWeight.setText("Edit");
-
-        editGender.setText("Edit");
+        editWeight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editWeightActionPerformed(evt);
+            }
+        });
 
         editAge.setText("Edit");
+        editAge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editAgeActionPerformed(evt);
+            }
+        });
 
         editeContact.setText("Edit");
+        editeContact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editeContactActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -228,47 +245,60 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(14, 14, 14)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(viewHistory, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(14, 14, 14)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(viewHistory, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(19, 19, 19)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                            .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(idLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(ageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(contactLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(genderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(17, 17, 17))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(weightLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(heightLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(13, 13, 13)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editHeight)
+                            .addComponent(editWeight)
+                            .addComponent(editAge)
+                            .addComponent(editeContact))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(heightLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(weightLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(genderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(contactLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(editID)
-                    .addComponent(editName)
-                    .addComponent(editHeight)
-                    .addComponent(editWeight)
-                    .addComponent(editGender)
-                    .addComponent(editAge)
-                    .addComponent(editeContact))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
@@ -284,56 +314,53 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(idLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(genderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(editWeight)
+                                    .addComponent(weightLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(17, 17, 17)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(ageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(editAge, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(contactLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(editeContact))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(viewHistory)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(6, 6, 6)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(12, 12, 12)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(editHeight))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                    .addComponent(idLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                    .addComponent(editID))
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                    .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                            .addComponent(editName))
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(heightLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                    .addComponent(editHeight))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(weightLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addComponent(editWeight))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(genderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(editGender))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(editAge))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(contactLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(editeContact))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(viewHistory)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(heightLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(45, 45, 45)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)))
@@ -355,6 +382,7 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     private void populatePatientsTable(String id) {
         // Create a DefaultTableModel with column names
         DefaultTableModel model = new DefaultTableModel(new String[]{"Test", "Date"}, 0);
@@ -367,32 +395,41 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
 //            System.out.println("No pending tests.");
         } else {
 //            System.out.println("Pending Tests:");
-            
-            for (int i = 0; i < pendingTests.size(); i+=2) {
+
+            for (int i = 0; i < pendingTests.size(); i += 2) {
 //                System.out.println((j++) + ". " + pendingTests.get(i) + " ,in date : " + pendingTests.get(i+1));
                 Object[] rowData = {
                     pendingTests.get(i),
-                    pendingTests.get(i+1)
-            };
-            System.out.println(pendingTests.get(i));
-            System.out.println(pendingTests.get(i+1));
-            model.addRow(rowData);
+                    pendingTests.get(i + 1)
+                };
+                System.out.println(pendingTests.get(i));
+                System.out.println(pendingTests.get(i + 1));
+                model.addRow(rowData);
             }
         }
         PatientData.setModel(model);
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         this.setVisible(false);
-        SearchInterface t = new SearchInterface();
-        t.setVisible(true);
-        t.pack();
-        t.setLocationRelativeTo(null);
+        if (doctor) {
+            DoctorMenu doctor = new DoctorMenu(getUserName());
+            doctor.setVisible(true);
+            doctor.pack();
+            doctor.setLocationRelativeTo(null);
+            doctor.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        } else {
+            ReceptionistMenu receptionist = new ReceptionistMenu(getUserName());
+            receptionist.setVisible(true);
+            receptionist.pack();
+            receptionist.setLocationRelativeTo(null);
+            receptionist.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        }
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         AddTestToPending t = new AddTestToPending(patient);
         t.setVisible(true);
         t.pack();
@@ -409,12 +446,8 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
         t.setVisible(true);
         t.pack();
         t.setLocationRelativeTo(null);
-        this.dispose();
+        
     }//GEN-LAST:event_viewHistoryActionPerformed
-
-    private void editIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editIDActionPerformed
 
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
         populatePatientsTable(patient.getId());
@@ -423,6 +456,135 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
     private void PatientDataMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PatientDataMouseEntered
         populatePatientsTable(patient.getId());
     }//GEN-LAST:event_PatientDataMouseEntered
+
+    private void editHeightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editHeightActionPerformed
+        try {
+            boolean isValid = false;
+            String result = null;
+
+            while (!isValid) {
+                result = JOptionPane.showInputDialog(this, "Enter new height for this Patient (30 - 220):");
+                if (result == null) {
+                    // User canceled
+                    return;
+                }
+                try {
+                    int height = Integer.parseInt(result);
+                    if (height >= 30 && height <= 220) {
+                        isValid = true;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Height must be between 30 and 220.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Please enter a valid number.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+            // If we reach here, input is valid
+            fileManager.updatePatientData(patient.getId(), null, Integer.parseInt(result), null, null);
+            heightLabel.setText(result);
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while updating the height.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_editHeightActionPerformed
+
+    private void editWeightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editWeightActionPerformed
+        try {
+            boolean isValid = false;
+            String result = null;
+
+            while (!isValid) {
+                result = JOptionPane.showInputDialog(this, "Enter new weight for this Patient (1 - 500):");
+                if (result == null) {
+                    // User canceled
+                    return;
+                }
+                try {
+                    int weight = Integer.parseInt(result);
+                    if (weight >= 1 && weight <= 500) {
+                        isValid = true;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Weight must be between 1 and 500.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Please enter a valid number.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+            // If we reach here, input is valid
+            fileManager.updatePatientData(patient.getId(), null, null, Integer.parseInt(result), null);
+            weightLabel.setText(result);
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while updating the weight.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_editWeightActionPerformed
+
+    private void editAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAgeActionPerformed
+        try {
+            boolean isValid = false;
+            String result = null;
+
+            while (!isValid) {
+                result = JOptionPane.showInputDialog(this, "Enter new age for this Patient (1 - 120):");
+                if (result == null) {
+                    // User canceled
+                    return;
+                }
+                try {
+                    int age = Integer.parseInt(result);
+                    if (age >= 1 && age <= 120) {
+                        isValid = true;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Age must be between 1 and 120.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Please enter a valid number.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+            // If we reach here, input is valid
+            fileManager.updatePatientData(patient.getId(), Integer.parseInt(result), null, null, null);
+            ageLabel.setText(result);
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while updating the age.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_editAgeActionPerformed
+
+    private void editeContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editeContactActionPerformed
+        try {
+            boolean isValid = false;
+            String result = null;
+            String rgx = "^0(10|11|12|15)\\d{8}$";
+
+            while (!isValid) {
+                result = JOptionPane.showInputDialog(this, "Enter contact number for this Patient (e.g., 01123456789):");
+                if (result == null) {
+                    // User canceled
+                    return;
+                }
+
+                if (result.matches(rgx)) {
+                    isValid = true;
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Invalid phone number. Ensure it starts with 0 and is followed by 10, 11, 12, or 15, and is exactly 11 digits long.",
+                            "Incorrect Phone Number", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            // If we reach here, input is valid
+            fileManager.updatePatientData(patient.getId(), null, null, null, result);
+            contactLabel.setText(result);
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while updating the contact information.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_editeContactActionPerformed
 
     /**
      * @param args the command line arguments
@@ -451,11 +613,10 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-//        List<String> pendingTests = fileManager.loadPendingTestsForPatient(patient.getId());
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DisplayPatientProfile(getPatient()).setVisible(true);
+                new DisplayPatientProfile(getPatient(), getUserName()).setVisible(true);
             }
         });
     }
@@ -465,10 +626,7 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
     private javax.swing.JLabel ageLabel;
     private javax.swing.JLabel contactLabel;
     private javax.swing.JButton editAge;
-    private javax.swing.JButton editGender;
     private javax.swing.JButton editHeight;
-    private javax.swing.JButton editID;
-    private javax.swing.JButton editName;
     private javax.swing.JButton editWeight;
     private javax.swing.JButton editeContact;
     private javax.swing.JLabel genderLabel;

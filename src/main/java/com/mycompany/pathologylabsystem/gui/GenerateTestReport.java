@@ -23,7 +23,6 @@ private List<Patient> patients;
     public GenerateTestReport() {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     String name;
     String result;
@@ -39,7 +38,6 @@ private List<Patient> patients;
         L=k;
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -56,7 +54,7 @@ private List<Patient> patients;
         testreport = new javax.swing.JTable();
         Back = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -70,7 +68,16 @@ private List<Patient> patients;
             new String [] {
                 "Test Name", "Result", "Main", "Max", "Status", "Date"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        testreport.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(testreport);
 
         Back.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

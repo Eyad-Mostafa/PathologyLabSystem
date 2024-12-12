@@ -28,14 +28,12 @@ public class GeneratHelthReport extends javax.swing.JFrame {
     public GeneratHelthReport() {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     
     public GeneratHelthReport(List<TestResult> testHistory, Patient k) {
         resultlist = testHistory;
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
         L=k;
     }
 
@@ -57,7 +55,7 @@ public class GeneratHelthReport extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         Back = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -71,7 +69,16 @@ public class GeneratHelthReport extends javax.swing.JFrame {
             new String [] {
                 "Test Name", "Result", "Range"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(Table);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

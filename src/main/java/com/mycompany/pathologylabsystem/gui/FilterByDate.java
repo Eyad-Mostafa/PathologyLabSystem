@@ -28,13 +28,11 @@ public class FilterByDate extends javax.swing.JFrame {
     public FilterByDate() {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     List<TestResult> Result;
     public FilterByDate(List<TestResult> testHistory) {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
         Result=testHistory;
     }
     /**
@@ -55,7 +53,7 @@ public class FilterByDate extends javax.swing.JFrame {
         StartDate = new com.toedter.calendar.JDateChooser();
         EndDate = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -138,7 +136,7 @@ public class FilterByDate extends javax.swing.JFrame {
     
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         this.setVisible(false);
-        new ViewTestHistory().setVisible(true);
+//        new ViewTestHistory().setVisible(true);
     }//GEN-LAST:event_BackActionPerformed
 
     private void ShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowActionPerformed

@@ -20,7 +20,11 @@ public class ReceptionistMenu extends javax.swing.JFrame {
     /**
      * Creates new form ReceptionistMenu
      */
-    String name;
+    static String name;
+
+    public static String getUserName() {
+        return name;
+    }
     private FileManager fileManager = new FileManager();
     private List<Patient> patients; // List of patients
 
@@ -368,7 +372,7 @@ public class ReceptionistMenu extends javax.swing.JFrame {
     private void populatePatientsTable() {
         // Create a DefaultTableModel with column names
         DefaultTableModel model = new DefaultTableModel(new String[]{"Name", "ID", "Age", "Gender", "Height", "Weight", "Phone"}, 0);
-        
+
         // Load patients from the file manager
         patients = fileManager.loadPatients();
         // Iterate through the patients list and add rows to the model
@@ -389,12 +393,45 @@ public class ReceptionistMenu extends javax.swing.JFrame {
         patiantsDataa.setModel(model);
     }
 
+    private Patient getPatientById(String id) {
+        FileManager fileManager = new FileManager();
+        List<Patient> patients; // List of patients
+        patients = fileManager.loadPatients();
+
+        for (Patient patient : patients) {
+            if (patient.getId().equals(id)) {
+                return patient;
+            }
+        }
+        return null;
+    }
+
     private void searchPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPatientActionPerformed
-        SearchInterface si = new SearchInterface(this, false);
-        si.setVisible(true);
-        si.pack();
-        si.setLocationRelativeTo(null);
-        this.dispose();
+
+        // Use JOptionPane to ask for the patient ID
+        String patientId = JOptionPane.showInputDialog(this, "Enter Patient ID:");
+
+        // If the user cancels or leaves the input blank, exit the method
+        if (patientId == null || patientId.trim().isEmpty()) {
+            return;
+        }
+
+        // Call the method to get the patient by ID
+        Patient patient = getPatientById(patientId);
+
+        if (patient == null) {
+            JOptionPane.showMessageDialog(this, "Invalid Id. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Hide the current frame
+            this.setVisible(false);
+
+            var t = new DisplayPatientProfile(patient, getUserName());
+            t.setVisible(true);
+            t.pack();
+            t.setLocationRelativeTo(null);
+            t.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            this.dispose();
+        }
 
     }//GEN-LAST:event_searchPatientActionPerformed
 
@@ -406,17 +443,15 @@ public class ReceptionistMenu extends javax.swing.JFrame {
         int weight1 = (int) weight.getValue(); // Get weight from JSpinner
         int height1 = (int) height.getValue(); // Get height from JSpinner
         String contactInfo = phone.getText().trim(); // Get phone number from JTextField
-                                           
-       
-        
+
         String rgx = "^0(10|11|12|15)\\d{8}$";
 
         if (!contactInfo.matches(rgx)) {
-            JOptionPane.showMessageDialog(this, "Invalid phone number. Ensure it starts with 0 and is followed by 10, 11, 12, or 15, and is exactly 11 digits long.", 
-                                          "Incorrect Phone Number", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Invalid phone number. Ensure it starts with 0 and is followed by 10, 11, 12, or 15, and is exactly 11 digits long.",
+                    "Incorrect Phone Number", JOptionPane.ERROR_MESSAGE);
             return;
-        } 
-        
+        }
+
         // Validate inputs
         if (id.isEmpty() || name1.isEmpty() || gender.isEmpty() || contactInfo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -491,13 +526,13 @@ public class ReceptionistMenu extends javax.swing.JFrame {
 
     private void phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneActionPerformed
         String phoneNumber = phone.getText().trim();
-        
+
         String regex = "^0(10|11|12|15)\\d{8}$";
 
         if (!phoneNumber.matches(regex)) {
-            JOptionPane.showMessageDialog(this, "Invalid phone number. Ensure it starts with 0 and is followed by 10, 11, 12, or 15, and is exactly 11 digits long.", 
-                                          "Validation Error", JOptionPane.ERROR_MESSAGE);
-        } 
+            JOptionPane.showMessageDialog(this, "Invalid phone number. Ensure it starts with 0 and is followed by 10, 11, 12, or 15, and is exactly 11 digits long.",
+                    "Validation Error", JOptionPane.ERROR_MESSAGE);
+        }
 //        else {
 //            JOptionPane.showMessageDialog(this, "Invalid phone number. Ensure it starts with 0 and is followed by 10, 11, 12, or 15, and is exactly 11 digits long.", 
 //                                          "Validation Error", JOptionPane.ERROR_MESSAGE);
@@ -509,15 +544,13 @@ public class ReceptionistMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_patientNameActionPerformed
 
     private void femaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_femaleActionPerformed
-        if(female.isSelected())
-        {
+        if (female.isSelected()) {
             male.setSelected(false);
         }
     }//GEN-LAST:event_femaleActionPerformed
 
     private void maleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleActionPerformed
-        if(male.isSelected())
-        {
+        if (male.isSelected()) {
             female.setSelected(false);
         }
 

@@ -516,7 +516,7 @@ public class PathologyLabSystem {
         }
         
         try {
-            fileManager.updatePatientDate(id,age,height,weight,contactInfo);
+            fileManager.updatePatientData(id,age,height,weight,contactInfo);
         } catch(IOException e){
             System.out.println("An Error occurred while updating patient.");
             System.out.println(e);

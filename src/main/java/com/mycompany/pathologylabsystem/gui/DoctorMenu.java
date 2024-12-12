@@ -22,7 +22,11 @@ public class DoctorMenu extends javax.swing.JFrame {
     /**
      * Creates new form DoctorMenu
      */
-    String name;
+    static String userName;
+
+    static String getUserName() {
+        return userName;
+    }
     private FileManager fileManager = new FileManager();
     private List<Patient> patients;
     List<String> pendingTests = fileManager.loadPendingTests();
@@ -31,7 +35,7 @@ public class DoctorMenu extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.name = name;
+        this.userName = name;
     }
 
     private DoctorMenu() {
@@ -273,7 +277,7 @@ public class DoctorMenu extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         fillTable();
-        drName.setText("Welcome Dr."+name);
+        drName.setText("Welcome Dr." + userName);
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -287,30 +291,61 @@ public class DoctorMenu extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         int result = JOptionPane.showConfirmDialog(this,
-            "Are You Sure, You Want Delete All Pending Tests",
-            "Confirm",
-            JOptionPane.OK_CANCEL_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
+                "Are You Sure, You Want Delete All Pending Tests",
+                "Confirm",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
             fileManager.clearPendingTests();
             DefaultTableModel model = (DefaultTableModel) pendingTestTable.getModel();
             model.setRowCount(0);
         } else
-        return;
+            return;
     }//GEN-LAST:event_btnClearActionPerformed
 
+    private Patient getPatientById(String id) {
+        FileManager fileManager = new FileManager();
+        List<Patient> patients; // List of patients
+        patients = fileManager.loadPatients();
+
+        for (Patient patient : patients) {
+            if (patient.getId().equals(id)) {
+                return patient;
+            }
+        }
+        return null;
+    }
+
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        this.setVisible(false);
-        SearchInterface t = new SearchInterface(this, true);
-        t.setVisible(true);
-        t.pack();
-        t.setLocationRelativeTo(null);
-        this.dispose();
+        // Use JOptionPane to ask for the patient ID
+        String patientId = JOptionPane.showInputDialog(this, "Enter Patient ID:");
+
+        // If the user cancels or leaves the input blank, exit the method
+        if (patientId == null || patientId.trim().isEmpty()) {
+            return;
+        }
+
+        // Call the method to get the patient by ID
+        Patient patient = getPatientById(patientId);
+
+        if (patient == null) {
+            JOptionPane.showMessageDialog(this, "Invalid Id. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Hide the current frame
+            this.setVisible(false);
+
+            var t = new DisplayPatientProfile(patient, true, getUserName());
+            t.setVisible(true);
+            t.pack();
+            t.setLocationRelativeTo(null);
+            t.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddNewTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewTestActionPerformed
         this.setVisible(false);
-        AddNewTest t = new AddNewTest(name);
+        AddNewTest t = new AddNewTest(userName);
         t.setVisible(true);
         t.pack();
         t.setLocationRelativeTo(null);
