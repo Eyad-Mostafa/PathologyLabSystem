@@ -10,6 +10,10 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 /**
  *
  * @author XPRISTO
@@ -173,6 +177,7 @@ private List<Patient> patients;
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
