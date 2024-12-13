@@ -176,11 +176,14 @@
                       <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnClear" linkSize="3" alignment="2" min="-2" pref="278" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton1" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="btnSearch" linkSize="3" alignment="2" min="-2" pref="278" max="-2" attributes="0"/>
                           <Component id="btnAddNewTest" linkSize="3" alignment="2" min="-2" pref="278" max="-2" attributes="0"/>
                           <Component id="btnAddTestResult" linkSize="3" alignment="2" min="-2" pref="278" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                   </Group>
@@ -201,9 +204,9 @@
                       <Component id="btnClear" linkSize="2" min="-2" pref="39" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButton1" linkSize="2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      <EmptySpace pref="83" max="32767" attributes="0"/>
                       <Component id="jLabel3" min="-2" pref="178" max="-2" attributes="0"/>
-                      <EmptySpace pref="65" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -322,6 +325,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="D:\ASU\COMP 301 - Java\Project\PathologyLabSystem\image\biologist (2).png"/>
+                </Property>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

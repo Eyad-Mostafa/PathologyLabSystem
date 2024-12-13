@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.pathologylabsystem.gui;
 
 import com.mycompany.pathologylabsystem.TestResult;
@@ -16,10 +12,6 @@ import java.time.LocalDate;
 import java.util.*;
 import javax.swing.JFrame;
 
-/**
- *
- * @author XPRISTO
- */
 public class FilterByDate extends javax.swing.JFrame {
 
     private FileManager fileManager = new FileManager();
@@ -197,7 +189,6 @@ public class FilterByDate extends javax.swing.JFrame {
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         this.setVisible(false);
-//        new ViewTestHistory().setVisible(true);
     }//GEN-LAST:event_BackActionPerformed
 
     private void ShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowActionPerformed

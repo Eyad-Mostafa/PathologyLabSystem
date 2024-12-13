@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.pathologylabsystem.gui;
 
 import com.mycompany.pathologylabsystem.TestResult;
@@ -16,11 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JProgressBar;
 
-
-/**
- *
- * @author XPRISTO
- */
 public class GeneratHelthReport extends javax.swing.JFrame {
     private List<Patient> patients; 
     JProgressBar Bar = new JProgressBar(0,100);

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.pathologylabsystem.gui;
 
 import com.mycompany.pathologylabsystem.Patient;
@@ -14,10 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-/**
- *
- * @author XPRISTO
- */
 public class GenerateTestReport extends javax.swing.JFrame {
 private List<Patient> patients; 
    Patient L;

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.pathologylabsystem.gui;
 
 import com.mycompany.pathologylabsystem.FileManager;
@@ -13,10 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Eyad Mostafa
- */
 public class AddTestToPending extends javax.swing.JFrame {
 
     private static Patient patient;
@@ -26,14 +18,11 @@ public class AddTestToPending extends javax.swing.JFrame {
     private static Patient getPatient() {
         return patient;
     }
-    /**
-     * Creates new form AddTestToPending
-     */
+    
     public AddTestToPending(Patient patient) {
         this.patient = patient;
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
-//        setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         populatePatientsTable();
     }

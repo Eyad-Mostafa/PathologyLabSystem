@@ -1,9 +1,5 @@
 package com.mycompany.pathologylabsystem.gui;
 
-/**
- *
- * @author Eyad Mostafa
- */
 public class Main {
 
     public static void startGUI() {

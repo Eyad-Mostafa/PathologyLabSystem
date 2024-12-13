@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.pathologylabsystem.gui;
 
 import com.mycompany.pathologylabsystem.FileManager;
@@ -12,10 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Eyad Mostafa
- */
 public class DisplayPatientProfile extends javax.swing.JFrame {
 
     private static FileManager fileManager = new FileManager();
@@ -465,12 +457,10 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
         List<String> pendingTests = fileManager.loadPendingTestsForPatient(patient.getId());
         // Iterate through the patients list and add rows to the model
         if (pendingTests.isEmpty()) {
-//            System.out.println("No pending tests.");
+
         } else {
-//            System.out.println("Pending Tests:");
 
             for (int i = 0; i < pendingTests.size(); i += 2) {
-//                System.out.println((j++) + ". " + pendingTests.get(i) + " ,in date : " + pendingTests.get(i+1));
                 Object[] rowData = {
                     pendingTests.get(i),
                     pendingTests.get(i + 1)

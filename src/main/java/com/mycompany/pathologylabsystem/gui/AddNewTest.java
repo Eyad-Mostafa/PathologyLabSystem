@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.pathologylabsystem.gui;
 
 import com.mycompany.pathologylabsystem.FileManager;
@@ -11,10 +7,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author XEON
- */
 public class AddNewTest extends javax.swing.JFrame {
 
     /**
@@ -188,7 +180,6 @@ public class AddNewTest extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         this.setVisible(false);
-//        new DoctorMenu(DrName).setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void addNewTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewTestActionPerformed
@@ -210,7 +201,6 @@ public class AddNewTest extends javax.swing.JFrame {
         }
         finally{
             this.setVisible(false);
-//            new DoctorMenu(DrName).setVisible(true);
         }
     }//GEN-LAST:event_addNewTestActionPerformed
 
