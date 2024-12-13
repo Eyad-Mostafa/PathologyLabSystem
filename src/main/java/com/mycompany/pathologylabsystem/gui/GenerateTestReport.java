@@ -92,7 +92,7 @@ private List<Patient> patients;
         jScrollPane2.setViewportView(testreport);
 
         Back.setBackground(new java.awt.Color(57, 72, 103));
-        Back.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Back.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Back.setForeground(new java.awt.Color(241, 246, 249));
         Back.setText("Back");
         Back.setFocusable(false);
@@ -128,7 +128,7 @@ private List<Patient> patients;
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(summary)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(suggestion)
@@ -143,7 +143,7 @@ private List<Patient> patients;
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
