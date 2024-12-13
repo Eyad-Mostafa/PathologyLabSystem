@@ -8,12 +8,14 @@ import com.mycompany.pathologylabsystem.TestResult;
 import java.util.List;
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
-import java.util.*; 
+import java.util.*;
 import javax.swing.JFrame;
+
 /**
  *
  * @author XPRISTO
@@ -31,12 +33,14 @@ public class FilterByDate extends javax.swing.JFrame {
         setResizable(false);
     }
     List<TestResult> Result;
+
     public FilterByDate(List<TestResult> testHistory) {
         initComponents();
         setLocationRelativeTo(null); // Centers the JFrame
         setResizable(false);
-        Result=testHistory;
+        Result = testHistory;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -190,48 +194,68 @@ public class FilterByDate extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         this.setVisible(false);
 //        new ViewTestHistory().setVisible(true);
     }//GEN-LAST:event_BackActionPerformed
 
     private void ShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowActionPerformed
-        if(Result.isEmpty()){
+        if (Result.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No test history available to filter.", "try again", JOptionPane.ERROR_MESSAGE);
-        }else{
-            String startDate=StartDate.getDateFormatString();
-        String endDate=EndDate.getDateFormatString();
-        Date s=StartDate.getDate();
-        Date e=EndDate.getDate();
-        if(e.before(s)){
-         JOptionPane.showMessageDialog(this,"enter valid Date","try again", JOptionPane.ERROR_MESSAGE);
-        }else{
-            List<TestResult> finalresult=retrieveTestResultsByDate(Result,startDate,endDate);
-            if(finalresult.isEmpty()){
-                JOptionPane.showMessageDialog(this,"No test results found for the specified date range","try again", JOptionPane.ERROR_MESSAGE);
-                return;
-            }else{
-                DefaultTableModel model=(DefaultTableModel)TestHistoryT2.getModel();
-                while(model.getRowCount()>0){model.removeRow(0);}
+        } else {
 
-                for (int i = 0; i < finalresult.size(); i++) {
-                    TestResult test = finalresult.get(i);
-                   model.addRow(new Object[]{test.getTestName(), test.getResult(),test.getMin(), test.getMax(),test.getStatus(),test.getDate()});
+            try {
+                // Assuming StartDate and EndDate return Date objects
+                Date s = StartDate.getDate(); // Example Date object from the date picker
+                Date e = EndDate.getDate();
+
+                // Define the desired format
+                SimpleDateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                // Format the dates
+                String formattedStartDate = targetFormat.format(s);
+                String formattedEndDate = targetFormat.format(e);
+
+                // Output the formatted dates
+                System.out.println("Formatted Start Date: " + formattedStartDate);
+                System.out.println("Formatted End Date: " + formattedEndDate);
+
+                if (e.before(s)) {
+                    JOptionPane.showMessageDialog(this, "End date must be after start date.", "Invalid Date Range", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else {
+                    List<TestResult> finalresult = retrieveTestResultsByDate(Result, formattedStartDate, formattedEndDate);
+                    if (finalresult.isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "No test results found for the specified date range", "try again", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    } else {
+                        DefaultTableModel model = (DefaultTableModel) TestHistoryT2.getModel();
+                        while (model.getRowCount() > 0) {
+                            model.removeRow(0);
+                        }
+
+                        for (int i = 0; i < finalresult.size(); i++) {
+                            TestResult test = finalresult.get(i);
+                            model.addRow(new Object[]{test.getTestName(), test.getResult(), test.getMin(), test.getMax(), test.getStatus(), test.getDate()});
+                        }
+
+                    }
                 }
-
+            } catch (Exception ex) {
+                System.out.println("Error formatting the dates: " + ex.getMessage());
+                ex.printStackTrace();
             }
         }
-        }
-        
+
     }//GEN-LAST:event_ShowActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-         
-            DefaultTableModel model=(DefaultTableModel)TestHistoryT2.getModel();
-            for (int i = 0; i <Result.size(); i++) {
+
+        DefaultTableModel model = (DefaultTableModel) TestHistoryT2.getModel();
+        for (int i = 0; i < Result.size(); i++) {
             TestResult test = Result.get(i);
-            model.addRow(new Object[]{test.getTestName(), test.getResult(),test.getMin(), test.getMax(),test.getStatus(),test.getDate()});
+            model.addRow(new Object[]{test.getTestName(), test.getResult(), test.getMin(), test.getMax(), test.getStatus(), test.getDate()});
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -239,19 +263,17 @@ public class FilterByDate extends javax.swing.JFrame {
         List<TestResult> filteredResults = new ArrayList<>();
 
         for (TestResult result : testHistory) {
-//            if (result.getDate().compareTo(startDate) >= 0 && result.getDate().compareTo(endDate) <= 0) {
-//                filteredResults.add(result);
-//            }
             if (fileManager.isDateInRange(result.getDate(), startDate, endDate)) {
                 filteredResults.add(result);
             }
         }
         return filteredResults;
     }
-    
+
     public boolean isDateInRange(String date, String startDate, String endDate) {
         return (date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0);
     }
+
     /**
      * @param args the command line arguments
      */
