@@ -65,7 +65,7 @@ public class addUser extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        back.setBackground(new java.awt.Color(155, 164, 181));
+        back.setBackground(new java.awt.Color(57, 72, 103));
         back.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         back.setForeground(new java.awt.Color(241, 246, 249));
         back.setText("Login");
@@ -76,9 +76,8 @@ public class addUser extends javax.swing.JFrame {
             }
         });
 
-        Id.setBackground(new java.awt.Color(33, 42, 62));
+        Id.setBackground(new java.awt.Color(241, 246, 249));
         Id.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Id.setForeground(new java.awt.Color(255, 255, 255));
         Id.setText(" ");
         Id.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -94,9 +93,8 @@ public class addUser extends javax.swing.JFrame {
             }
         });
 
-        Password.setBackground(new java.awt.Color(33, 42, 62));
+        Password.setBackground(new java.awt.Color(241, 246, 249));
         Password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Password.setForeground(new java.awt.Color(255, 255, 255));
         Password.setText(" ");
         Password.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -120,13 +118,13 @@ public class addUser extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(60, 63, 65));
         jLabel4.setText("Role");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(60, 63, 65));
         jLabel3.setText("Password");
 
-        Submit.setBackground(new java.awt.Color(241, 246, 249));
+        Submit.setBackground(new java.awt.Color(33, 42, 62));
         Submit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Submit.setForeground(new java.awt.Color(33, 42, 62));
+        Submit.setForeground(new java.awt.Color(255, 255, 255));
         Submit.setText("Sign up");
         Submit.setMaximumSize(new java.awt.Dimension(72, 23));
         Submit.setMinimumSize(new java.awt.Dimension(72, 23));
@@ -141,9 +139,8 @@ public class addUser extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(60, 63, 65));
         jLabel1.setText("Id");
 
-        Name.setBackground(new java.awt.Color(33, 42, 62));
+        Name.setBackground(new java.awt.Color(241, 246, 249));
         Name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Name.setForeground(new java.awt.Color(255, 255, 255));
         Name.setText(" ");
         Name.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -159,7 +156,7 @@ public class addUser extends javax.swing.JFrame {
             }
         });
 
-        Role.setBackground(new java.awt.Color(33, 42, 62));
+        Role.setBackground(new java.awt.Color(241, 246, 249));
         Role.setForeground(new java.awt.Color(60, 63, 65));
         Role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Doctor", "Reeptionist" }));
         Role.addActionListener(new java.awt.event.ActionListener() {
@@ -184,22 +181,31 @@ public class addUser extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Id, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
-                    .addComponent(Role, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Id, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(178, 178, 178)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(0, 232, Short.MAX_VALUE))
+                            .addComponent(Role, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2});
@@ -217,24 +223,24 @@ public class addUser extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Id, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(3, 3, 3)
-                        .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Role, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Id, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(3, 3, 3)
+                .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Role, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addComponent(Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Submit, back});
@@ -247,14 +253,14 @@ public class addUser extends javax.swing.JFrame {
         jLabel5.setToolTipText("");
 
         jLabel8.setBackground(new java.awt.Color(241, 246, 249));
-        jLabel8.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("PathologyLab System.");
         jLabel8.setToolTipText("");
 
         jLabel9.setBackground(new java.awt.Color(241, 246, 249));
-        jLabel9.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Welcome To  Our ");

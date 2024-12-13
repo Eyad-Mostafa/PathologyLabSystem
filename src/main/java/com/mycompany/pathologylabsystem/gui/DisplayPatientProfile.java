@@ -130,25 +130,25 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(33, 42, 62));
 
-        genderLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        genderLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         genderLabel.setForeground(new java.awt.Color(241, 246, 249));
         genderLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(241, 246, 249));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("Age:");
 
-        ageLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ageLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ageLabel.setForeground(new java.awt.Color(241, 246, 249));
         ageLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(241, 246, 249));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("Contact :");
 
-        contactLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        contactLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         contactLabel.setForeground(new java.awt.Color(241, 246, 249));
         contactLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
@@ -163,7 +163,7 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
             }
         });
 
-        idLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        idLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         idLabel.setForeground(new java.awt.Color(241, 246, 249));
         idLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         idLabel.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -209,39 +209,39 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(241, 246, 249));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("ID:");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(241, 246, 249));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Name:");
 
-        nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        nameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         nameLabel.setForeground(new java.awt.Color(241, 246, 249));
         nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        heightLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        heightLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         heightLabel.setForeground(new java.awt.Color(241, 246, 249));
         heightLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(241, 246, 249));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Height:");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(241, 246, 249));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Weight:");
 
-        weightLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        weightLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         weightLabel.setForeground(new java.awt.Color(241, 246, 249));
         weightLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(241, 246, 249));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Gender:");
@@ -437,11 +437,9 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(jScrollPane1))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -486,7 +484,7 @@ public class DisplayPatientProfile extends javax.swing.JFrame {
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        this.setVisible(false);
+        
         if (doctor) {
             DoctorMenu doctor = new DoctorMenu(getUserName());
             doctor.setVisible(true);

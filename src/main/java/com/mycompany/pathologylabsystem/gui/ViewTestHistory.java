@@ -100,7 +100,7 @@ public class ViewTestHistory extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TestHistoryT);
 
         Back.setBackground(new java.awt.Color(57, 72, 103));
-        Back.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Back.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Back.setForeground(new java.awt.Color(241, 246, 249));
         Back.setText("Back");
         Back.setFocusable(false);
@@ -111,7 +111,7 @@ public class ViewTestHistory extends javax.swing.JFrame {
         });
 
         FilterByDate.setBackground(new java.awt.Color(33, 42, 62));
-        FilterByDate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        FilterByDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         FilterByDate.setForeground(new java.awt.Color(241, 246, 249));
         FilterByDate.setText("Filter by Date");
         FilterByDate.setFocusable(false);
@@ -122,7 +122,7 @@ public class ViewTestHistory extends javax.swing.JFrame {
         });
 
         GeneratHelthReport.setBackground(new java.awt.Color(33, 42, 62));
-        GeneratHelthReport.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        GeneratHelthReport.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         GeneratHelthReport.setForeground(new java.awt.Color(241, 246, 249));
         GeneratHelthReport.setText("Generate Health Report");
         GeneratHelthReport.setFocusable(false);
@@ -133,7 +133,7 @@ public class ViewTestHistory extends javax.swing.JFrame {
         });
 
         GenerateTestReport.setBackground(new java.awt.Color(33, 42, 62));
-        GenerateTestReport.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        GenerateTestReport.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         GenerateTestReport.setForeground(new java.awt.Color(241, 246, 249));
         GenerateTestReport.setText("Generate Test Report");
         GenerateTestReport.setFocusable(false);
@@ -252,10 +252,11 @@ public static void generatePDF(JTable table, String fileName) {
             JOptionPane.showMessageDialog(this, "No test history available to generate a report.", "try again", JOptionPane.ERROR_MESSAGE);
         }else{
             
-            generatePDF(TestHistoryT,"HealthReport.pdf");
-            this.setVisible(false);
             new GeneratHelthReport(testHistory, k).setVisible(true);
-
+            String fileName = k.getName() + " - " + k.getId() + " - HealthReport.pdf";
+            generatePDF(TestHistoryT,fileName);
+            this.setVisible(false);
+            
         }
     }//GEN-LAST:event_GeneratHelthReportActionPerformed
 
