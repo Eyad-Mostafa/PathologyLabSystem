@@ -77,7 +77,7 @@ The system uses the following files for data persistence:
 
 ## UML Diagram
 
-![UML Diagram](image./__Java%20Team__%20UML.png)
+![UML Diagram](image/__Java%20Team__%20UML.png)
 
 ## Contributing
 
