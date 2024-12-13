@@ -7,10 +7,22 @@ package com.mycompany.pathologylabsystem.gui;
 import com.mycompany.pathologylabsystem.FileManager;
 import com.mycompany.pathologylabsystem.Patient;
 import com.mycompany.pathologylabsystem.TestResult;
+
+import java.io.FileOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import java.io.FileOutputStream;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JButton;
 
 /**
  *
@@ -184,13 +196,66 @@ public class ViewTestHistory extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+public static void generatePDF(JTable table, String fileName) {
+    try {
+        String userHome = System.getProperty("user.home");
+        String savePath = userHome + File.separator + "Desktop" + File.separator + fileName + ".pdf";
 
+        
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(savePath));
+        document.open();
+
+        
+        Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+        Paragraph title = new Paragraph("Health Report", titleFont);
+        title.setAlignment(Element.ALIGN_CENTER);
+        document.add(title);
+        document.add(Chunk.NEWLINE);
+
+        
+        PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
+        pdfTable.setWidthPercentage(100);
+
+        
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            PdfPCell headerCell = new PdfPCell(new Phrase(table.getColumnName(i)));
+            headerCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfTable.addCell(headerCell);
+        }
+
+        
+        for (int row = 0; row < table.getRowCount(); row++) {
+            for (int col = 0; col < table.getColumnCount(); col++) {
+                pdfTable.addCell(table.getValueAt(row, col).toString());
+            }
+        }
+
+       
+        document.add(pdfTable);
+        document.newPage();
+        
+        document.close();
+
+        
+        JOptionPane.showMessageDialog(null, "PDF generated successfully: " + savePath);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error generating PDF: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
+    
     private void GeneratHelthReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GeneratHelthReportActionPerformed
         if(testHistory.isEmpty()){
             JOptionPane.showMessageDialog(this, "No test history available to generate a report.", "try again", JOptionPane.ERROR_MESSAGE);
         }else{
+            
+            generatePDF(TestHistoryT,"HealthReport.pdf");
             this.setVisible(false);
             new GeneratHelthReport(testHistory, k).setVisible(true);
+
         }
     }//GEN-LAST:event_GeneratHelthReportActionPerformed
 
