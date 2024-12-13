@@ -16,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import java.io.FileOutputStream;
@@ -196,67 +195,70 @@ public class ViewTestHistory extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public static void generatePDF(JTable table, String fileName) {
-    try {
-        String userHome = System.getProperty("user.home");
-        String savePath = userHome + File.separator + "Desktop" + File.separator + fileName + ".pdf";
 
-        
-        Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(savePath));
-        document.open();
+    public static void generatePDF(JTable table, String fileName) {
+        try {
+            String userHome = System.getProperty("user.home");
+            String createPath = userHome + File.separator + "OneDrive" + File.separator + "Desktop" + File.separator + "PathologyLabSystemGeneratedPDFs";
+            String savePath = userHome + File.separator + "OneDrive" + File.separator + "Desktop" + File.separator + "PathologyLabSystemGeneratedPDFs" + File.separator + fileName + ".pdf";
 
-        
-        Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
-        Paragraph title = new Paragraph("Health Report", titleFont);
-        title.setAlignment(Element.ALIGN_CENTER);
-        document.add(title);
-        document.add(Chunk.NEWLINE);
-
-        
-        PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
-        pdfTable.setWidthPercentage(100);
-
-        
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            PdfPCell headerCell = new PdfPCell(new Phrase(table.getColumnName(i)));
-            headerCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            pdfTable.addCell(headerCell);
-        }
-
-        
-        for (int row = 0; row < table.getRowCount(); row++) {
-            for (int col = 0; col < table.getColumnCount(); col++) {
-                pdfTable.addCell(table.getValueAt(row, col).toString());
+            File directory = new File(createPath);
+            if (!directory.exists()) {
+                if (directory.mkdirs()) {
+                    System.out.println("Directory created successfully: " + savePath);
+                } else {
+                    throw new Exception("Failed to create directory: " + savePath);
+                }
             }
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(savePath));
+            document.open();
+
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+            Paragraph title = new Paragraph("Health Report", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            document.add(Chunk.NEWLINE);
+
+            PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
+            pdfTable.setWidthPercentage(100);
+
+            for (int i = 0; i < table.getColumnCount(); i++) {
+                PdfPCell headerCell = new PdfPCell(new Phrase(table.getColumnName(i)));
+                headerCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                pdfTable.addCell(headerCell);
+            }
+
+            for (int row = 0; row < table.getRowCount(); row++) {
+                for (int col = 0; col < table.getColumnCount(); col++) {
+                    pdfTable.addCell(table.getValueAt(row, col).toString());
+                }
+            }
+
+            document.add(pdfTable);
+            document.newPage();
+
+            document.close();
+
+            JOptionPane.showMessageDialog(null, "PDF generated successfully: " + savePath);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error generating PDF: " + e.getMessage());
+            e.printStackTrace();
         }
-
-       
-        document.add(pdfTable);
-        document.newPage();
-        
-        document.close();
-
-        
-        JOptionPane.showMessageDialog(null, "PDF generated successfully: " + savePath);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error generating PDF: " + e.getMessage());
-        e.printStackTrace();
     }
-}
 
-    
+
     private void GeneratHelthReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GeneratHelthReportActionPerformed
-        if(testHistory.isEmpty()){
+        if (testHistory.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No test history available to generate a report.", "try again", JOptionPane.ERROR_MESSAGE);
-        }else{
-            
+        } else {
+
             new GeneratHelthReport(testHistory, k).setVisible(true);
-            String fileName = k.getName() + " - " + k.getId() + " - HealthReport.pdf";
-            generatePDF(TestHistoryT,fileName);
+            String fileName = k.getName() + "-" + k.getId() + "-HealthReport";
+            generatePDF(TestHistoryT, fileName);
             this.setVisible(false);
-            
+
         }
     }//GEN-LAST:event_GeneratHelthReportActionPerformed
 
@@ -272,9 +274,9 @@ public static void generatePDF(JTable table, String fileName) {
 
     private void GenerateTestReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerateTestReportActionPerformed
         int row = TestHistoryT.getSelectedRow();
-        if (row==-1) {
-             JOptionPane.showMessageDialog(this, "No row selected.", "try again", JOptionPane.ERROR_MESSAGE);
-        }else{
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "No row selected.", "try again", JOptionPane.ERROR_MESSAGE);
+        } else {
             DefaultTableModel model = (DefaultTableModel) TestHistoryT.getModel();
             String Testname = model.getValueAt(row, 0).toString();
             String TestResult = model.getValueAt(row, 1).toString();
