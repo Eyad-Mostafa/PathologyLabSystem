@@ -55,9 +55,8 @@ The system uses the following files for data persistence:
 
 1. Launch the application.
 2. From the main menu, select:
-   - **Add User**
+   - **Sign In**
    - **Log In** (Doctor or Receptionist)
-   - **Exit**
 
 3. Depending on the role:
    - **Receptionist**: Manage patient data, request tests.
